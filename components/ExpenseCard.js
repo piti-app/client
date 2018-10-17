@@ -16,9 +16,11 @@ export default class ExpenseCard extends Component {
 const styles = StyleSheet.create({
   container: {
     borderRadius: 4,
-    borderTopWidth: 0.5,
-    borderBottomWidth: 0.5,
-    borderColor: 'black',
+    borderTopWidth: 0.8,
+    borderBottomWidth: 0.8,
+    borderColor: '#D2D2D2',
+    paddingTop : 20,
+    paddingBottom: 20,
   },
   title: {
     fontSize: 19,
