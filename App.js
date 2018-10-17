@@ -9,6 +9,7 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import firebase from 'react-native-firebase';
 import type { Notification, NotificationOpen } from 'react-native-firebase';
+import Home from './containers/Home'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -32,7 +33,7 @@ export default class App extends Component {
                 }
                 return val;
             }));
-        } 
+        }
         const channel = new firebase.notifications.Android.Channel('test-channel', 'Test Channel', firebase.notifications.Android.Importance.Max)
                 .setDescription('My apps test channel');
 // Create the channel
@@ -48,7 +49,7 @@ export default class App extends Component {
                 .android.setSmallIcon('ic_launcher');
             firebase.notifications()
                 .displayNotification(notification);
-            
+
         });
         this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen: NotificationOpen) => {
             // Get the action triggered by the notification being opened
@@ -66,7 +67,7 @@ export default class App extends Component {
                 return val;
             }));
             firebase.notifications().removeDeliveredNotification(notification.notificationId);
-            
+
         });
     }
     componentWillUnmount() {
@@ -80,6 +81,7 @@ render() {
         <Text style={styles.welcome}>Welcome to React Native!</Text>
         <Text style={styles.instructions}>To get started, edit App.js</Text>
         <Text style={styles.instructions}>{instructions}</Text>
+        <Home/>
       </View>
     );
   }
