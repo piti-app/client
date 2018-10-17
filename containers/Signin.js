@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { View,TextInput,Text,Alert } from 'react-native'
 import { Button } from 'react-native-elements'
-import {connect} from 'react-redux'
-import {isLogin} from '../store/actions/isLogin'
+import { onSignIn } from "../Authentication";
 
 class Signin extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -16,8 +15,8 @@ class Signin extends Component {
             textAlign: 'center',
             flex:1
         },
-    };
-};
+    }
+}
   render() {
     return (
       <View style={{justifyContent:'center',alignItems:'center',height:'100%'}}>                 
@@ -29,7 +28,7 @@ class Signin extends Component {
             <Button                    
             backgroundColor='#03A9F4'
             buttonStyle={{borderRadius:10}}
-            onPress={() => this.props.isLogin(true)}
+            onPress={() =>  onSignIn().then(() => this.props.navigation.navigate("SignedIn"))}
             title='Submit'
             titleStyle={{justifyContent:'center',alignItems:'center' }} />
         </View>                                     
@@ -37,8 +36,5 @@ class Signin extends Component {
     );
   }
 }
-const mapStateToProps = props => ({
-    signedIn : props.Authentication.signedIn,
-    })
-    
-export default connect(mapStateToProps,{isLogin})(Signin)
+
+export default Signin
