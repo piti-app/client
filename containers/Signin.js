@@ -3,10 +3,12 @@ import { View,TextInput,Text } from 'react-native'
 import { Button } from 'react-native-elements'
 import { onSignIn } from "../Authentication";
 
+
 class Signin extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
         title: 'Sign In',
+
         headerStyle: {
             backgroundColor: '#f4511e',
         },
@@ -32,6 +34,7 @@ class Signin extends Component {
             titleStyle={{justifyContent:'center',alignItems:'center' }} />
         </View>
     </View>
+
     );
   }
 }

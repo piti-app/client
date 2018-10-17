@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View,TextInput,Text,TouchableHighlight } from 'react-native'
 import {  Button } from 'react-native-elements'
 
-
 export default class Signup extends Component {
     static navigationOptions = ({ navigation }) => {
             return {
@@ -25,6 +24,7 @@ export default class Signup extends Component {
                     <TextInput style={{backgroundColor:'rgb(229, 229, 229)',width:280,marginBottom:20,borderRadius:20}}/>
                     <TextInput style={{backgroundColor:'rgb(229, 229, 229)',width:280,marginBottom:20,borderRadius:20}}/>
                     <TextInput style={{backgroundColor:'rgb(229, 229, 229)',width:280,marginBottom:20,borderRadius:20}}/>
+
                     <View style={{flexDirection:'row',marginBottom:20}}>
                     <Text style={{marginRight:5}}>Already have an account?</Text>
                     <TouchableHighlight onPress={() => this.props.navigation.navigate("SignIn")}>

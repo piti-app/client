@@ -31,9 +31,9 @@ import SignedOut from './containers/Router'
 
 import { isSignedIn } from "./Authentication";
 import SignedOut from './containers/Router'
-const SignedIn = createBottomTabNavigator({
+
+const StackHome = createBottomTabNavigator({
     Home,
-<<<<<<< HEAD
     Add
 },{
     navigationOptions : ({ navigation }) => ({
@@ -44,9 +44,6 @@ const SignedIn = createBottomTabNavigator({
 
 const SignedIn = createBottomTabNavigator({
     Home : StackHome,
-=======
-    Add,
->>>>>>> scafold layout
     Recommendation,
     Profile
 })
@@ -58,14 +55,11 @@ const createRootNavigator = (signedIn) => {
         },
         SignedOut: {
           screen: SignedOut
-<<<<<<< HEAD
-        }
-=======
+
         },
         InitBudget: {
             screen: InitBudget
         },
->>>>>>> scafold layout
       },
       {
         initialRouteName: signedIn ? "SignedIn" : "SignedOut"
@@ -75,27 +69,17 @@ const createRootNavigator = (signedIn) => {
 export default class App extends Component {
     constructor(){
         super()
-<<<<<<< HEAD
 
         this.state = {
-=======
-        this.state = {
->>>>>>> scafold layout
             checkedSignIn: false,
             signedIn: false
           };
     }
-<<<<<<< HEAD
+
     async componentDidMount() {
         isSignedIn()
             .then((res) => {
                 this.setState({ signedIn:res,checkedSignIn: true })
-=======
-    async componentDidMount() {
-        isSignedIn()
-            .then((res) => {
-                this.setState({ signedIn:res,checkedSignIn: true })
->>>>>>> scafold layout
             })
             .catch((err) => {Alert.alert(err)})
 
