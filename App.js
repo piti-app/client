@@ -6,7 +6,7 @@
  * @flow
  */
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Alert, View} from 'react-native';
+import {Platform, StyleSheet, Alert, View,Text} from 'react-native';
 import firebase from 'react-native-firebase';
 import { Provider } from 'react-redux'
 import store from './store/index'
@@ -136,7 +136,6 @@ render() {
     if (!this.state.checkedSignIn) {
       return null;
     }
-
    const Layout = createRootNavigator(this.state.signedIn)
 
    return (
