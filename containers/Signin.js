@@ -8,7 +8,6 @@ class Signin extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
         title: 'Sign In',
-
         headerStyle: {
             backgroundColor: '#f4511e',
         },

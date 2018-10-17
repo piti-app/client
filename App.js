@@ -6,22 +6,18 @@
  * @flow
  */
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Alert, View,Text} from 'react-native';
+import {Platform, StyleSheet, Alert, View} from 'react-native';
 import firebase from 'react-native-firebase';
 import { Provider } from 'react-redux'
 import store from './store/index'
 import type { Notification, NotificationOpen } from 'react-native-firebase';
-<<<<<<< HEAD
 import { createBottomTabNavigator, createStackNavigator,SwitchNavigator } from 'react-navigation'
 import { Icon } from 'native-base'
 
+import InitBudget from './containers/InitBudget'
 
 import Authentication from './containers/Authentication'
-=======
-import { createBottomTabNavigator ,SwitchNavigator} from 'react-navigation'
 
-import InitBudget from './containers/InitBudget'
->>>>>>> scafold layout
 import Home from './containers/Home'
 import Add from './containers/Add'
 import Recommendation from './containers/Recommendation'
@@ -71,16 +67,12 @@ export default class App extends Component {
         super()
 
         this.state = {
-            checkedSignIn: false,
-            signedIn: false
+            checkedSignIn: false
           };
     }
-
     async componentDidMount() {
         isSignedIn()
-            .then((res) => {
-                this.setState({ signedIn:res,checkedSignIn: true })
-            })
+            .then((res) => {this.setState({ signedIn: res, checkedSignIn: true })})
             .catch((err) => {Alert.alert(err)})
 
         const notificationOpen: NotificationOpen = await firebase.notifications().getInitialNotification();

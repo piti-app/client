@@ -39,6 +39,7 @@
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		B74411836917415E89143509 /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 283DA52010F840DB83A765D3 /* libRNFirebase.a */; };
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 		18D5EB6CDD22410EA7FC929D /* BebasKai.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2E580B863B974287B9A1E4CE /* BebasKai.otf */; };
@@ -63,6 +64,8 @@
 		8AC15EB25AC1419CA8AB0A15 /* geomanist_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9EE233E8662E4783891D4118 /* geomanist_regular.ttf */; };
 =======
 >>>>>>> scafold layout
+=======
+>>>>>>> authentication + setup redux
 		D0D55D243FF843E19C84C2B3 /* libRNVectorIcons.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42E66EED94AC4608BC8E0603 /* libRNVectorIcons.a */; };
 		7F04FF8B34634C85BB685EF3 /* libRNVectorIcons-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D55B822C9F7459EA8ADB0C9 /* libRNVectorIcons-tvOS.a */; };
 		EA001E41C64C4BF3B835B779 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 272C622E70A647EBBA82341C /* AntDesign.ttf */; };
@@ -81,9 +84,12 @@
 		C2ABBC7643F24E9A8E4A8131 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2AA882B33A0249CFA23BE608 /* SimpleLineIcons.ttf */; };
 		28D31C7409D742FEBA8E967F /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 106DAB883A5141EA91C417E8 /* Zocial.ttf */; };
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> scafold layout
 >>>>>>> scafold layout
+=======
+>>>>>>> authentication + setup redux
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -392,6 +398,7 @@
 		EC61F30201084F2CBB91873C /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; name = "RNFirebase.xcodeproj"; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		283DA52010F840DB83A765D3 /* libRNFirebase.a */ = {isa = PBXFileReference; name = "libRNFirebase.a"; path = "libRNFirebase.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 		2E580B863B974287B9A1E4CE /* BebasKai.otf */ = {isa = PBXFileReference; name = "BebasKai.otf"; path = "../assets/fonts/BebasKai.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
@@ -416,6 +423,8 @@
 		9EE233E8662E4783891D4118 /* geomanist_regular.ttf */ = {isa = PBXFileReference; name = "geomanist_regular.ttf"; path = "../assets/fonts/geomanist_regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 =======
 >>>>>>> scafold layout
+=======
+>>>>>>> authentication + setup redux
 		43674108449D4FBCB9A81975 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; name = "RNVectorIcons.xcodeproj"; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		42E66EED94AC4608BC8E0603 /* libRNVectorIcons.a */ = {isa = PBXFileReference; name = "libRNVectorIcons.a"; path = "libRNVectorIcons.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		6D55B822C9F7459EA8ADB0C9 /* libRNVectorIcons-tvOS.a */ = {isa = PBXFileReference; name = "libRNVectorIcons-tvOS.a"; path = "libRNVectorIcons-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
@@ -435,9 +444,12 @@
 		2AA882B33A0249CFA23BE608 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; name = "SimpleLineIcons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		106DAB883A5141EA91C417E8 /* Zocial.ttf */ = {isa = PBXFileReference; name = "Zocial.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> scafold layout
 >>>>>>> scafold layout
+=======
+>>>>>>> authentication + setup redux
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -678,6 +690,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 <<<<<<< HEAD
+<<<<<<< HEAD
 				B1F134ACDBD04A198CB795BB /* Resources */,
 =======
 <<<<<<< HEAD
@@ -686,6 +699,9 @@
 				B1F134ACDBD04A198CB795BB /* Resources */,
 >>>>>>> scafold layout
 >>>>>>> scafold layout
+=======
+				B1F134ACDBD04A198CB795BB /* Resources */,
+>>>>>>> authentication + setup redux
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -712,6 +728,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
 <<<<<<< HEAD
 		B1F134ACDBD04A198CB795BB /* Resources */ = {
 			isa = "PBXGroup";
@@ -742,6 +759,8 @@
 				A967CD3555C140AEAC0522E5 /* gilroy_light.otf */,
 				9EE233E8662E4783891D4118 /* geomanist_regular.ttf */,
 =======
+=======
+>>>>>>> authentication + setup redux
 		B1F134ACDBD04A198CB795BB /* Resources */ = {
 			isa = "PBXGroup";
 			children = (
@@ -762,9 +781,12 @@
 				2AA882B33A0249CFA23BE608 /* SimpleLineIcons.ttf */,
 				106DAB883A5141EA91C417E8 /* Zocial.ttf */,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> scafold layout
 >>>>>>> scafold layout
+=======
+>>>>>>> authentication + setup redux
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1217,6 +1239,7 @@
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 				18D5EB6CDD22410EA7FC929D /* BebasKai.otf in Resources */,
@@ -1241,6 +1264,8 @@
 				8AC15EB25AC1419CA8AB0A15 /* geomanist_regular.ttf in Resources */,
 =======
 >>>>>>> scafold layout
+=======
+>>>>>>> authentication + setup redux
 				EA001E41C64C4BF3B835B779 /* AntDesign.ttf in Resources */,
 				2624652B0F154A23A6E95AA8 /* Entypo.ttf in Resources */,
 				04C49EF2E93D4D1282A33924 /* EvilIcons.ttf in Resources */,
@@ -1257,9 +1282,12 @@
 				C2ABBC7643F24E9A8E4A8131 /* SimpleLineIcons.ttf in Resources */,
 				28D31C7409D742FEBA8E967F /* Zocial.ttf in Resources */,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> scafold layout
 >>>>>>> scafold layout
+=======
+>>>>>>> authentication + setup redux
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
