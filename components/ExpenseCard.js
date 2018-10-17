@@ -1,13 +1,19 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { View, Text } from 'native-base'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Image } from 'react-native'
 
 export default class ExpenseCard extends Component {
-  state = {  }
   render() {
     return (
       <View style={styles.container}>
-        <Text>Card</Text>
+        <View style={{ justifyContent :'center', alignItems :'center' }}>
+          <Image source={this.props.data.url} style={{ width :32, height:32, marginLeft : 50 }} />
+        </View>
+        <View style={{ justifyContent :'center', alignItems :'flex-end', width : 180, marginLeft : 100 }}>
+          <Text style={styles.text}>{this.props.data.description}</Text>
+          <Text style={styles.textSmall}>{this.props.data.price}</Text>
+          <Text style={styles.textSmall}>{this.props.data.type}</Text>
+        </View>
       </View>
     );
   }
@@ -16,13 +22,26 @@ export default class ExpenseCard extends Component {
 const styles = StyleSheet.create({
   container: {
     borderRadius: 4,
-    borderTopWidth: 0.5,
-    borderBottomWidth: 0.5,
-    borderColor: 'black',
+    borderTopWidth: 0.4,
+    borderBottomWidth: 0.4,
+    borderColor: '#D2D2D2',
+    paddingTop : 10,
+    paddingBottom: 10,
+    display: 'flex',
+    flexWrap: 'wrap',
+    flexDirection : 'row'
   },
-  title: {
-    fontSize: 19,
-    fontWeight: 'bold',
+  text: {
+    fontSize: 16,
+    fontFamily : 'geomanist_regular',
+    color : 'black',
+    textAlign : 'right'
+  },
+  textSmall: {
+    fontSize: 12,
+    fontFamily : 'gilroy_light',
+    color : 'black',
+    textAlign : 'right'
   },
   activeTitle: {
     color: 'red',
