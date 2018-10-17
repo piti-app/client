@@ -137,15 +137,12 @@ render() {
       return null;
     }
 
-
    const Layout = createRootNavigator(this.state.signedIn)
 
    return (
-
     <Provider store={store}>
        <Layout/>
     </Provider>
-
     )
   }
 }
