@@ -6,46 +6,60 @@
  * @flow
  */
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Alert, View,Text} from 'react-native';
 import firebase from 'react-native-firebase';
+import { Provider } from 'react-redux'
+import store from './store/index'
 import type { Notification, NotificationOpen } from 'react-native-firebase';
-import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
-import { Icon } from 'native-base'
+import { createBottomTabNavigator ,SwitchNavigator} from 'react-navigation'
 
+import InitBudget from './containers/InitBudget'
 import Home from './containers/Home'
 import Add from './containers/Add'
 import Recommendation from './containers/Recommendation'
 import Profile from './containers/Profile'
 
-const StackHome = createStackNavigator({
+import { isSignedIn } from "./Authentication";
+import SignedOut from './containers/Router'
+const SignedIn = createBottomTabNavigator({
     Home,
-    Add
-},{
-    navigationOptions : ({ navigation }) => ({
-        headerStyle: { backgroundColor: '#fff', elevation:0 },
-        headerRight : (navigation.state.routeName==='Home') ? <Icon name="bookmarks" style={{ paddingRight : 30, paddingTop : 5 }} onPress={() => navigation.navigate('Add')} /> : <View></View>
-    })
-})
-
-const BottomNav = createBottomTabNavigator({
-    Home : StackHome,
+    Add,
     Recommendation,
     Profile
-},
-{
-    navigationOptions : {
-        title: 'Home',
-        tabBarLabel: 'Home',
-        tabBarVisible:true,
-        tabBarIcon: <Icon name='home' />,
-    },
-    tabBarOptions : {
-        style : { borderTopColor: '#FFF', backgroundColor : '#FFF' }
-    }
 })
-
+const createRootNavigator = (signedIn) => {
+    return SwitchNavigator(
+      {
+        SignedIn: {
+          screen: SignedIn
+        },
+        SignedOut: {
+          screen: SignedOut
+        },
+        InitBudget: {
+            screen: InitBudget
+        },
+      },
+      {
+        initialRouteName: signedIn ? "SignedIn" : "SignedOut"
+      }
+    );
+  };
 export default class App extends Component {
-    async componentDidMount() {
+    constructor(){
+        super()
+        this.state = {            
+            checkedSignIn: false,
+            signedIn: false
+          };
+    }
+    async componentDidMount() {        
+        isSignedIn()
+            .then((res) => {
+                this.setState({ signedIn:res,checkedSignIn: true })               
+            })
+            .catch((err) => {Alert.alert(err)})
+
         const notificationOpen: NotificationOpen = await firebase.notifications().getInitialNotification();
         if (notificationOpen) {
             const action = notificationOpen.action;
@@ -96,16 +110,26 @@ export default class App extends Component {
             firebase.notifications().removeDeliveredNotification(notification.notificationId);
 
         });
-    }
+    }    
     componentWillUnmount() {
         this.notificationDisplayedListener();
         this.notificationListener();
         this.notificationOpenedListener();
     }
-render() {
-    return (
-        <BottomNav/>
-    );
+render() {        
+    if (!this.state.checkedSignIn) {
+      return null;
+    }
+
+   const Layout = createRootNavigator(this.state.signedIn)
+   
+   return (
+    
+    <Provider store={store}>   
+       <Layout/>
+    </Provider>
+       
+    )
   }
 }
 const styles = StyleSheet.create({
