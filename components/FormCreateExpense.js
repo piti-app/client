@@ -63,12 +63,13 @@ export default class FormCreateExpense extends Component {
         console.log(this.state.price, 'Price')
         console.log(this.state.type, 'Type')
         console.log(this.state.description, 'Description')
-        Alert.alert('Create Expense Success !');
+        this.textType.clear()
+        this.textDescription.clear()
         this.setState({
             date: 'Date',
-            price: 'Price',
+            price: '',
             type: 'Type',
-            description: 'Description'
+            description: ''
         })
     }
   
@@ -104,6 +105,7 @@ export default class FormCreateExpense extends Component {
             <View style={styles.inputContainer}>
                 <Image style={styles.inputIcon} source={this.state.icon.price}/>
                 <TextInput style={styles.inputs}
+                    ref={input => { this.textType = input }}
                     placeholder="Price"
                     keyboardType="numeric"
                     underlineColorAndroid='transparent'
@@ -128,13 +130,14 @@ export default class FormCreateExpense extends Component {
             <View style={styles.inputContainer}>
                 <Image style={styles.inputIcon} source={this.state.icon.description}/>
                 <TextInput style={styles.inputs}
+                    ref={input => { this.textDescription = input }}
                     placeholder="Description"
                     keyboardType="default"
                     underlineColorAndroid='transparent'
                     onChangeText={(description) => this.setState({description})}/>
             </View>
 
-            <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener('login')}>
+            <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener()}>
                  <Text style={styles.createText}>Create</Text>
             </TouchableHighlight>
   
