@@ -12,6 +12,7 @@ import type { Notification, NotificationOpen } from 'react-native-firebase';
 import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
 import { Icon } from 'native-base'
 
+import Authentication from './containers/Authentication'
 import Home from './containers/Home'
 import Add from './containers/Add'
 import Recommendation from './containers/Recommendation'
@@ -104,7 +105,7 @@ export default class App extends Component {
     }
 render() {
     return (
-        <BottomNav/>
+        <Authentication/>
     );
   }
 }
