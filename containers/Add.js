@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
 import { Container, Label, Content, Form, Item, 
-  Text, Input, Textarea, Button, DatePicker } from 'native-base';
+  Text, Input, Textarea, Button, DatePicker, Picker } from 'native-base';
 import { StyleSheet } from 'react-native'
 
 class Add extends Component {
   constructor(props) {
     super(props);
-    this.state = { chosenDate: new Date() };
+    this.state = { 
+      chosenDate: new Date(),
+      selected: undefined
+    };
     this.setDate = this.setDate.bind(this);
   }
   setDate(newDate) {
     this.setState({ chosenDate: newDate });
+  }
+  onValueChange(value) {
+    this.setState({
+      selected: value
+    });
   }
   render() {
     return (
@@ -19,7 +27,21 @@ class Add extends Component {
           <Content style={styles.main}>
             <Form>
               <Item regular style={styles.mb10}>
-                <Input placeholder='Type' />
+                <Picker
+                  mode="dropdown"
+                  placeholder="Select Type"
+                  placeholderStyle={{ color: "#bfc6ea" }}
+                  placeholderIconColor="#007aff"
+                  style={{ width: undefined }}
+                  selectedValue={this.state.selected}
+                  onValueChange={this.onValueChange.bind(this)}
+                >
+                  <Picker.Item label="Food and Drink" value="Food and Drink" />
+                  <Picker.Item label="Transportation" value="Transportation" />
+                  <Picker.Item label="Personal" value="Personal" />
+                  <Picker.Item label="Entertainment" value="Entertainment" />
+                  <Picker.Item label="Other" value="Other" />
+                </Picker>
               </Item>
               <Item regular style={styles.mb10}>
                 <Input placeholder='Price' />
