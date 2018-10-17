@@ -143,7 +143,6 @@ render() {
    <Provider store={store}>
         <Layout/>
     </Provider>)
-
   }
 }
 const styles = StyleSheet.create({
