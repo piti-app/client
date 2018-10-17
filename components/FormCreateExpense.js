@@ -10,18 +10,43 @@ import {
     Alert
   } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import RNPickerSelect from 'react-native-picker-select';
 
 export default class FormCreateExpense extends Component {
 
     state = {
       isDateTimePickerVisible: false,
-      data: [{
-        value: 'Banana',
-      }, {
-        value: 'Mango',
-      }, {
-        value: 'Pear',
-      }]
+      favColor: '',
+      items: [
+          {
+              label: 'Food & Drink',
+              value: 'Food & Drink',
+          },
+          {
+              label: 'Transport',
+              value: 'Transport',
+          },
+          {
+              label: 'Personal',
+              value: 'Personal',
+          },
+          {
+            label: 'Electronic',
+            value: 'Electronic',
+          },
+          {
+            label: 'Clothes',
+            value: 'Clothes',
+          },
+          {
+            label: 'Entertainment',
+            value: 'Entertainment',
+          },
+          {
+            label: 'Others',
+            value: 'Others',
+          }
+      ]
     };
   
     onClickListener = (viewId) => {
@@ -62,6 +87,23 @@ export default class FormCreateExpense extends Component {
                     underlineColorAndroid='transparent'
                     onChangeText={(email) => this.setState({email})}/>
             </View>
+            
+            <TouchableOpacity>
+                <RNPickerSelect
+                        items={this.state.items}
+                        placeholder={{}}
+                        onValueChange={(value) => {
+                            this.setState({
+                                favColor: value,
+                            });
+                        }}
+                    >
+                    <View style={styles.inputContainer}>
+                        <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/ultraviolet/1600/today.png'}}/>
+                        <Text style={styles.dateText}>Type</Text>
+                    </View>
+                </RNPickerSelect>
+            </TouchableOpacity>
 
             <View style={styles.inputContainer}>
                 <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/key-2/ultraviolet/50/3498db'}}/>
