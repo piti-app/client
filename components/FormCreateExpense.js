@@ -49,7 +49,13 @@ export default class FormCreateExpense extends Component {
             label: 'Others',
             value: 'Others',
           }
-      ]
+      ],
+      icon: {
+        date : require('../assets/icons/calendar.png'),
+        price: require('../assets/icons/money.png'),
+        type: require('../assets/icons/checked.png'),
+        description: require('../assets/icons/target.png'),
+      }
     };
 
     onClickListener = () => {
@@ -57,6 +63,13 @@ export default class FormCreateExpense extends Component {
         console.log(this.state.price, 'Price')
         console.log(this.state.type, 'Type')
         console.log(this.state.description, 'Description')
+        Alert.alert('Create Expense Success !');
+        this.setState({
+            date: 'Date',
+            price: 'Price',
+            type: 'Type',
+            description: 'Description'
+        })
     }
   
     showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
@@ -64,7 +77,6 @@ export default class FormCreateExpense extends Component {
     hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
    
     handleDatePicked = (dateEvent) => {
-      console.log('A date has been picked: ', dateEvent.toDateString());
       this.setState({
           date: dateEvent.toDateString()
       })
@@ -74,10 +86,11 @@ export default class FormCreateExpense extends Component {
     render() {
       return (
         <View style={styles.container}>
+            <Text style={styles.titleText}>CREATE EXPENSE</Text>
             <View>
                 <TouchableOpacity onPress={this.showDateTimePicker}>
                     <View style={styles.inputContainer}>
-                        <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/ultraviolet/1600/today.png'}}/>
+                        <Image style={styles.inputIcon} source={this.state.icon.date}/>
                         <Text style={styles.dateText}>{this.state.date}</Text>
                     </View>
                     <DateTimePicker
@@ -89,30 +102,31 @@ export default class FormCreateExpense extends Component {
             </View>
           
             <View style={styles.inputContainer}>
-                <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/ultraviolet/1600/tags.png'}}/>
+                <Image style={styles.inputIcon} source={this.state.icon.price}/>
                 <TextInput style={styles.inputs}
                     placeholder="Price"
                     keyboardType="numeric"
                     underlineColorAndroid='transparent'
                     onChangeText={(price) => this.setState({price})}/>
             </View>
-
-            <TouchableOpacity>
-                <RNPickerSelect
-                    items={this.state.items}
-                    placeholder={{}}
-                    onValueChange={(type) => {this.setState({type})
-                    }}
-                >
-                    <View style={styles.inputContainer}>
-                        <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/ultraviolet/1600/today.png'}}/>
-                        <Text style={styles.dateText}>{this.state.type}</Text>
-                    </View>
-                </RNPickerSelect>
-            </TouchableOpacity>
+            <View>
+                <TouchableOpacity>
+                    <RNPickerSelect
+                        items={this.state.items}
+                        placeholder={{}}
+                        onValueChange={(type) => {this.setState({type})
+                        }}
+                    >
+                        <View style={styles.inputContainer}>
+                            <Image style={styles.inputIcon} source={this.state.icon.type}/>
+                            <Text style={styles.dateText}>{this.state.type}</Text>
+                        </View>
+                    </RNPickerSelect>
+                </TouchableOpacity>
+            </View>
 
             <View style={styles.inputContainer}>
-                <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/key-2/ultraviolet/50/3498db'}}/>
+                <Image style={styles.inputIcon} source={this.state.icon.description}/>
                 <TextInput style={styles.inputs}
                     placeholder="Description"
                     keyboardType="default"
@@ -134,13 +148,13 @@ export default class FormCreateExpense extends Component {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#d2d2d2',
+      backgroundColor: '#FAFAFA',
     },
     inputContainer: {
         borderBottomColor: '#F5FCFF',
         backgroundColor: '#FFFFFF',
         borderRadius:30,
-        borderColor:"#00b5ec",
+        borderColor: '#D2D2D2',
         borderWidth: 1,
         borderBottomWidth: 1,
         width:250,
@@ -189,5 +203,12 @@ export default class FormCreateExpense extends Component {
     },
     createText: {
       color: 'white',
-    }
+    },
+    titleText: {
+    fontSize: 32,
+    fontFamily : 'bebaskai',
+    textAlign : 'center',
+    paddingTop: 20,
+    paddingBottom: 20,
+  }
   });
