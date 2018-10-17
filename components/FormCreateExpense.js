@@ -15,8 +15,11 @@ import RNPickerSelect from 'react-native-picker-select';
 export default class FormCreateExpense extends Component {
 
     state = {
+      date: 'Date',
+      price: '',
+      type: 'Type',
+      description: '',
       isDateTimePickerVisible: false,
-      favColor: '',
       items: [
           {
               label: 'Food & Drink',
@@ -48,35 +51,41 @@ export default class FormCreateExpense extends Component {
           }
       ]
     };
-  
-    onClickListener = (viewId) => {
-      Alert.alert("Alert", "Button pressed "+viewId);
+
+    onClickListener = () => {
+        console.log(this.state.date, 'Date')
+        console.log(this.state.price, 'Price')
+        console.log(this.state.type, 'Type')
+        console.log(this.state.description, 'Description')
     }
   
-    _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
+    showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
    
-    _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
+    hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
    
-    _handleDatePicked = (date) => {
-      console.log('A date has been picked: ', date);
-      this._hideDateTimePicker();
+    handleDatePicked = (dateEvent) => {
+      console.log('A date has been picked: ', dateEvent.toDateString());
+      this.setState({
+          date: dateEvent.toDateString()
+      })
+      this.hideDateTimePicker();
     };
   
     render() {
       return (
         <View style={styles.container}>
             <View>
-                <TouchableOpacity onPress={this._showDateTimePicker}>
+                <TouchableOpacity onPress={this.showDateTimePicker}>
                     <View style={styles.inputContainer}>
                         <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/ultraviolet/1600/today.png'}}/>
-                        <Text style={styles.dateText}>Date</Text>
+                        <Text style={styles.dateText}>{this.state.date}</Text>
                     </View>
+                    <DateTimePicker
+                        isVisible={this.state.isDateTimePickerVisible}
+                        onConfirm={this.handleDatePicked}
+                        onCancel={this.hideDateTimePicker}
+                    />
                 </TouchableOpacity>
-                <DateTimePicker
-                    isVisible={this.state.isDateTimePickerVisible}
-                    onConfirm={this._handleDatePicked}
-                    onCancel={this._hideDateTimePicker}
-                />
             </View>
           
             <View style={styles.inputContainer}>
@@ -85,22 +94,19 @@ export default class FormCreateExpense extends Component {
                     placeholder="Price"
                     keyboardType="numeric"
                     underlineColorAndroid='transparent'
-                    onChangeText={(email) => this.setState({email})}/>
+                    onChangeText={(price) => this.setState({price})}/>
             </View>
-            
+
             <TouchableOpacity>
                 <RNPickerSelect
-                        items={this.state.items}
-                        placeholder={{}}
-                        onValueChange={(value) => {
-                            this.setState({
-                                favColor: value,
-                            });
-                        }}
-                    >
+                    items={this.state.items}
+                    placeholder={{}}
+                    onValueChange={(type) => {this.setState({type})
+                    }}
+                >
                     <View style={styles.inputContainer}>
                         <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/ultraviolet/1600/today.png'}}/>
-                        <Text style={styles.dateText}>Type</Text>
+                        <Text style={styles.dateText}>{this.state.type}</Text>
                     </View>
                 </RNPickerSelect>
             </TouchableOpacity>
@@ -111,7 +117,7 @@ export default class FormCreateExpense extends Component {
                     placeholder="Description"
                     keyboardType="default"
                     underlineColorAndroid='transparent'
-                    onChangeText={(password) => this.setState({password})}/>
+                    onChangeText={(description) => this.setState({description})}/>
             </View>
 
             <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener('login')}>
@@ -161,7 +167,7 @@ export default class FormCreateExpense extends Component {
         marginLeft:16,
         borderBottomColor: '#FFFFFF',
         flex:1,
-        color: '#000000'
+        color: '#a8a8a8'
     },
     inputIcon:{
       width:27,
