@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import { View } from 'react-native'
+import { View,TextInput,Text } from 'react-native'
 import { Card, FormInput, Button, Icon } from 'react-native-elements'
 import Logo from '../components/Logo'
 
 export default class Signin extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-        title: 'Sign In',
-        headerLeft: <Logo/>,
-        headerRight: <Logo/>,
-    
+        title: 'Sign Up',    
         headerStyle: {
             backgroundColor: '#f4511e',
         },
@@ -22,18 +19,18 @@ export default class Signin extends Component {
 };
   render() {
     return (
-      <View style={{justifyContent:'center',alignItems:'center',flex:1}}>      
-        <Card >
-            <FormInput style={{backgroundColor:'black'}}/>          
-            <FormInput style={{backgroundColor:'red'}}/>          
-            <FormInput style={{backgroundColor:'blue'}}/>          
-            <Button
-            icon={<Icon name='code' color='#ffffff' />}
+      <View style={{justifyContent:'center',alignItems:'center',height:'100%'}}>                 
+        <View style={{justifyContent:'center',alignItems:'center',padding:30,backgroundColor:'yellow'}}>
+            <Text style={{marginBottom:20}}>Sign In</Text>           
+            <TextInput style={{backgroundColor:'rgb(229, 229, 229)',width:280,marginBottom:20,borderRadius:20}}/>          
+            <TextInput style={{backgroundColor:'rgb(229, 229, 229)',width:280,marginBottom:20,borderRadius:20}}/>          
+            <Button                    
             backgroundColor='#03A9F4'
-            buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-            onPress={() => this.props.navigation.navigate("SignIn")}
-            title='Submit' />
-          </Card>
+            buttonStyle={{borderRadius:10}}
+            onPress={() => this.props.navigation.navigate("Signin")}
+            title='Submit'
+            titleStyle={{justifyContent:'center',alignItems:'center' }} />
+        </View>                                     
     </View>    
     );
   }
