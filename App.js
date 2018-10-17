@@ -114,19 +114,15 @@ export default class App extends Component {
         this.notificationOpenedListener();
     }
 render() {        
-    if (!this.state.checkedSignIn) {
+    if (!this.statecheckedSignIn) {
       return null;
     }
 
-   const Layout = createRootNavigator(this.state.signedIn)
-   
+   const Layout = createRootNavigator(store.getState().Authentication.signedIn)
    return (
-    
-    <Provider store={store}>   
-       <Layout/>
-    </Provider>
-       
-    )
+   <Provider store={store}>   
+        <Layout/>
+    </Provider>)
   }
 }
 const styles = StyleSheet.create({
