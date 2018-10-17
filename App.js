@@ -49,7 +49,7 @@ const SignedIn = createBottomTabNavigator({
         style : { borderTopColor: '#FFF', backgroundColor : '#FFF' }
     }
 })
-const createRootNavigator = (signedIn = false) => {
+const createRootNavigator = (signedIn) => {
     return SwitchNavigator(
       {
         SignedIn: {
@@ -132,16 +132,13 @@ export default class App extends Component {
         this.notificationListener();
         this.notificationOpenedListener();
     }
+
 render() {
-    // return (
-    //     <BottomNav/>
-    // );
-    const { checkedSignIn, signedIn } = this.state;
-    if (!checkedSignIn) {
+    if (!this.state.checkedSignIn) {
       return null;
     }
 
-   const Layout = createRootNavigator(signedIn)
+   const Layout = createRootNavigator(store.getState().Authentication.signedIn)
    return (
    <Provider store={store}>
         <Layout/>
