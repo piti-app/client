@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Container, Content, Text, Icon, Button} from 'native-base';
-import { StyleSheet } from 'react-native'
+import { Button } from 'react-native-elements'
+import { View } from 'react-native'
+import { onSignOut } from "../Authentication";
+import ExpenseCard from '../components/ExpenseCard'
 
 class Profile extends Component {
   static navigationOptions = {
@@ -27,12 +29,19 @@ class Profile extends Component {
   }
   render() {
     return (
+<<<<<<< HEAD
         <Container>
           <Text style={styles.title}>PROFILE</Text>
           <Content style={styles.main}>
             <Text>Halo</Text>
           </Content>
         </Container>
+=======
+        <View>
+          
+          <Button title='logout' onPress={() => {onSignOut().then(() => this.props.navigation.navigate("SignedOut"))}}></Button>
+        </View>
+>>>>>>> logout
     );
   }
 }
