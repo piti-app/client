@@ -3,7 +3,6 @@ import { View,TextInput,Text } from 'react-native'
 import { Button } from 'react-native-elements'
 import { onSignIn } from "../Authentication";
 
-
 class Signin extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
@@ -29,6 +28,7 @@ class Signin extends Component {
             backgroundColor='#03A9F4'
             buttonStyle={{borderRadius:10}}
             onPress={() =>  onSignIn().then(() => this.props.navigation.navigate("SignedIn"))}
+
             title='Submit'
             titleStyle={{justifyContent:'center',alignItems:'center' }} />
         </View>
@@ -39,3 +39,4 @@ class Signin extends Component {
 }
 
 export default Signin
+

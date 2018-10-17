@@ -142,6 +142,7 @@ render() {
     <Provider store={store}>
        <Layout/>
     </Provider>
+
     )
   }
 }
