@@ -32,6 +32,7 @@ class Profile extends Component {
         <View>
           <Button title='logout' onPress={() => {onSignOut().then(() => this.props.navigation.navigate("SignedOut"))}}></Button>
         </View>
+
     );
   }
 }
