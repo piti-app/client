@@ -11,11 +11,17 @@ import firebase from 'react-native-firebase';
 import { Provider } from 'react-redux'
 import store from './store/index'
 import type { Notification, NotificationOpen } from 'react-native-firebase';
+<<<<<<< HEAD
 import { createBottomTabNavigator, createStackNavigator,SwitchNavigator } from 'react-navigation'
 import { Icon } from 'native-base'
 
 
 import Authentication from './containers/Authentication'
+=======
+import { createBottomTabNavigator ,SwitchNavigator} from 'react-navigation'
+
+import InitBudget from './containers/InitBudget'
+>>>>>>> scafold layout
 import Home from './containers/Home'
 import Add from './containers/Add'
 import Recommendation from './containers/Recommendation'
@@ -23,8 +29,11 @@ import Profile from './containers/Profile'
 import { isSignedIn } from "./Authentication";
 import SignedOut from './containers/Router'
 
-const StackHome = createStackNavigator({
+import { isSignedIn } from "./Authentication";
+import SignedOut from './containers/Router'
+const SignedIn = createBottomTabNavigator({
     Home,
+<<<<<<< HEAD
     Add
 },{
     navigationOptions : ({ navigation }) => ({
@@ -35,19 +44,11 @@ const StackHome = createStackNavigator({
 
 const SignedIn = createBottomTabNavigator({
     Home : StackHome,
+=======
+    Add,
+>>>>>>> scafold layout
     Recommendation,
     Profile
-},
-{
-    navigationOptions : {
-        title: 'Home',
-        tabBarLabel: 'Home',
-        tabBarVisible:true,
-        tabBarIcon: <Icon name='home' />,
-    },
-    tabBarOptions : {
-        style : { borderTopColor: '#FFF', backgroundColor : '#FFF' }
-    }
 })
 const createRootNavigator = (signedIn) => {
     return SwitchNavigator(
@@ -57,7 +58,14 @@ const createRootNavigator = (signedIn) => {
         },
         SignedOut: {
           screen: SignedOut
+<<<<<<< HEAD
         }
+=======
+        },
+        InitBudget: {
+            screen: InitBudget
+        },
+>>>>>>> scafold layout
       },
       {
         initialRouteName: signedIn ? "SignedIn" : "SignedOut"
@@ -67,16 +75,27 @@ const createRootNavigator = (signedIn) => {
 export default class App extends Component {
     constructor(){
         super()
+<<<<<<< HEAD
 
         this.state = {
+=======
+        this.state = {
+>>>>>>> scafold layout
             checkedSignIn: false,
             signedIn: false
           };
     }
+<<<<<<< HEAD
     async componentDidMount() {
         isSignedIn()
             .then((res) => {
                 this.setState({ signedIn:res,checkedSignIn: true })
+=======
+    async componentDidMount() {
+        isSignedIn()
+            .then((res) => {
+                this.setState({ signedIn:res,checkedSignIn: true })
+>>>>>>> scafold layout
             })
             .catch((err) => {Alert.alert(err)})
 
@@ -142,12 +161,16 @@ render() {
       return null;
     }
 
-   const Layout = createRootNavigator(store.getState().Authentication.signedIn)
+
+   const Layout = createRootNavigator(this.state.signedIn)
 
    return (
-   <Provider store={store}>
-        <Layout/>
-    </Provider>)
+
+    <Provider store={store}>
+       <Layout/>
+    </Provider>
+
+    )
   }
 }
 const styles = StyleSheet.create({
