@@ -38,7 +38,6 @@ export default class FormCreateExpense extends Component {
     };
   
     render() {
-      var data = [["C", "Java", "JavaScript", "PHP"], ["Python", "Ruby"], ["Swift", "Objective-C"]];
       return (
         <View style={styles.container}>
             <View>
@@ -59,7 +58,7 @@ export default class FormCreateExpense extends Component {
                 <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/ultraviolet/1600/tags.png'}}/>
                 <TextInput style={styles.inputs}
                     placeholder="Price"
-                    keyboardType="price"
+                    keyboardType="numeric"
                     underlineColorAndroid='transparent'
                     onChangeText={(email) => this.setState({email})}/>
             </View>
@@ -68,7 +67,7 @@ export default class FormCreateExpense extends Component {
                 <Image style={styles.inputIcon} source={{uri: 'https://png.icons8.com/key-2/ultraviolet/50/3498db'}}/>
                 <TextInput style={styles.inputs}
                     placeholder="Description"
-                    keyboardType="description"
+                    keyboardType="default"
                     underlineColorAndroid='transparent'
                     onChangeText={(password) => this.setState({password})}/>
             </View>
@@ -87,12 +86,14 @@ export default class FormCreateExpense extends Component {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#DCDCDC',
+      backgroundColor: '#d2d2d2',
     },
     inputContainer: {
         borderBottomColor: '#F5FCFF',
         backgroundColor: '#FFFFFF',
         borderRadius:30,
+        borderColor:"#00b5ec",
+        borderWidth: 1,
         borderBottomWidth: 1,
         width:250,
         height:45,
