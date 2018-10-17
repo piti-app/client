@@ -6,7 +6,7 @@ import Logo from '../components/Logo'
 export default class Signin extends Component {
   static navigationOptions = ({ navigation }) => {
     return {
-        title: 'Sign Up',    
+        title: 'Sign In',    
         headerStyle: {
             backgroundColor: '#f4511e',
         },

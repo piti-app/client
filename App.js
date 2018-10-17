@@ -6,17 +6,22 @@
  * @flow
  */
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Alert, View} from 'react-native';
 import firebase from 'react-native-firebase';
+import { Provider } from 'react-redux'
+import store from './store/index'
 import type { Notification, NotificationOpen } from 'react-native-firebase';
-import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
+import { createBottomTabNavigator, createStackNavigator,SwitchNavigator } from 'react-navigation'
 import { Icon } from 'native-base'
+
 
 import Authentication from './containers/Authentication'
 import Home from './containers/Home'
 import Add from './containers/Add'
 import Recommendation from './containers/Recommendation'
 import Profile from './containers/Profile'
+import { isSignedIn } from "./Authentication";
+import SignedOut from './containers/Router'
 
 const StackHome = createStackNavigator({
     Home,
@@ -28,7 +33,7 @@ const StackHome = createStackNavigator({
     })
 })
 
-const BottomNav = createBottomTabNavigator({
+const SignedIn = createBottomTabNavigator({
     Home : StackHome,
     Recommendation,
     Profile
@@ -44,9 +49,33 @@ const BottomNav = createBottomTabNavigator({
         style : { borderTopColor: '#FFF', backgroundColor : '#FFF' }
     }
 })
-
+const createRootNavigator = (signedIn = false) => {
+    return SwitchNavigator(
+      {
+        SignedIn: {
+          screen: SignedIn
+        },
+        SignedOut: {
+          screen: SignedOut
+        }
+      },
+      {
+        initialRouteName: signedIn ? "SignedIn" : "SignedOut"
+      }
+    );
+  };
 export default class App extends Component {
+    constructor(){
+        super()
+        this.state = {
+            checkedSignIn: false
+          };
+    }
     async componentDidMount() {
+        isSignedIn()
+            .then((res) => {this.setState({ signedIn: res, checkedSignIn: true })})
+            .catch((err) => {Alert.alert(err)})
+
         const notificationOpen: NotificationOpen = await firebase.notifications().getInitialNotification();
         if (notificationOpen) {
             const action = notificationOpen.action;
@@ -104,9 +133,19 @@ export default class App extends Component {
         this.notificationOpenedListener();
     }
 render() {
-    return (
-        <BottomNav/>
-    );
+    // return (
+    //     <BottomNav/>
+    // );
+    const { checkedSignIn, signedIn } = this.state;
+    if (!checkedSignIn) {
+      return null;
+    }
+
+   const Layout = createRootNavigator(signedIn)
+   return (
+   <Provider store={store}>
+        <Layout/>
+    </Provider>)
   }
 }
 const styles = StyleSheet.create({

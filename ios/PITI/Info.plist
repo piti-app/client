@@ -55,41 +55,21 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
-<<<<<<< HEAD
-		<string>BebasKai.otf</string>
-=======
 		<string>AntDesign.ttf</string>
->>>>>>> scafold layout
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
 		<string>Feather.ttf</string>
 		<string>FontAwesome.ttf</string>
-<<<<<<< HEAD
-=======
 		<string>FontAwesome5_Brands.ttf</string>
 		<string>FontAwesome5_Regular.ttf</string>
 		<string>FontAwesome5_Solid.ttf</string>
->>>>>>> scafold layout
 		<string>Foundation.ttf</string>
 		<string>Ionicons.ttf</string>
 		<string>MaterialCommunityIcons.ttf</string>
 		<string>MaterialIcons.ttf</string>
 		<string>Octicons.ttf</string>
-<<<<<<< HEAD
-		<string>Roboto_medium.ttf</string>
-		<string>Roboto.ttf</string>
-		<string>rubicon-icon-font.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
-		<string>bebaskai.otf</string>
-		<string>Gilroy-ExtraBold.otf</string>
-		<string>gilroy_extrabold.otf</string>
-		<string>gilroy_light.otf</string>
-		<string>geomanist_regular.ttf</string>
-=======
-		<string>SimpleLineIcons.ttf</string>
-		<string>Zocial.ttf</string>
->>>>>>> scafold layout
 	</array>
 </dict>
 </plist>
