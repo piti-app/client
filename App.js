@@ -49,12 +49,15 @@ export default class App extends Component {
     constructor(){
         super()
         this.state = {            
-            checkedSignIn: false
+            checkedSignIn: false,
+            signedIn: false
           };
     }
-    async componentDidMount() {
+    async componentDidMount() {        
         isSignedIn()
-            .then((res) => {this.setState({ signedIn: res, checkedSignIn: true })})
+            .then((res) => {
+                this.setState({ signedIn:res,checkedSignIn: true })               
+            })
             .catch((err) => {Alert.alert(err)})
 
         const notificationOpen: NotificationOpen = await firebase.notifications().getInitialNotification();
@@ -118,7 +121,7 @@ render() {
       return null;
     }
 
-   const Layout = createRootNavigator(store.getState().Authentication.signedIn)
+   const Layout = createRootNavigator(this.state.signedIn)
    
    return (
     
