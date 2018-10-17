@@ -6,7 +6,7 @@
  * @flow
  */
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Alert, View,Text} from 'react-native';
+import {Platform, StyleSheet, Alert, View} from 'react-native';
 import firebase from 'react-native-firebase';
 import { Provider } from 'react-redux'
 import store from './store/index'
@@ -49,15 +49,12 @@ export default class App extends Component {
     constructor(){
         super()
         this.state = {            
-            checkedSignIn: false,
-            signedIn: false
+            checkedSignIn: false
           };
     }
-    async componentDidMount() {        
+    async componentDidMount() {
         isSignedIn()
-            .then((res) => {
-                this.setState({ signedIn:res,checkedSignIn: true })               
-            })
+            .then((res) => {this.setState({ signedIn: res, checkedSignIn: true })})
             .catch((err) => {Alert.alert(err)})
 
         const notificationOpen: NotificationOpen = await firebase.notifications().getInitialNotification();
