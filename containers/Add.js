@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import { Container, Label, Content, Form, Item, 
-  Text, Input, Textarea, Button, DatePicker, Picker } from 'native-base';
+  Text, Input, Textarea, Button, DatePicker, Picker, Icon } from 'native-base';
 import { StyleSheet } from 'react-native'
 
 class Add extends Component {
+  static navigationOptions = {
+    title: 'Add',
+    tabBarLabel: 'Add',
+    tabBarVisible:true,
+    tabBarIcon: <Icon name='bookmarks' />  
+  }
   constructor(props) {
     super(props);
     this.state = { 
@@ -31,7 +37,6 @@ class Add extends Component {
                   mode="dropdown"
                   placeholder="Select Type"
                   placeholderStyle={{ color: "#bfc6ea" }}
-                  placeholderIconColor="#007aff"
                   style={{ width: undefined }}
                   selectedValue={this.state.selected}
                   onValueChange={this.onValueChange.bind(this)}
