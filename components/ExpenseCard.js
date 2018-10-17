@@ -7,12 +7,12 @@ export default class ExpenseCard extends Component {
     return (
       <View style={styles.container}>
         <View style={{ justifyContent :'center', alignItems :'center' }}>
-          <Image source={this.props.data.url} style={{ width :50, height:50, marginLeft : 50 }} />
+          <Image source={this.props.data.url} style={{ width :32, height:32, marginLeft : 50 }} />
         </View>
-        <View style={{ justifyContent :'center', alignItems :'flex-end', width : 140, marginLeft : 100 }}>
+        <View style={{ justifyContent :'center', alignItems :'flex-end', width : 180, marginLeft : 100 }}>
           <Text style={styles.text}>{this.props.data.description}</Text>
-          <Text style={styles.text}>{this.props.data.price}</Text>
-          <Text style={styles.text}>{this.props.data.type}</Text>
+          <Text style={styles.textSmall}>{this.props.data.price}</Text>
+          <Text style={styles.textSmall}>{this.props.data.type}</Text>
         </View>
       </View>
     );
@@ -25,14 +25,21 @@ const styles = StyleSheet.create({
     borderTopWidth: 0.4,
     borderBottomWidth: 0.4,
     borderColor: '#D2D2D2',
-    paddingTop : 8,
-    paddingBottom: 8,
+    paddingTop : 10,
+    paddingBottom: 10,
     display: 'flex',
     flexWrap: 'wrap',
     flexDirection : 'row'
   },
   text: {
-    fontSize: 14,
+    fontSize: 16,
+    fontFamily : 'geomanist_regular',
+    color : 'black',
+    textAlign : 'right'
+  },
+  textSmall: {
+    fontSize: 12,
+    fontFamily : 'gilroy_light',
     color : 'black',
     textAlign : 'right'
   },

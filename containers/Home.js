@@ -8,28 +8,28 @@ class Home extends Component {
   state = {
     data : [
       {
-        description : 'test',
+        description : 'Nasi Goreng',
         date : new Date(),
         price : 10000,
         type : 'food and drink',
         url : require('../assets/icons/fried-egg.png')
       },
       {
-        description : 'test',
+        description : 'Lamborghini',
         date : new Date(),
         price : 10000,
         type : 'transport',
         url: require('../assets/icons/car.png')
       },
       {
-        description : 'test',
+        description : 'Make Up',
         date : new Date(),
         price : 10000,
         type : 'personal',
         url : require('../assets/icons/piggy-bank.png')
       },
       {
-        description : 'test',
+        description : 'Bose QC35',
         date : new Date(),
         price : 10000,
         type : 'electronic',
@@ -43,14 +43,28 @@ class Home extends Component {
         url : require('../assets/icons/basketball-jersey.png')
       },
       {
-        description : 'test',
+        description : 'FIFA 19',
         date : new Date(),
         price : 10000,
         type : 'entertainment',
         url : require('../assets/icons/monitor.png')
       },
       {
-        description : 'test',
+        description : 'Marathon',
+        date : new Date(),
+        price : 10000,
+        type : 'other',
+        url : require('../assets/icons/user.png')
+      },
+      {
+        description : 'Marathon',
+        date : new Date(),
+        price : 10000,
+        type : 'other',
+        url : require('../assets/icons/user.png')
+      },
+      {
+        description : 'Roko',
         date : new Date(),
         price : 10000,
         type : 'other',
@@ -79,8 +93,7 @@ export default Home;
 const styles = StyleSheet.create({
   title: {
     fontSize: 32,
-    fontWeight: 'bold',
-    fontFamily : 'BebasKai',
+    fontFamily : 'bebaskai',
     textAlign : 'center',
     paddingTop: 20,
     paddingBottom: 20,
