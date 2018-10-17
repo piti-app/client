@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, Card, CardItem, Text, Body } from "native-base";
+import { Container, Header, Content, Card, CardItem, Text, Body, Icon } from "native-base";
 import { View, StyleSheet, ScrollView } from 'react-native'
 
 import ExpenseCard from '../components/ExpenseCard'
 
 class Home extends Component {
+  static navigationOptions = {
+    title: 'Home',
+    tabBarLabel: 'Home',
+    tabBarVisible:true,
+    tabBarIcon: <Icon name='home' />  
+  }
   state = {
     data : [
       {
