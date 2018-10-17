@@ -9,13 +9,20 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import firebase from 'react-native-firebase';
 import type { Notification, NotificationOpen } from 'react-native-firebase';
+import { createBottomTabNavigator } from 'react-navigation'
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import Home from './containers/Home'
+import Add from './containers/Add'
+import Recommendation from './containers/Recommendation'
+import Profile from './containers/Profile'
+
+const BottomNav = createBottomTabNavigator({
+    Home,
+    Add,
+    Recommendation,
+    Profile
+})
+
 export default class App extends Component {
     async componentDidMount() {
         const notificationOpen: NotificationOpen = await firebase.notifications().getInitialNotification();
@@ -32,7 +39,7 @@ export default class App extends Component {
                 }
                 return val;
             }));
-        } 
+        }
         const channel = new firebase.notifications.Android.Channel('test-channel', 'Test Channel', firebase.notifications.Android.Importance.Max)
                 .setDescription('My apps test channel');
 // Create the channel
@@ -48,7 +55,7 @@ export default class App extends Component {
                 .android.setSmallIcon('ic_launcher');
             firebase.notifications()
                 .displayNotification(notification);
-            
+
         });
         this.notificationOpenedListener = firebase.notifications().onNotificationOpened((notificationOpen: NotificationOpen) => {
             // Get the action triggered by the notification being opened
@@ -66,7 +73,7 @@ export default class App extends Component {
                 return val;
             }));
             firebase.notifications().removeDeliveredNotification(notification.notificationId);
-            
+
         });
     }
     componentWillUnmount() {
@@ -76,11 +83,7 @@ export default class App extends Component {
     }
 render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
-      </View>
+        <BottomNav/>
     );
   }
 }
