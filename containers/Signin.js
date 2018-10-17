@@ -28,7 +28,6 @@ class Signin extends Component {
             backgroundColor='#03A9F4'
             buttonStyle={{borderRadius:10}}
             onPress={() =>  onSignIn().then(() => this.props.navigation.navigate("SignedIn"))}
-
             title='Submit'
             titleStyle={{justifyContent:'center',alignItems:'center' }} />
         </View>
@@ -39,4 +38,5 @@ class Signin extends Component {
 }
 
 export default Signin
+
 

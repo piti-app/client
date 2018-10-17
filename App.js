@@ -65,14 +65,16 @@ const createRootNavigator = (signedIn) => {
 export default class App extends Component {
     constructor(){
         super()
-
         this.state = {
-            checkedSignIn: false
+            checkedSignIn: false,
+            signedIn: false
           };
     }
     async componentDidMount() {
         isSignedIn()
-            .then((res) => {this.setState({ signedIn: res, checkedSignIn: true })})
+            .then((res) => {
+                this.setState({ signedIn:res,checkedSignIn: true })
+            })
             .catch((err) => {Alert.alert(err)})
 
         const notificationOpen: NotificationOpen = await firebase.notifications().getInitialNotification();
