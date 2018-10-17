@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "16215050174",
+    "firebase_url": "https://piti-app.firebaseio.com",
+    "project_id": "piti-app",
+    "storage_bucket": "piti-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:16215050174:android:e79e10e807a22ea8",
+        "android_client_info": {
+          "package_name": "com.piti"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "16215050174-m45r3vdear4386uq8b7nnt6h6q7giflf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU3mxO3DhDwTZ3FdDpLnikgbWJBv7gs3w"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
