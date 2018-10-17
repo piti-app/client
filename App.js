@@ -6,7 +6,7 @@
  * @flow
  */
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Alert, View} from 'react-native';
+import {Platform, StyleSheet, Alert, View,Text} from 'react-native';
 import firebase from 'react-native-firebase';
 import { Provider } from 'react-redux'
 import store from './store/index'
@@ -118,11 +118,20 @@ render() {
       return null;
     }
 
-   const Layout = createRootNavigator(store.getState().Authentication.signedIn)
+//    const Layout = createRootNavigator(store.getState().Authentication.signedIn)
+   const Layout = createRootNavigator(false)
    return (
-   <Provider store={store}>   
-        <Layout/>
-    </Provider>)
+       <View>
+           <Text>adadada</Text>
+           <Text>adadada</Text>
+           <Text>adadada</Text>
+           
+           <Layout/>
+            
+       </View>
+//    <Provider store={store}>   
+//     </Provider>
+    )
   }
 }
 const styles = StyleSheet.create({
