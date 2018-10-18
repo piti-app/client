@@ -3,10 +3,26 @@ import { View, Text } from 'native-base'
 import { StyleSheet, Image } from 'react-native'
 
 export default class RecommendationCard extends Component {
+  componentDidMount() {
+    console.log(this.props.data.restaurant)
+  }
   render() {
     return (
       <View elevation={2} style={styles.container}>
-        <Text>Card</Text>
+        {
+          this.props.data.restaurant.thumb
+          ?
+          <Image
+          source={{ uri:this.props.data.restaurant.thumb }}
+          style={{ height : 150, width : 140 }}
+          />
+          :
+          <Image
+          source={require('../assets/icons/doughnut.png')}
+          style={{ height : 130, width : 130, resizeMode : 'contain' }}
+          />
+        }
+        <Text style={ styles.text }>{ this.props.data.restaurant.name }</Text>
       </View>
     );
   }
@@ -28,12 +44,14 @@ const styles = StyleSheet.create({
     marginBottom : 40,
     height : 200,
     width : 150,
+    alignItems: 'center',
+    justifyContent : 'center'
   },
   text: {
-    fontSize: 16,
+    fontSize: 12,
     fontFamily : 'geomanist_regular',
     color : 'black',
-    textAlign : 'right'
+    textAlign : 'center'
   },
   textSmall: {
     fontSize: 12,

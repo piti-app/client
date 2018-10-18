@@ -73,7 +73,7 @@ class RecommendationContainer extends Component {
           marginRight: 'auto',}}>
             <FlatList style={styles.container}
             data={this.state.recommendations}
-            renderItem={({item}) => <RecommendationCard />}
+            renderItem={({item}) => <RecommendationCard data={item} />}
             numColumns={2}
             showsVerticalScrollIndicator={false}
           />
