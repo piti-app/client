@@ -24,7 +24,11 @@ class RecommendationContainer extends Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-        <Text>Halo</Text>
+        <RecommendationCard/>
+        <RecommendationCard/>
+        <RecommendationCard/>
+        <RecommendationCard/>
+        <RecommendationCard/>
       </ScrollView>
     );
   }

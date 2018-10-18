@@ -72,18 +72,18 @@ export default class FormCreateExpense extends Component {
             description: ''
         })
     }
-  
+
     showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
-   
+
     hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
-   
+
     handleDatePicked = (dateEvent) => {
       this.setState({
           date: dateEvent.toDateString()
       })
       this.hideDateTimePicker();
     };
-  
+
     render() {
       return (
         <View style={styles.container}>
@@ -100,7 +100,7 @@ export default class FormCreateExpense extends Component {
                     />
                 </TouchableOpacity>
             </View>
-          
+
             <View style={styles.inputContainer}>
                 <Image style={styles.inputIcon} source={this.state.icon.price}/>
                 <TextInput style={styles.inputs}
@@ -139,18 +139,18 @@ export default class FormCreateExpense extends Component {
             <TouchableHighlight style={[styles.buttonContainer, styles.createButton]} onPress={() => this.onClickListener()}>
                  <Text style={styles.createText}>Save Expense</Text>
             </TouchableHighlight>
-  
+
         </View>
       );
     }
   }
-  
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#F7F7F7',
+      backgroundColor: '#FFF',
     },
     inputContainer: {
         borderBottomColor: '#F5FCFF',
@@ -177,7 +177,7 @@ export default class FormCreateExpense extends Component {
       alignItems: 'center',
       color: '#a8a8a8',
       width: 200
-    },  
+    },
     inputs:{
         height:45,
         marginLeft:16,
