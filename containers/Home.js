@@ -9,8 +9,9 @@ class Home extends Component {
     title: 'Home',
     tabBarLabel: 'Home',
     tabBarVisible:true,
-    tabBarIcon: <Icon name='home' />  
+    tabBarIcon: <Icon name='home' />
   }
+
   state = {
     data : [
       {
@@ -80,12 +81,12 @@ class Home extends Component {
    }
   render() {
     return (
-        <View>
+        <View style ={{ backgroundColor : '#FFF' }}>
           <Text style={styles.title}>OVERVIEW</Text>
-          <ScrollView style={{ marginBottom : 100 }}>
+          <ScrollView style={{ marginBottom : 100, backgroundColor : '#FFF' }}>
             {
               this.state.data.map((datum,index)=>
-              <ExpenseCard data={datum} key={index} />
+              <ExpenseCard navigation={ this.props.navigation } data={datum} key={index} />
               )
             }
           </ScrollView>

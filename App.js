@@ -9,18 +9,39 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import firebase from 'react-native-firebase';
 import type { Notification, NotificationOpen } from 'react-native-firebase';
-import { createBottomTabNavigator } from 'react-navigation'
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation'
+import { Icon } from 'native-base'
 
 import Home from './containers/Home'
 import Add from './containers/Add'
 import Recommendation from './containers/Recommendation'
 import Profile from './containers/Profile'
 
-const BottomNav = createBottomTabNavigator({
+const StackHome = createStackNavigator({
     Home,
-    Add,
+    Add
+},{
+    navigationOptions : ({ navigation }) => ({
+        headerStyle: { backgroundColor: '#fff', elevation:0 },
+        headerRight : (navigation.state.routeName==='Home') ? <Icon name="bookmarks" style={{ paddingRight : 30, paddingTop : 5 }} onPress={() => navigation.navigate('Add')} /> : <View></View>
+    })
+})
+
+const BottomNav = createBottomTabNavigator({
+    Home : StackHome,
     Recommendation,
     Profile
+},
+{
+    navigationOptions : {
+        title: 'Home',
+        tabBarLabel: 'Home',
+        tabBarVisible:true,
+        tabBarIcon: <Icon name='home' />,
+    },
+    tabBarOptions : {
+        style : { borderTopColor: '#FFF', backgroundColor : '#FFF' }
+    }
 })
 
 export default class App extends Component {
