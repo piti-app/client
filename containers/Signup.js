@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View,TextInput,Text,Icon,Image,Alert,ScrollView } from 'react-native'
+import {ScrollView, View,TextInput,Text,Icon,Image,Alert } from 'react-native'
 import {  Button } from 'react-native-elements'
 import firebase from 'react-native-firebase'
 import axios from 'axios'
@@ -44,7 +44,13 @@ export default class Signin extends Component {
           }
           axios.post('http://10.0.2.2:4000/user',data)
             .then(({data}) => {
-                this.props.navigation.navigate("InitBudget")
+                onSignIn()
+                .then((result) => {
+                    this.props.navigation.navigate("InitBudget")    
+                }).catch((err) => {
+                    
+                });
+                
             }).catch((err) => {
                 Alert.alert(err)
             });
