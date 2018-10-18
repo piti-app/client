@@ -6,7 +6,14 @@ import ExpenseCard from '../components/ExpenseCard'
 
 class Home extends Component {
   static navigationOptions = {
-    title: 'Home',
+    headerTitle: <Text style={{
+      fontSize: 32,
+      fontFamily : 'bebaskai',
+      textAlign : 'center',
+      paddingTop: 28,
+      paddingBottom: 20,
+      paddingLeft : 150
+    }}>OVERVIEW</Text>,
     tabBarLabel: 'Home',
     tabBarVisible:true,
     tabBarIcon: <Icon name='home' />
@@ -82,8 +89,8 @@ class Home extends Component {
   render() {
     return (
         <View style ={{ backgroundColor : '#FFF' }}>
-          <Text style={styles.title}>OVERVIEW</Text>
-          <ScrollView style={{ marginBottom : 100, backgroundColor : '#FFF' }}>
+          {/* <Text style={styles.title}>OVERVIEW</Text> */}
+          <ScrollView style={{ marginBottom : 10, backgroundColor : '#FFF' }}>
             {
               this.state.data.map((datum,index)=>
               <ExpenseCard navigation={ this.props.navigation } data={datum} key={index} />
@@ -102,7 +109,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontFamily : 'bebaskai',
     textAlign : 'center',
-    paddingTop: 20,
+    paddingTop: 10,
     paddingBottom: 20,
   }
 })
