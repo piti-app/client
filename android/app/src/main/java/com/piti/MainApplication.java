@@ -31,7 +31,9 @@ public class MainApplication extends Application implements ReactApplication {
             new VectorIconsPackage(),
             new RNFirebasePackage(),
             new RNFirebaseMessagingPackage(),
-                new RNFirebaseNotificationsPackage()
+                new RNFirebaseNotificationsPackage(),
+                new RNFirebaseAuthPackage()
+
       );
     }
 
