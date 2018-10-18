@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
-import { Container, Label, Content, Form, Item, 
+import { Container, Label, Content, Form, Item,
   Text, Input, Textarea, Button, DatePicker, Picker, Icon } from 'native-base';
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 
 class Add extends Component {
   static navigationOptions = {
-    title: 'Add',
-    tabBarLabel: 'Add',
-    tabBarVisible:true,
-    tabBarIcon: <Icon name='bookmarks' />  
+    tabBarIcon: <Icon name='bookmarks' />
   }
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       chosenDate: new Date(),
       selected: undefined
     };
@@ -63,8 +60,8 @@ class Add extends Component {
                   style={styles.mb10}
                   />
               </Item>
-              <Textarea 
-                rowSpan={5} 
+              <Textarea
+                rowSpan={5}
                 style={styles.mb10}
                 bordered placeholder="Description" />
               <Button block light>
