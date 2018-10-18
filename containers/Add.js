@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Label, Content, Form, Item,
-  Text, Input, Textarea, Button, DatePicker, Picker, Icon } from 'native-base';
-import { StyleSheet, View } from 'react-native'
+  Text, Input, Textarea, Button, DatePicker, Picker, Icon, StyleSheet, View} from 'react-native'
 import FormCreateExpense from '../components/FormCreateExpense'
 class Add extends Component {
   static navigationOptions = {
@@ -11,7 +10,11 @@ class Add extends Component {
       textAlign : 'center',
       paddingTop: 28,
       paddingBottom: 20,
+<<<<<<< HEAD
       paddingLeft : 80
+=======
+      paddingLeft : 75
+>>>>>>> Create Form Update Expense
     }}>SAVE EXPENSE</Text>,
     tabBarLabel: 'Home',
     tabBarVisible:true,

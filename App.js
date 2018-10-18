@@ -18,6 +18,7 @@ import InitBudget from './containers/InitBudget'
 
 import Home from './containers/Home'
 import Add from './containers/Add'
+import Update from './components/FormUpdateExpense'
 import Recommendation from './containers/Recommendation'
 import Profile from './containers/Profile'
 import { isSignedIn } from "./Authentication";
@@ -25,7 +26,8 @@ import SignedOut from './containers/Router'
 
 const StackHome = createStackNavigator({
     Home,
-    Add
+    Add,
+    Update
 },{
     navigationOptions : ({ navigation }) => ({
         headerStyle: { backgroundColor: '#fff', elevation:0 },
