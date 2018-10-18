@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View,TextInput,Text,TouchableHighlight } from 'react-native'
-import { Card, Button, Icon } from 'react-native-elements'
+import {  Button } from 'react-native-elements'
 
 export default class Signup extends Component {
     static navigationOptions = ({ navigation }) => {
