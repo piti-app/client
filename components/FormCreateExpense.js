@@ -87,7 +87,6 @@ export default class FormCreateExpense extends Component {
     render() {
       return (
         <View style={styles.container}>
-            <Text style={styles.titleText}>CREATE EXPENSE</Text>
             <View>
                 <TouchableOpacity onPress={this.showDateTimePicker}>
                     <View style={styles.inputContainer}>
@@ -138,7 +137,7 @@ export default class FormCreateExpense extends Component {
             </View>
 
             <TouchableHighlight style={[styles.buttonContainer, styles.createButton]} onPress={() => this.onClickListener()}>
-                 <Text style={styles.createText}>Create</Text>
+                 <Text style={styles.createText}>Save Expense</Text>
             </TouchableHighlight>
   
         </View>
@@ -151,7 +150,7 @@ export default class FormCreateExpense extends Component {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#FAFAFA',
+      backgroundColor: '#F7F7F7',
     },
     inputContainer: {
         borderBottomColor: '#F5FCFF',
