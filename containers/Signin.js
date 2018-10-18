@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View,TextInput,Text,Alert } from 'react-native'
+import { View,TextInput,Text } from 'react-native'
 import { Button } from 'react-native-elements'
 import { onSignIn } from "../Authentication";
 
@@ -21,8 +21,7 @@ class Signin extends Component {
     return (
       <View style={{justifyContent:'center',alignItems:'center',height:'100%'}}>                 
         <View style={{justifyContent:'center',alignItems:'center',padding:30,backgroundColor:'yellow'}}>
-            <Text style={{marginBottom:20}}>Sign In</Text>  
-            <Text>{JSON.stringify(this.props.signedIn)}</Text>         
+            <Text style={{marginBottom:20}}>Sign In</Text>             
             <TextInput style={{backgroundColor:'rgb(229, 229, 229)',width:280,marginBottom:20,borderRadius:20}}/>          
             <TextInput style={{backgroundColor:'rgb(229, 229, 229)',width:280,marginBottom:20,borderRadius:20}}/>          
             <Button                    
