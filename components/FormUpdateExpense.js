@@ -7,7 +7,8 @@ import {
     TouchableHighlight,
     TouchableOpacity,
     Image,
-    Icon
+    Icon,
+    ScrollView
   } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import RNPickerSelect from 'react-native-picker-select';
@@ -20,9 +21,9 @@ export default class FormUpdateExpense extends Component {
       textAlign : 'center',
       paddingTop: 28,
       paddingBottom: 20,
-      paddingLeft : 65
+      paddingLeft : 80
     }}>EDIT EXPENSE</Text>,
-    tabBarLabel: 'Home',
+    tabBarLabel: 'Update',
     tabBarVisible:true,
     tabBarIcon: <Icon name='home' />
   }
@@ -106,6 +107,17 @@ export default class FormUpdateExpense extends Component {
                     underlineColorAndroid='transparent'
                     onChangeText={this.handleOnChangePrice}/>
             </View>
+
+            <View style={styles.inputContainer}>
+                <Image style={styles.inputIcon} source={this.state.icon.description}/>
+                <TextInput style={styles.inputs}
+                    ref={input => { this.textDescription = input }}
+                    value={this.state.description}
+                    keyboardType="default"
+                    underlineColorAndroid='transparent'
+                    onChangeText={this.handleOnChangeDescription}/>
+            </View>
+
             <View>
                 <TouchableOpacity>
                     <RNPickerSelect
@@ -120,16 +132,6 @@ export default class FormUpdateExpense extends Component {
                         </View>
                     </RNPickerSelect>
                 </TouchableOpacity>
-            </View>
-
-            <View style={styles.inputContainer}>
-                <Image style={styles.inputIcon} source={this.state.icon.description}/>
-                <TextInput style={styles.inputs}
-                    ref={input => { this.textDescription = input }}
-                    value={this.state.description}
-                    keyboardType="default"
-                    underlineColorAndroid='transparent'
-                    onChangeText={this.handleOnChangeDescription}/>
             </View>
 
             <TouchableHighlight style={[styles.buttonContainer, styles.createButton]} onPress={() => this.onClickListener()}>

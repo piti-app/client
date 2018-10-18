@@ -110,6 +110,17 @@ export default class FormCreateExpense extends Component {
                     underlineColorAndroid='transparent'
                     onChangeText={(price) => this.setState({price})}/>
             </View>
+
+             <View style={styles.inputContainer}>
+                <Image style={styles.inputIcon} source={this.state.icon.description}/>
+                <TextInput style={styles.inputs}
+                    ref={input => { this.textDescription = input }}
+                    placeholder="Description"
+                    keyboardType="default"
+                    underlineColorAndroid='transparent'
+                    onChangeText={(description) => this.setState({description})}/>
+            </View>
+
             <View>
                 <TouchableOpacity>
                     <RNPickerSelect
@@ -124,16 +135,6 @@ export default class FormCreateExpense extends Component {
                         </View>
                     </RNPickerSelect>
                 </TouchableOpacity>
-            </View>
-
-            <View style={styles.inputContainer}>
-                <Image style={styles.inputIcon} source={this.state.icon.description}/>
-                <TextInput style={styles.inputs}
-                    ref={input => { this.textDescription = input }}
-                    placeholder="Description"
-                    keyboardType="default"
-                    underlineColorAndroid='transparent'
-                    onChangeText={(description) => this.setState({description})}/>
             </View>
 
             <TouchableHighlight style={[styles.buttonContainer, styles.createButton]} onPress={() => this.onClickListener()}>

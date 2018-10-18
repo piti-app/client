@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, Card, CardItem, Text, Body, Icon} from "native-base";
 import { View, StyleSheet, ScrollView, TouchableHighlight } from 'react-native'
+import Swipeout from 'react-native-swipeout'
 
 import ExpenseCard from '../components/ExpenseCard'
 
@@ -86,18 +87,22 @@ class Home extends Component {
       }
     ]
    }
+   
   render() {
+    const  swipeoutBtns = [{ text: 'Detele', color : '#FFF', backgroundColor : 'red'}]
     return (
         <View style ={{ backgroundColor : '#FFF' }}>
           {/* <Text style={styles.title}>OVERVIEW</Text> */}
           <ScrollView style={{ marginBottom : 10, backgroundColor : '#FFF' }}>
             {
               this.state.data.map((datum,index)=>
-              <View>
+              <Swipeout right={swipeoutBtns} style={{backgroundColor:'#FFF'}}>
+                  <View>
                 <TouchableHighlight onPress={() => this.props.navigation.navigate('Update', datum)}>
                   <ExpenseCard navigation={ this.props.navigation } data={datum} key={index} />
                 </TouchableHighlight>
               </View>
+                </Swipeout>
               )
             }
           </ScrollView>
