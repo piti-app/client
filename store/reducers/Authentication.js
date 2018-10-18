@@ -1,5 +1,6 @@
 const initialState = {
-    signedIn : false
+    signedIn : false,
+    userInfo : ''
 }
 
 export default function(state = initialState, action){
@@ -9,6 +10,11 @@ export default function(state = initialState, action){
             return {
                 ...state,
                 signedIn : action.payload
+            }
+        case 'IS_AUTHENTICATED':
+            return {
+                ...state,
+                userInfo : action.payload
             }
         default:
             return state;
