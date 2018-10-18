@@ -137,7 +137,7 @@ export default class FormCreateExpense extends Component {
                     onChangeText={(description) => this.setState({description})}/>
             </View>
 
-            <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]} onPress={() => this.onClickListener()}>
+            <TouchableHighlight style={[styles.buttonContainer, styles.createButton]} onPress={() => this.onClickListener()}>
                  <Text style={styles.createText}>Create</Text>
             </TouchableHighlight>
   
@@ -201,7 +201,7 @@ export default class FormCreateExpense extends Component {
       width:250,
       borderRadius:30,
     },
-    loginButton: {
+    createButton: {
       backgroundColor: "#00b5ec",
     },
     createText: {
