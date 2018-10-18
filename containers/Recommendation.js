@@ -14,29 +14,32 @@ class RecommendationContainer extends Component {
   }
   componentDidMount = () => {
     let self = this
-    axios({
-      method : 'POST',
-      url : `http://10.0.2.2:4000/recommendation`,
-      data : {
-        latitude : '-6.254590',
-        longtitude : '106.757190',
-        main_balance : 3000000,
-        money_spent : 500000,
-        budget : 200000
-      },
-      headers : {
-        'user-key' : '43ba0f8146136e318177d15edc3dc24f'
-      }
-    })
-      .then(response=>{
-        this.setState({
-          recommendations : response.data.data,
-          isLoaded : true
+
+    navigator.geolocation.getCurrentPosition((position)=>{
+      axios({
+        method : 'POST',
+        url : `http://10.0.2.2:4000/recommendation/newRecommendation`,
+        data : {
+          main_balance : 1500000,
+          money_spent : 500000,
+          budget : 200000
+        },
+        headers : {
+          'user-key' : '43ba0f8146136e318177d15edc3dc24f'
+        }
+      })
+        .then(response=>{
+          console.log(response)
+          this.setState({
+            recommendations : response.data.data,
+            isLoaded : true
+          })
         })
-      })
-      .catch(error =>{
-        console.log(error,'ini error')
-      })
+        .catch(error =>{
+          console.log(error,'ini error')
+        })
+    })
+
     // axios({
     //   method : 'GET',
     //   url : 'https://swapi.co/api/people'

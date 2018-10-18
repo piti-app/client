@@ -4,25 +4,27 @@ import { StyleSheet, Image } from 'react-native'
 
 export default class RecommendationCard extends Component {
   componentDidMount() {
-    console.log(this.props.data.restaurant)
+    console.log(this.props.data)
   }
   render() {
     return (
       <View elevation={2} style={styles.container}>
         {
-          this.props.data.restaurant.thumb
+          this.props.data.thumb
           ?
           <Image
-          source={{ uri:this.props.data.restaurant.thumb }}
-          style={{ height : 150, width : 140 }}
+          source={{ uri:this.props.data.thumb }}
+          style={{ height : 150, width : 160, borderRadius: 5, marginTop : -10 }}
           />
           :
           <Image
           source={require('../assets/icons/doughnut.png')}
-          style={{ height : 130, width : 130, resizeMode : 'contain' }}
+          style={{ height : 150, width : 130, resizeMode : 'contain' }}
           />
         }
-        <Text style={ styles.text }>{ this.props.data.restaurant.name }</Text>
+        <Text style={ styles.text }>{ this.props.data.name }</Text>
+        <Text style={ styles.textSmall }>{ this.props.data.locality_ }</Text>
+        <Text style={ styles.textSmall }>{ this.props.data.average_cost_for_two/2 }</Text>
       </View>
     );
   }
@@ -38,26 +40,23 @@ const styles = StyleSheet.create({
     width : '80%',
     marginLeft: 10,
     marginRight: 10,
-    shadowOffset:{  width: 4,  height: 3,  },
-    shadowColor: '#cacaca',
-    shadowOpacity: 0.6,
     marginBottom : 40,
-    height : 200,
-    width : 150,
+    height : 240,
+    width : 160,
     alignItems: 'center',
-    justifyContent : 'center'
   },
   text: {
     fontSize: 12,
-    fontFamily : 'geomanist_regular',
+    fontFamily : 'gilroy_extrabold',
     color : 'black',
-    textAlign : 'center'
+    textAlign : 'center',
+    marginTop : 10
   },
   textSmall: {
-    fontSize: 12,
+    fontSize: 11,
     fontFamily : 'gilroy_light',
     color : 'black',
-    textAlign : 'right'
+    textAlign : 'center'
   },
   activeTitle: {
     color: 'red',
