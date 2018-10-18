@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { View,TextInput,Text,Icon,Image } from 'react-native'
+import { View,TextInput,Text,Icon,Image,Alert } from 'react-native'
 import {  Button } from 'react-native-elements'
-import { onSignIn } from "../Authentication"
+import { onSignIn,getEmail } from "../Authentication"
+import axios from 'axios'
 
 export default class InitBudget extends Component {
     static navigationOptions = {
@@ -18,6 +19,30 @@ export default class InitBudget extends Component {
         tabBarVisible:true,
         tabBarIcon: <Icon name='home' />
     }
+    constructor(){
+        super()
+        this.state = {
+            budget : 0,
+            main_balance : 0
+        }
+    }
+    balanceHandler = () => {
+        let data = {
+            budget: this.state.budget,
+            main_balance : this.state.main_balance
+        }
+        getEmail()
+        .then((email) => {
+            axios.put(`http://10.0.2.2:4000/user/${email}`,data)
+            .then(({data}) => {
+                onSignIn().then(() => this.props.navigation.navigate("SignedIn"))                
+            }).catch((err) => {
+                
+            })
+        }).catch((err) => {
+          
+        })                 
+    }
     render() {
         return (
             <View style={{justifyContent:'center',alignItems:'center',height:'100%',backgroundColor:'#fff'}}>
@@ -30,13 +55,13 @@ export default class InitBudget extends Component {
                           <Text style={{ fontWeight:'bold', fontSize:16,fontFamily : 'geomanist_regular',textAlign : 'center'}}>is a great stress reliever</Text>
                         </View>
                         <View style={{flexDirection:'row'}}>                        
-                            <TextInput keyboardType='number-pad' placeholder='Your Main Balance' style={{backgroundColor:'rgb(229, 229, 229)',width:230,marginBottom:20,borderRadius:20}}/>
+                            <TextInput onChangeText={(budget) => this.setState({budget})} keyboardType='number-pad' placeholder='Your Main Balance' style={{backgroundColor:'rgb(229, 229, 229)',width:230,marginBottom:20,borderRadius:20}}/>
                         </View>
                         <View style={{flexDirection:'row'}}>                        
-                            <TextInput  keyboardType='number-pad' placeholder='Your Target Saving' style={{backgroundColor:'rgb(229, 229, 229)',width:230,marginBottom:20,borderRadius:20}}/>
+                            <TextInput onChangeText={(main_balance) => this.setState({main_balance})} keyboardType='number-pad' placeholder='Your Target Saving' style={{backgroundColor:'rgb(229, 229, 229)',width:230,marginBottom:20,borderRadius:20}}/>
                         </View>                    
                         <Button
-                        onPress={() =>  onSignIn().then(() => this.props.navigation.navigate("SignedIn"))}
+                        onPress={this.balanceHandler}
                         backgroundColor='rgb(27, 162, 247)'
                         buttonStyle={{borderRadius:10}}
                         title='Do It'

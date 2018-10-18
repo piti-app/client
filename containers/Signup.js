@@ -3,7 +3,7 @@ import {ScrollView, View,TextInput,Text,Icon,Image,Alert } from 'react-native'
 import {  Button } from 'react-native-elements'
 import firebase from 'react-native-firebase'
 import axios from 'axios'
-import {onSignIn} from '../Authentication'
+import {onSignIn,auth} from '../Authentication'
 
 export default class Signin extends Component {
     static navigationOptions = {
@@ -47,6 +47,7 @@ export default class Signin extends Component {
             .then(({data}) => {
                 onSignIn()
                 .then((result) => {
+                    auth(this.state.email).then((result) => {})
                     this.props.navigation.navigate("InitBudget")    
                 }).catch((err) => {
                     
