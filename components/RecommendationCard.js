@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.6,
     marginBottom : 40,
     height : 200,
-    width : 160
+    width : 150,
+    marginRight: 20,
   },
   text: {
     fontSize: 16,
