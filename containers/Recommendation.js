@@ -1,32 +1,55 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, Card, CardItem, Text, Body, Icon } from "native-base";
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, ScrollView } from 'react-native'
+import { createStackNavigator } from 'react-navigation'
 
-import ExpenseCard from '../components/ExpenseCard'
+import RecommendationCard from '../components/RecommendationCard'
+import RecommendationDetail from './RecommendationDetail'
+
+class RecommendationContainer extends Component {
+  static navigationOptions = {
+    headerTitle: <Text style={{
+      fontSize: 32,
+      fontFamily : 'bebaskai',
+      textAlign : 'center',
+      paddingTop: 28,
+      paddingBottom: 20,
+      paddingLeft : 105
+    }}>RECOMMENDATIONS</Text>,
+    tabBarLabel: 'Home',
+    tabBarVisible:true,
+    tabBarIcon: <Icon name='home' />
+  }
+  state = {  }
+  render() {
+    return (
+      <ScrollView style={styles.container}>
+        <Text>Halo</Text>
+      </ScrollView>
+    );
+  }
+}
 
 class Recommendation extends Component {
   static navigationOptions = {
     title: 'Recomendation',
     tabBarLabel: 'Recomendation',
     tabBarVisible:true,
-    tabBarIcon: <Icon name='star' />  
+    tabBarIcon: <Icon name='star' />
   }
   state = {  }
   render() {
     return (
-      <Container>
-        <Text style={styles.title}>RECOMMENDATION</Text>
-        <Content style={styles.main}>
-          <Text>Halo</Text>
-        </Content>
-      </Container>
+      <RecommendationStack/>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  main: {
-    padding: 10
+  container: {
+    display : 'flex',
+    flexWrap: 'wrap',
+    backgroundColor : '#FFF'
   },
   mb10: {
     marginBottom: 10
@@ -39,5 +62,20 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   }
 })
+
+
+
+
+const RecommendationStack = createStackNavigator({
+  RecommendationContainer,
+  RecommendationDetail
+},
+{
+  navigationOptions : ({ navigation }) => ({
+      headerStyle: { backgroundColor: '#fff', elevation:0 }
+  })
+})
+
+
 
 export default Recommendation;
