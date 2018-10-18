@@ -31,7 +31,8 @@ const StackHome = createStackNavigator({
 },{
     navigationOptions : ({ navigation }) => ({
         headerStyle: { backgroundColor: '#fff', elevation:0 },
-        headerRight : (navigation.state.routeName==='Home') ? <Icon name="bookmarks" style={{ paddingRight : 30, paddingTop : 5 }} onPress={() => navigation.navigate('Add')} /> : <View></View>
+        headerRight : (navigation.state.routeName==='Home') ? <Icon name="bookmarks" style={{ paddingRight : 30, paddingTop : 5 }} onPress={() => navigation.navigate('Add')} /> : <View></View>,
+        headerRight : (navigation.state.routeName==='Update') ? <Icon name="trash" style={{ paddingRight : 30, paddingTop : 5 }} onPress={() => navigation.navigate('Add')} /> : <View></View>
     })
 })
 

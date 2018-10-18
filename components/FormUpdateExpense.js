@@ -28,10 +28,10 @@ export default class FormUpdateExpense extends Component {
   }
 
     state = {
-      date: this.props.navigation.state.params.date.toDateString(),
-      price: this.props.navigation.state.params.price,
-      type: this.props.navigation.state.params.type,
-      description: this.props.navigation.state.params.description,
+      date: '',
+      price: '',
+      type: '',
+      description: '',
       isDateTimePickerVisible: false,
       items: [
           { label: 'Food & Drink', value: 'Food & Drink'},
@@ -50,6 +50,18 @@ export default class FormUpdateExpense extends Component {
       }
     };
 
+    componentDidMount() {
+      this.setState({
+        date: this.props.navigation.state.params.date.toDateString(),
+        price: this.props.navigation.state.params.price,
+        type: this.props.navigation.state.params.type,
+        description: this.props.navigation.state.params.description,
+      })
+    }
+
+    handleOnChange = (event) => {
+      console.log(event)
+    }
     onClickListener = () => {
         console.log(this.state.date, 'Date')
         console.log(this.state.price, 'Price')
@@ -58,10 +70,10 @@ export default class FormUpdateExpense extends Component {
         this.textType.clear()
         this.textDescription.clear()
         this.setState({
-            date: 'Date',
-            price: '',
-            type: 'Type',
-            description: ''
+            date: this.state.date,
+            price: this.state.price,
+            type: this.state.type,
+            description: this.state.description
         })
     }
   
@@ -77,7 +89,6 @@ export default class FormUpdateExpense extends Component {
     };
   
     render() {
-      console.log(this.props.navigation.state.params.price)
       return (
         <View style={styles.container}>
             <View>
@@ -98,11 +109,10 @@ export default class FormUpdateExpense extends Component {
                 <Image style={styles.inputIcon} source={this.state.icon.price}/>
                 <TextInput style={styles.inputs}
                     ref={input => { this.textType = input }}
-                    placeholder="Price"
+                    value={this.state.price.toString()}
                     keyboardType="numeric"
-                    value={this.props.navigation.state.params.price.toString()}
                     underlineColorAndroid='transparent'
-                    onChangeText={(price) => this.setState({price})}/>
+                    onSubmitEditing={(price) => this.setState({price})}/>
             </View>
             <View>
                 <TouchableOpacity>
@@ -124,11 +134,10 @@ export default class FormUpdateExpense extends Component {
                 <Image style={styles.inputIcon} source={this.state.icon.description}/>
                 <TextInput style={styles.inputs}
                     ref={input => { this.textDescription = input }}
-                    placeholder="Description"
+                    placeholder={this.state.description}
                     keyboardType="default"
-                    value={this.props.navigation.state.params.description}
                     underlineColorAndroid='transparent'
-                    onChangeText={(description) => this.setState({description})}/>
+                    onSubmitEditing={(description) => this.setState({description})}/>
             </View>
 
             <TouchableHighlight style={[styles.buttonContainer, styles.createButton]} onPress={() => this.onClickListener()}>
@@ -209,4 +218,97 @@ export default class FormUpdateExpense extends Component {
     paddingBottom: 20,
   }
   });
+
+// import React from 'react';
+// import {
+//   StyleSheet,
+//   View,
+//   TextInput,
+//   AppRegistry,
+// } from 'react-native';
+
+// class App extends React.Component {
+//   constructor(props) {
+//     super(props);
+
+//     this.focusNextField = this.focusNextField.bind(this);
+//     this.inputs = {};
+//   }
+
+//   focusNextField(id) {
+//     this.inputs[id].focus();
+//   }
+
+//   render() {
+//     return (
+//       <View style={styles.outerContainer}>
+//         <TextInput
+//           placeholder="one"
+//           blurOnSubmit={ false }
+//           onSubmitEditing={() => {
+//             this.focusNextField('two');
+//           }}
+//           returnKeyType={ "next" }
+//           style={styles.textInput}
+//           ref={ input => {
+//             this.inputs['one'] = input;
+//           }}
+//         />
+//         <TextInput
+//           placeholder="two"
+//           blurOnSubmit={ false }
+//           onSubmitEditing={() => {
+//             this.focusNextField('three');
+//           }}
+//           returnKeyType={ "next" }
+//           style={styles.textInput}
+//           ref={ input => {
+//             this.inputs['two'] = input;
+//           }}
+//         />
+//         <TextInput
+//           placeholder="three"
+//           blurOnSubmit={ false }
+//           onSubmitEditing={() => {
+//             this.focusNextField('four');
+//           }}
+//           returnKeyType={ "next" }
+//           style={styles.textInput}
+//           ref={ input => {
+//             this.inputs['three'] = input;
+//           }}
+//         />
+//         <TextInput
+//           placeholder="four"
+//           blurOnSubmit={ true }
+//           returnKeyType={ "done" }
+//           style={styles.textInput}
+//           ref={ input => {
+//             this.inputs['four'] = input;
+//           }}
+//         />
+//       </View>
+//     );
+//   };
+// }
+
+// const styles = StyleSheet.create({
+//   outerContainer: {
+//     flex: 1,
+//     paddingTop: 60,
+//     alignItems: 'center',
+//     flexDirection: 'column',
+//   },
+//   textInput: {
+//     alignSelf: 'stretch',
+//     borderRadius: 5,
+//     borderWidth: 1,
+//     height: 44,
+//     paddingHorizontal: 10,
+//     marginHorizontal: 20,
+//     marginBottom: 20,
+//   },
+// });
+
+// export default App;
 
