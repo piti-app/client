@@ -11,7 +11,7 @@ class Add extends Component {
       textAlign : 'center',
       paddingTop: 28,
       paddingBottom: 20,
-      paddingLeft : 90
+      paddingLeft : 80
     }}>SAVE EXPENSE</Text>,
     tabBarLabel: 'Home',
     tabBarVisible:true,
