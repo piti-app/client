@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { ScrollView,View,TextInput,Text,TouchableHighlight,Icon,Image,Alert } from 'react-native'
 import { Button } from 'react-native-elements'
 import firebase from 'react-native-firebase'
-import {onSignIn} from '../Authentication'
+import {onSignIn,auth} from '../Authentication'
+import {connect} from 'react-redux'
+import {isAuthenticated} from '../store/actions/isLogin'
 
 class Signin extends Component {
     static navigationOptions = {
@@ -38,7 +40,9 @@ class Signin extends Component {
             .then((res) => {
               onSignIn()
               .then((result) => {
-                  this.props.navigation.navigate("SignedIn")
+                auth(this.state.email).then((result) => {})
+                this.props.isAuthenticated(this.state.email)
+                this.props.navigation.navigate("SignedIn")                      
               }).catch((err) => {
                   
               });
@@ -93,6 +97,6 @@ class Signin extends Component {
   }
 }
 
-export default Signin
+export default connect(null,{isAuthenticated})(Signin)
 
 
