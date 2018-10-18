@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, Card, CardItem, Text, Body, Icon } from "native-base";
-import { StyleSheet, View, ScrollView } from 'react-native'
+import { StyleSheet, View, ScrollView, FlatList } from 'react-native'
 import { createStackNavigator } from 'react-navigation'
 
 import RecommendationCard from '../components/RecommendationCard'
@@ -23,13 +23,11 @@ class RecommendationContainer extends Component {
   state = {  }
   render() {
     return (
-      <ScrollView style={styles.container}>
-        <RecommendationCard/>
-        <RecommendationCard/>
-        <RecommendationCard/>
-        <RecommendationCard/>
-        <RecommendationCard/>
-      </ScrollView>
+      <FlatList style={styles.container}
+        data={[{key: 'a'}, {key: 'b'}]}
+        renderItem={({item}) => <RecommendationCard/>}
+        numColumns={2}
+      />
     );
   }
 }
@@ -53,7 +51,9 @@ const styles = StyleSheet.create({
   container: {
     display : 'flex',
     flexWrap: 'wrap',
-    backgroundColor : '#FFF'
+    backgroundColor : '#FFF',
+    flexDirection: 'column',
+    paddingTop: 30,
   },
   mb10: {
     marginBottom: 10

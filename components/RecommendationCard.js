@@ -5,7 +5,7 @@ import { StyleSheet, Image } from 'react-native'
 export default class RecommendationCard extends Component {
   render() {
     return (
-      <View style={styles.container}>
+      <View elevation={2} style={styles.container}>
         <Text>Card</Text>
       </View>
     );
@@ -14,16 +14,20 @@ export default class RecommendationCard extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: 4,
-    borderTopWidth: 0.4,
-    borderBottomWidth: 0.4,
+    borderRadius: 5,
+    borderWidth: 0.4,
     borderColor: '#D2D2D2',
     paddingTop : 10,
     paddingBottom: 10,
-    display: 'flex',
-    flexWrap: 'wrap',
-    flexDirection : 'row',
-    flex : 1
+    width : '80%',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    shadowOffset:{  width: 4,  height: 3,  },
+    shadowColor: '#cacaca',
+    shadowOpacity: 0.6,
+    marginBottom : 40,
+    height : 200,
+    width : 160
   },
   text: {
     fontSize: 16,
