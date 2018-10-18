@@ -21,17 +21,17 @@ export default class FormUpdateExpense extends Component {
       paddingTop: 28,
       paddingBottom: 20,
       paddingLeft : 65
-    }}>UPDATE EXPENSE</Text>,
+    }}>EDIT EXPENSE</Text>,
     tabBarLabel: 'Home',
     tabBarVisible:true,
     tabBarIcon: <Icon name='home' />
   }
 
     state = {
-      date: '',
-      price: '',
-      type: '',
-      description: '',
+      date: this.props.navigation.state.params.date.toDateString(),
+      price: this.props.navigation.state.params.price,
+      type: this.props.navigation.state.params.type,
+      description: this.props.navigation.state.params.description,
       isDateTimePickerVisible: false,
       items: [
           { label: 'Food & Drink', value: 'Food & Drink'},
@@ -50,31 +50,23 @@ export default class FormUpdateExpense extends Component {
       }
     };
 
-    componentDidMount() {
+    handleOnChangePrice = (event) => {
+      let newPrice =  event
       this.setState({
-        date: this.props.navigation.state.params.date.toDateString(),
-        price: this.props.navigation.state.params.price,
-        type: this.props.navigation.state.params.type,
-        description: this.props.navigation.state.params.description,
+        price: newPrice
       })
     }
-
-    handleOnChange = (event) => {
-      console.log(event)
+    handleOnChangeDescription = (event) => {
+      let newDescription =  event
+      this.setState({
+        description: newDescription
+      })
     }
     onClickListener = () => {
         console.log(this.state.date, 'Date')
         console.log(this.state.price, 'Price')
         console.log(this.state.type, 'Type')
         console.log(this.state.description, 'Description')
-        this.textType.clear()
-        this.textDescription.clear()
-        this.setState({
-            date: this.state.date,
-            price: this.state.price,
-            type: this.state.type,
-            description: this.state.description
-        })
     }
   
     showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
@@ -112,7 +104,7 @@ export default class FormUpdateExpense extends Component {
                     value={this.state.price.toString()}
                     keyboardType="numeric"
                     underlineColorAndroid='transparent'
-                    onSubmitEditing={(price) => this.setState({price})}/>
+                    onChangeText={this.handleOnChangePrice}/>
             </View>
             <View>
                 <TouchableOpacity>
@@ -134,14 +126,14 @@ export default class FormUpdateExpense extends Component {
                 <Image style={styles.inputIcon} source={this.state.icon.description}/>
                 <TextInput style={styles.inputs}
                     ref={input => { this.textDescription = input }}
-                    placeholder={this.state.description}
+                    value={this.state.description}
                     keyboardType="default"
                     underlineColorAndroid='transparent'
-                    onSubmitEditing={(description) => this.setState({description})}/>
+                    onChangeText={this.handleOnChangeDescription}/>
             </View>
 
             <TouchableHighlight style={[styles.buttonContainer, styles.createButton]} onPress={() => this.onClickListener()}>
-                 <Text style={styles.createText}>Save Expense</Text>
+                 <Text style={styles.createText}>Edit Expense</Text>
             </TouchableHighlight>
   
         </View>

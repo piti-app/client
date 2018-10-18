@@ -10,11 +10,7 @@ class Add extends Component {
       textAlign : 'center',
       paddingTop: 28,
       paddingBottom: 20,
-<<<<<<< HEAD
       paddingLeft : 80
-=======
-      paddingLeft : 75
->>>>>>> Create Form Update Expense
     }}>SAVE EXPENSE</Text>,
     tabBarLabel: 'Home',
     tabBarVisible:true,
