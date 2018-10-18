@@ -11,7 +11,7 @@ class Add extends Component {
       textAlign : 'center',
       paddingTop: 28,
       paddingBottom: 20,
-      paddingLeft : 90
+      paddingLeft : 80
     }}>SAVE EXPENSE</Text>,
     tabBarLabel: 'Home',
     tabBarVisible:true,
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F7F7F7',
+    backgroundColor: '#FFF',
   },
 })
 
