@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Button } from 'react-native-elements'
-import { View } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { onSignOut } from "../Authentication";
 import ExpenseCard from '../components/ExpenseCard'
+import { Icon } from 'native-base'
+
 
 class Profile extends Component {
   static navigationOptions = {

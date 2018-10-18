@@ -16,8 +16,6 @@ import { Icon } from 'native-base'
 
 import InitBudget from './containers/InitBudget'
 
-import Authentication from './containers/Authentication'
-
 import Home from './containers/Home'
 import Add from './containers/Add'
 import Recommendation from './containers/Recommendation'
@@ -25,10 +23,7 @@ import Profile from './containers/Profile'
 import { isSignedIn } from "./Authentication";
 import SignedOut from './containers/Router'
 
-import { isSignedIn } from "./Authentication";
-import SignedOut from './containers/Router'
-
-const StackHome = createBottomTabNavigator({
+const StackHome = createStackNavigator({
     Home,
     Add
 },{
@@ -42,7 +37,16 @@ const SignedIn = createBottomTabNavigator({
     Home : StackHome,
     Recommendation,
     Profile
-})
+},{
+    navigationOptions : {
+        title: 'Home',
+        tabBarLabel: 'Home',
+        tabBarVisible:true,
+        tabBarIcon: <Icon name='home' />,
+    },
+    tabBarOptions : {
+        style : { borderTopColor: '#FFF', backgroundColor : '#FFF' }
+    }})
 const createRootNavigator = (signedIn) => {
     return SwitchNavigator(
       {
