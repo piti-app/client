@@ -1,13 +1,13 @@
 import { StackNavigator } from "react-navigation";
 
-import SignUp from "./Signup";
 import SignIn from "./Signin";
+import SignUp from "./Signup";
 
 export default Router = StackNavigator({
+  SignIn: {
+    screen: SignIn    
+  },
   SignUp: {
     screen: SignUp   
   },
-  SignIn: {
-    screen: SignIn    
-  }
 });
