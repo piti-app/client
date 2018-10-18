@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
-import { Container, Content, Text, Icon, Button} from 'native-base';
-import { StyleSheet } from 'react-native'
+import { Button } from 'react-native-elements'
+import { View, StyleSheet } from 'react-native'
+import { onSignOut } from "../Authentication";
+import ExpenseCard from '../components/ExpenseCard'
+import { Icon } from 'native-base'
+
 
 class Profile extends Component {
   static navigationOptions = {
     title: 'Profile',
     tabBarLabel: 'Profile',
     tabBarVisible:true,
-    tabBarIcon: <Icon name='person' />  
+    tabBarIcon: <Icon name='person' />
   }
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       chosenDate: new Date(),
       selected: undefined
     };
@@ -27,12 +31,10 @@ class Profile extends Component {
   }
   render() {
     return (
-        <Container>
-          <Text style={styles.title}>PROFILE</Text>
-          <Content style={styles.main}>
-            <Text>Halo</Text>
-          </Content>
-        </Container>
+        <View>
+          <Button title='logout' onPress={() => {onSignOut().then(() => this.props.navigation.navigate("SignedOut"))}}></Button>
+        </View>
+
     );
   }
 }
