@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { ScrollView,View,TextInput,Text,TouchableHighlight,Icon,Image,Alert } from 'react-native'
 import { Button } from 'react-native-elements'
 import firebase from 'react-native-firebase'
+import {onSignIn} from '../Authentication'
 
 class Signin extends Component {
     static navigationOptions = {
