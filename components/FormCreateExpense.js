@@ -67,7 +67,8 @@ class FormCreateExpense extends Component {
         type: require('../assets/icons/checked.png'),
         description: require('../assets/icons/target.png'),
       },
-      show: false
+      show: false,
+      error: false
     };
 
      onClickListener = async () => {
@@ -188,7 +189,19 @@ class FormCreateExpense extends Component {
               title="Save Success !"
               headerIconComponent={  <Image
                 style={{width: 40, height: 40}}
-                source={{uri: 'https://png.icons8.com/ios-glyphs/50/ffffff/multi-edit.png'}}
+                source={{uri: 'https://png.icons8.com/android/50/ffffff/ok.png'}}
+              />}
+            >
+            </SCLAlert>
+
+            <SCLAlert
+              show={this.state.error}
+              onRequestClose={this.handleCloseError}
+              theme="danger"
+              title="Save Error !"
+              headerIconComponent={  <Image
+                style={{width: 40, height: 40}}
+                source={{uri: 'https://png.icons8.com/material/50/ffffff/box-important.png'}}
               />}
             >
             </SCLAlert>

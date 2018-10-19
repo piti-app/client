@@ -79,7 +79,8 @@ class FormUpdateExpense extends Component {
         type: require('../assets/icons/checked.png'),
         description: require('../assets/icons/target.png'),
       },
-      show: false
+      show: false,
+      error: false
     };
 
     handleOnChangePrice = (event) => {
@@ -97,6 +98,9 @@ class FormUpdateExpense extends Component {
 
     handleClose = () => {
       this.setState({ show: false })
+    }
+    handleCloseError = () => {
+      this.setState({ error: false })
     }
 
     onClickListener = () => {
@@ -116,7 +120,6 @@ class FormUpdateExpense extends Component {
 
               this.setState({ show: true })
               this.props.getExpenses()
-              // Alert.alert('Edit Expense Succes !')
 
           })
           .catch((err) => {
@@ -202,6 +205,18 @@ class FormUpdateExpense extends Component {
               headerIconComponent={  <Image
                 style={{width: 40, height: 40}}
                 source={{uri: 'https://png.icons8.com/ios-glyphs/50/ffffff/multi-edit.png'}}
+              />}
+            >
+            </SCLAlert>
+
+            <SCLAlert
+              show={this.state.error}
+              onRequestClose={this.handleCloseError}
+              theme="danger"
+              title="Edit Error !"
+              headerIconComponent={  <Image
+                style={{width: 40, height: 40}}
+                source={{uri: 'https://png.icons8.com/material/50/ffffff/box-important.png'}}
               />}
             >
             </SCLAlert>
