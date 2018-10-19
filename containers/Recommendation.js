@@ -3,6 +3,8 @@ import { Container, Header, Content, Card, CardItem, Text, Body, Icon } from "na
 import { StyleSheet, View, ScrollView, FlatList } from 'react-native'
 import { createStackNavigator } from 'react-navigation'
 import axios from 'axios'
+import { AsyncStorage } from "react-native";
+import {getEmail} from '../Authentication'
 
 import RecommendationCard from '../components/RecommendationCard'
 import RecommendationDetail from './RecommendationDetail'
@@ -14,42 +16,44 @@ class RecommendationContainer extends Component {
   }
   componentDidMount = () => {
     let self = this
+    getEmail()
+      .then((email) => {
+        axios({
+          method : 'GET',
+          url : `http://10.0.2.2:4000/user/${email}`
+        })
+          .then(({data}) => {
+            navigator.geolocation.getCurrentPosition((position)=>{
+              axios({
+                method : 'POST',
+                url : `http://10.0.2.2:4000/recommendation/newRecommendation`,
+                data : {
+                  main_balance : data.user.main_balance,
+                  money_spent : data.user.money_spent,
+                  budget : data.user.budget
+                },
+                headers : {
+                  'user-key' : '43ba0f8146136e318177d15edc3dc24f'
+                }
+              })
+                .then(response=>{
+                  console.log(response)
+                  this.setState({
+                    recommendations : response.data.data,
+                    isLoaded : true
+                  })
+                })
+                .catch(error =>{
+                  console.log(error,'ini error')
+                })
+            })
+          }).catch((err) => {
 
-    navigator.geolocation.getCurrentPosition((position)=>{
-      axios({
-        method : 'POST',
-        url : `http://10.0.2.2:4000/recommendation/newRecommendation`,
-        data : {
-          main_balance : 1500000,
-          money_spent : 500000,
-          budget : 200000
-        },
-        headers : {
-          'user-key' : '43ba0f8146136e318177d15edc3dc24f'
-        }
+          });
+      }).catch((err) => {
+
       })
-        .then(response=>{
-          console.log(response)
-          this.setState({
-            recommendations : response.data.data,
-            isLoaded : true
-          })
-        })
-        .catch(error =>{
-          console.log(error,'ini error')
-        })
-    })
 
-    // axios({
-    //   method : 'GET',
-    //   url : 'https://swapi.co/api/people'
-    // })
-    //   .then(response=>{
-    //     console.log(response)
-    //   })
-    //   .catch(err=>{
-    //     console.log(err)
-    //   })
   };
 
   static navigationOptions = {

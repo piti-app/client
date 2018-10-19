@@ -35,13 +35,13 @@ export default class InitBudget extends Component {
         .then((email) => {
             axios.put(`http://10.0.2.2:4000/user/${email}`,data)
             .then(({data}) => {
-                onSignIn().then(() => this.props.navigation.navigate("SignedIn"))                
+                onSignIn().then(() => this.props.navigation.navigate("SignedIn"))
             }).catch((err) => {
-                
+
             })
         }).catch((err) => {
-          
-        })                 
+
+        })
     }
     render() {
         return (
@@ -51,15 +51,15 @@ export default class InitBudget extends Component {
                     <View style={{justifyContent:'center',alignItems:'center',backgroundColor:'rgb(229, 229, 229)' ,borderRadius:10,padding:2}}>
                       <View style={{justifyContent:'center',alignItems:'center',backgroundColor:'#fff' ,borderRadius:10,paddingTop:20,paddingBottom:20,paddingLeft:35,paddingRight:35}}>
                         <View style={{flexDirection:'column',marginBottom:20,marginTop:20,justifyContent:'center',alignItems:'center'}}>
-                          <Text style={{ fontWeight:'bold', fontSize:16,fontFamily : 'geomanist_regular',textAlign : 'center'}}>Being in control of your finances</Text>                                  
+                          <Text style={{ fontWeight:'bold', fontSize:16,fontFamily : 'geomanist_regular',textAlign : 'center'}}>Being in control of your finances</Text>
                           <Text style={{ fontWeight:'bold', fontSize:16,fontFamily : 'geomanist_regular',textAlign : 'center'}}>is a great stress reliever</Text>
                         </View>
-                        <View style={{flexDirection:'row'}}>                        
-                            <TextInput onChangeText={(budget) => this.setState({budget})} keyboardType='number-pad' placeholder='Your Main Balance' style={{backgroundColor:'rgb(229, 229, 229)',width:230,marginBottom:20,borderRadius:20}}/>
+                        <View style={{flexDirection:'row'}}>
+                            <TextInput onChangeText={(main_balance) => this.setState({main_balance})} keyboardType='number-pad' placeholder='Your Main Balance' style={{backgroundColor:'rgb(229, 229, 229)',width:230,marginBottom:20,borderRadius:20}}/>
                         </View>
-                        <View style={{flexDirection:'row'}}>                        
-                            <TextInput onChangeText={(main_balance) => this.setState({main_balance})} keyboardType='number-pad' placeholder='Your Target Saving' style={{backgroundColor:'rgb(229, 229, 229)',width:230,marginBottom:20,borderRadius:20}}/>
-                        </View>                    
+                        <View style={{flexDirection:'row'}}>
+                            <TextInput onChangeText={(budget) => this.setState({budget})} keyboardType='number-pad' placeholder='Your Target Saving' style={{backgroundColor:'rgb(229, 229, 229)',width:230,marginBottom:20,borderRadius:20}}/>
+                        </View>
                         <Button
                         onPress={this.balanceHandler}
                         backgroundColor='rgb(27, 162, 247)'
@@ -68,9 +68,9 @@ export default class InitBudget extends Component {
 
                         titleStyle={{justifyContent:'center',alignItems:'center' }} />
                     </View>
-                    </View>    
+                    </View>
                   </View>
-                </View>                         
+                </View>
             </View>
         );
     }
