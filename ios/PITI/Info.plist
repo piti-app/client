@@ -55,71 +55,30 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
-<<<<<<< HEAD
-<<<<<<< HEAD
 		<string>AntDesign.ttf</string>
-=======
-<<<<<<< HEAD
 		<string>BebasKai.otf</string>
-=======
-		<string>AntDesign.ttf</string>
->>>>>>> scafold layout
->>>>>>> scafold layout
-=======
-		<string>AntDesign.ttf</string>
->>>>>>> authentication + setup redux
 		<string>Entypo.ttf</string>
 		<string>EvilIcons.ttf</string>
 		<string>Feather.ttf</string>
 		<string>FontAwesome.ttf</string>
-<<<<<<< HEAD
-<<<<<<< HEAD
 		<string>FontAwesome5_Brands.ttf</string>
 		<string>FontAwesome5_Regular.ttf</string>
 		<string>FontAwesome5_Solid.ttf</string>
-=======
-<<<<<<< HEAD
-=======
-		<string>FontAwesome5_Brands.ttf</string>
-		<string>FontAwesome5_Regular.ttf</string>
-		<string>FontAwesome5_Solid.ttf</string>
->>>>>>> scafold layout
->>>>>>> scafold layout
-=======
-		<string>FontAwesome5_Brands.ttf</string>
-		<string>FontAwesome5_Regular.ttf</string>
-		<string>FontAwesome5_Solid.ttf</string>
->>>>>>> authentication + setup redux
 		<string>Foundation.ttf</string>
 		<string>Ionicons.ttf</string>
 		<string>MaterialCommunityIcons.ttf</string>
 		<string>MaterialIcons.ttf</string>
 		<string>Octicons.ttf</string>
-<<<<<<< HEAD
-<<<<<<< HEAD
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
-=======
-<<<<<<< HEAD
 		<string>Roboto_medium.ttf</string>
 		<string>Roboto.ttf</string>
 		<string>rubicon-icon-font.ttf</string>
-		<string>SimpleLineIcons.ttf</string>
-		<string>Zocial.ttf</string>
 		<string>bebaskai.otf</string>
 		<string>Gilroy-ExtraBold.otf</string>
 		<string>gilroy_extrabold.otf</string>
 		<string>gilroy_light.otf</string>
 		<string>geomanist_regular.ttf</string>
-=======
-		<string>SimpleLineIcons.ttf</string>
-		<string>Zocial.ttf</string>
->>>>>>> scafold layout
->>>>>>> scafold layout
-=======
-		<string>SimpleLineIcons.ttf</string>
-		<string>Zocial.ttf</string>
->>>>>>> authentication + setup redux
 	</array>
 </dict>
 </plist>
