@@ -16,6 +16,7 @@ import {getEmail,fcm} from '../Authentication'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import getData from '../store/actions/getData'
+import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
@@ -65,7 +66,8 @@ class FormCreateExpense extends Component {
         price: require('../assets/icons/money.png'),
         type: require('../assets/icons/checked.png'),
         description: require('../assets/icons/target.png'),
-      }
+      },
+      show: false
     };
 
      onClickListener = async () => {
@@ -176,8 +178,20 @@ class FormCreateExpense extends Component {
             </View>
 
             <TouchableHighlight style={[styles.buttonContainer, styles.createButton]} onPress={() => this.onClickListener()}>
-                 <Text style={styles.createText}>Save Expense</Text>
+                 <Text style={styles.createText}>Save</Text>
             </TouchableHighlight>
+
+             <SCLAlert
+              show={this.state.show}
+              onRequestClose={this.handleClose}
+              theme="info"
+              title="Save Success !"
+              headerIconComponent={  <Image
+                style={{width: 40, height: 40}}
+                source={{uri: 'https://png.icons8.com/ios-glyphs/50/ffffff/multi-edit.png'}}
+              />}
+            >
+            </SCLAlert>
 
         </View>
       );
@@ -242,7 +256,7 @@ class FormCreateExpense extends Component {
       borderRadius:30,
     },
     createButton: {
-      backgroundColor: "#00b5ec",
+      backgroundColor: "#0D7EF7",
     },
     createText: {
       color: 'white',

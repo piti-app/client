@@ -69,7 +69,6 @@ class Home extends Component {
         .then((result) => {
 
             this.props.getExpenses()
-            Alert.alert('Delete Expense Succes !')
 
         })
         .catch((err) => {
