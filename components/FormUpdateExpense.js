@@ -11,11 +11,21 @@ import {
     ScrollView,
     Alert
   } from 'react-native';
+import { connect } from 'react-redux'
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import RNPickerSelect from 'react-native-picker-select';
 import axios from 'axios'
+import getData from '../store/actions/getData'
 
-export default class FormUpdateExpense extends Component {
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    getExpenses: () => {
+      dispatch(getData())
+    }
+  }
+}
+
+class FormUpdateExpense extends Component {
   static navigationOptions = {
     headerTitle: <Text style={{
       fontSize: 32,
@@ -80,9 +90,11 @@ export default class FormUpdateExpense extends Component {
           })
           .then((result) => {
 
+              this.props.getExpenses()
               Alert.alert('Edit Succes !')
 
-          }).catch((err) => {
+          })
+          .catch((err) => {
 
               Alert.alert("Error !")
 
@@ -161,6 +173,8 @@ export default class FormUpdateExpense extends Component {
       );
     }
   }
+
+export default connect(null, mapDispatchToProps)(FormUpdateExpense)
   
   const styles = StyleSheet.create({
     container: {
