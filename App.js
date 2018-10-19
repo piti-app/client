@@ -21,7 +21,7 @@ import Add from './containers/Add'
 import Update from './components/FormUpdateExpense'
 import Recommendation from './containers/Recommendation'
 import Profile from './containers/Profile'
-import { isSignedIn } from "./Authentication";
+import { isSignedIn,setFcm } from "./Authentication";
 import SignedOut from './containers/Router'
 
 const StackHome = createStackNavigator({
@@ -83,7 +83,9 @@ export default class App extends Component {
                 this.setState({ signedIn:res,checkedSignIn: true })
             })
             .catch((err) => {Alert.alert(err)})
-
+            let fcmToken = await firebase.messaging().getToken();
+            setFcm(fcmToken).then(result => {})                   
+        
         const notificationOpen: NotificationOpen = await firebase.notifications().getInitialNotification();
         if (notificationOpen) {
             const action = notificationOpen.action;
