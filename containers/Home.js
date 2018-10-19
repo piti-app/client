@@ -7,6 +7,7 @@ import ExpenseCard from '../components/ExpenseCard'
 import axios from 'axios';
 import { connect }from 'react-redux'
 import getData from '../store/actions/getData'
+import Spinner from 'react-native-loading-spinner-overlay';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -97,7 +98,11 @@ class Home extends Component {
             }
           </ScrollView>
           :
-          <Fragment></Fragment>
+          <Spinner
+            visible={true}
+            textContent={'Loading...'}
+            textStyle={styles.spinnerTextStyle}
+          />
           }
         </View>
     );
