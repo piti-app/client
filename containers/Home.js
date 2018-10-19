@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, Card, CardItem, Text, Body, Icon} from "native-base";
 import { View, StyleSheet, ScrollView, TouchableHighlight } from 'react-native'
 import Swipeout from 'react-native-swipeout'
-
+import { Container, Header, Content, Card, CardItem, Text, Body, Icon } from "native-base";
+import { View, StyleSheet, ScrollView } from 'react-native'
+import {getEmail} from '../Authentication'
 import ExpenseCard from '../components/ExpenseCard'
 
 class Home extends Component {
@@ -21,6 +22,7 @@ class Home extends Component {
   }
 
   state = {
+    email : null,
     data : [
       {
         description : 'Nasi Goreng',
@@ -87,12 +89,22 @@ class Home extends Component {
       }
     ]
    }
-   
+
+   componentDidMount(){
+    getEmail()
+    .then((result) => {
+      this.setState({
+        email :result
+      })
+    }).catch((err) => {
+      
+    })  
+   }
   render() {
     const  swipeoutBtns = [{ text: 'Detele', color : '#FFF', backgroundColor : 'red'}]
     return (
         <View style ={{ backgroundColor : '#FFF' }}>
-          {/* <Text style={styles.title}>OVERVIEW</Text> */}
+          <Text>{JSON.stringify(this.state.email)}</Text>
           <ScrollView style={{ marginBottom : 10, backgroundColor : '#FFF' }}>
             {
               this.state.data.map((datum,index)=>
