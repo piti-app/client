@@ -13,7 +13,7 @@ import store from './store/index'
 import type { Notification, NotificationOpen } from 'react-native-firebase';
 import { createBottomTabNavigator, createStackNavigator,SwitchNavigator } from 'react-navigation'
 import { Icon } from 'native-base'
-
+import SplashScreen from 'react-native-splash-screen';
 import InitBudget from './containers/InitBudget'
 
 import Home from './containers/Home'
@@ -77,6 +77,7 @@ export default class App extends Component {
           };
     }
     async componentDidMount() {
+        SplashScreen.hide()
         isSignedIn()
             .then((res) => {
                 this.setState({ signedIn:res,checkedSignIn: true })
