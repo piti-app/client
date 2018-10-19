@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Button } from 'react-native-elements'
-import { View, StyleSheet } from 'react-native'
 import { onSignOut } from "../Authentication";
 import ExpenseCard from '../components/ExpenseCard'
-import { Icon } from 'native-base'
+import { 
+  Container, Header, Left, Body, Right, Content, 
+  Button, Title, Card, CardItem, Text, Icon, H1, H2, Thumbnail } from "native-base";
+import _ from '../assets/style'
 
 
 class Profile extends Component {
@@ -31,28 +32,50 @@ class Profile extends Component {
   }
   render() {
     return (
-        <View>
-          <Button title='logout' onPress={() => {onSignOut().then(() => this.props.navigation.navigate("SignedOut"))}}></Button>
-        </View>
+        <Container>
+          <Header noLeft>
+            <Body>
+              <Title style={_.title}>Profile</Title>
+            </Body>
+            <Right>
+              <Button transparent onPress={() => {onSignOut().then(() => this.props.navigation.navigate("SignedOut"))}}>
+                <Icon type="FontAwesome" name="sign-out" />
+              </Button>
+            </Right>
+          </Header>
+          <Content style={_.content}>
+            <Card>
+              <CardItem>
+                <Left>
+                  <Thumbnail source={{uri: 'https://avatars2.githubusercontent.com/u/15111402?s=460&v=4'}} />
+                  <Body>
+                    <H2>NativeBase</H2>
+                    <Text note>GeekyAnts</Text>
+                  </Body>
+                </Left>
+              </CardItem>
+            </Card>
+            <Card>
+              <CardItem>
+                <Content>
+                  <H1>Bugget</H1>
+                  <Text>Total Bugget: Rp.15.000</Text>
+                </Content>
+              </CardItem>
+            </Card>
+            <Card>
+              <CardItem>
+                <Content>
+                  <H1>Expense</H1>
+                  <Text>Total Expense: Rp.10.000,-</Text>
+                </Content>
+              </CardItem>
+            </Card>
+          </Content>
+        </Container>
 
     );
   }
 }
-
-const styles = StyleSheet.create({
-  main: {
-    padding: 10
-  },
-  mb10: {
-    marginBottom: 10
-  },
-  title: {
-    fontSize: 32,
-    fontFamily : 'bebaskai',
-    textAlign : 'center',
-    paddingTop: 20,
-    paddingBottom: 20,
-  }
-})
 
 export default Profile;
