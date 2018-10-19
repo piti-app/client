@@ -5,6 +5,23 @@ import { Container, Header, Content, Card, CardItem, Text, Body, Icon } from "na
 import {getEmail} from '../Authentication'
 import ExpenseCard from '../components/ExpenseCard'
 import Axios from 'axios';
+import { connect }from 'react-redux'
+import getData from '../store/actions/getData'
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    user : state.getExpense.user,
+    isLoaded : state.getExpense.isLoaded
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    getExpenses: () => {
+      dispatch(getData())
+    }
+  }
+}
 
 class Home extends Component {
   static navigationOptions = {
@@ -22,99 +39,28 @@ class Home extends Component {
   }
 
   state = {
-    email : null,
-    data : [],
-    isLoaded : false
+    email : null
    }
 
    componentDidMount(){
-    getEmail()
-    .then((result) => {
-      this.setState({
-        email :result
-      })
-      Axios({
-        method : 'GET',
-        url : `http://10.0.2.2:4000/user/${result}`
-      })
-        .then(response=>{
-          const expenses = [...response.data.user.expense]
-          const finalArr = []
-          console.log(expenses)
-          expenses.forEach(expense=>{
-            if(expense.type==="Others"){
-              let newExpense = {
-                ...expense,
-                imageURL : require('../assets/icons/user.png')
-              }
-              finalArr.push(newExpense)
-            }
-            else if(expense.type==="Entertainment"){
-              let newExpense = {
-                ...expense,
-                imageURL : require('../assets/icons/monitor.png')
-              }
-              finalArr.push(newExpense)
-            }
-            else if(expense.type==="Clothes"){
-              let newExpense = {
-                ...expense,
-                imageURL : require('../assets/icons/basketball-jersey.png')
-              }
-              finalArr.push(newExpense)
-            }
-            else if(expense.type==="Personal"){
-              let newExpense = {
-                ...expense,
-                imageURL : require('../assets/icons/piggy-bank.png')
-              }
-              finalArr.push(newExpense)
-            }
-            else if(expense.type==="Food & Drink"){
-              let newExpense = {
-                ...expense,
-                imageURL : require('../assets/icons/fried-egg.png')
-              }
-              finalArr.push(newExpense)
-            }
-            else if(expense.type==="Transport"){
-              let newExpense = {
-                ...expense,
-                imageURL : require('../assets/icons/car.png')
-              }
-              finalArr.push(newExpense)
-            }
-            else if(expense.type==="Electronic"){
-              let newExpense = {
-                ...expense,
-                imageURL : require('../assets/icons/headphones.png')
-              }
-              finalArr.push(newExpense)
-            }
-          })
-          this.setState({
-            data : finalArr,
-            isLoaded : true
-          })
-        })
-        .catch(error=>{
-          console.log(error)
-        })
-    }).catch((err) => {
-      console.log(err)
-    })
+      this.props.getExpenses()
+      setTimeout(() => {
+        console.log(this.props)
+      }, 10000);
+
    }
+
   render() {
     const  swipeoutBtns = [{ text: 'Detele', color : '#FFF', backgroundColor : 'red'}]
     return (
         <View style ={{ backgroundColor : '#FFF', height:'100%' }}>
-          <Text>{JSON.stringify(this.state.email)}</Text>
+          <Text>{JSON.stringify(this.props.user.email)}</Text>
           {
-            this.state.isLoaded
+            this.props.isLoaded
             ?
             <ScrollView style={{ marginBottom : 10, backgroundColor : '#FFF' }}>
             {
-              this.state.data.map((datum,index)=>
+              this.props.user.expense.map((datum,index)=>
               <Swipeout right={swipeoutBtns} style={{backgroundColor:'#FFF'}}>
                   <View>
                 <TouchableHighlight onPress={() => this.props.navigation.navigate('Update', datum)}>
@@ -133,7 +79,7 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default connect(mapStateToProps, mapDispatchToProps)(Home)
 
 const styles = StyleSheet.create({
   title: {

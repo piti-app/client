@@ -13,8 +13,22 @@ import DateTimePicker from 'react-native-modal-datetime-picker';
 import RNPickerSelect from 'react-native-picker-select';
 import {getEmail} from '../Authentication'
 import axios from 'axios'
+import { connect } from 'react-redux'
+import getData from '../store/actions/getData'
 
-export default class FormCreateExpense extends Component {
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    getExpenses: () => {
+      dispatch(getData())
+    }
+  }
+}
+
+class FormCreateExpense extends Component {
+
+    componentDidMount() {
+        console.log(this.props,'ini props')
+    }
 
     state = {
       date: 'Date',
@@ -76,7 +90,7 @@ export default class FormCreateExpense extends Component {
                 }
             })
             .then((result) => {
-
+                this.props.getExpenses()
                 Alert.alert("Create Succes !")
                 this.textType.clear()
                 this.textDescription.clear()
@@ -86,15 +100,14 @@ export default class FormCreateExpense extends Component {
                     type: 'Type',
                     description: ''
                 })
-
             }).catch((err) => {
-                Alert.alert(err, "Error !")
+                Alert.alert("Error !")
             });
 
         }).catch((err) => {
-            Alert.alert(err, "Error !")
+            Alert.alert("Error !")
         });
-        
+
     }
 
     showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
@@ -171,6 +184,8 @@ export default class FormCreateExpense extends Component {
       );
     }
   }
+
+  export default connect(null, mapDispatchToProps)(FormCreateExpense)
 
   const styles = StyleSheet.create({
     container: {
