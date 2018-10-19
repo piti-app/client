@@ -26,10 +26,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 class FormCreateExpense extends Component {
 
-    componentDidMount() {
-        console.log(this.props,'ini props')
-    }
-
     state = {
       date: 'Date',
       displayDate: 'Date',

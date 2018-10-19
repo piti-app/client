@@ -8,12 +8,24 @@ import {
     TouchableOpacity,
     Image,
     Icon,
-    ScrollView
+    ScrollView,
+    Alert
   } from 'react-native';
+import { connect } from 'react-redux'
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import RNPickerSelect from 'react-native-picker-select';
+import axios from 'axios'
+import getData from '../store/actions/getData'
 
-export default class FormUpdateExpense extends Component {
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    getExpenses: () => {
+      dispatch(getData())
+    }
+  }
+}
+
+class FormUpdateExpense extends Component {
   static navigationOptions = {
     headerTitle: <Text style={{
       fontSize: 32,
@@ -29,7 +41,7 @@ export default class FormUpdateExpense extends Component {
   }
 
     state = {
-      date: this.props.navigation.state.params.date.toDateString(),
+      date: new Date(this.props.navigation.state.params.date).toDateString(),
       price: this.props.navigation.state.params.price,
       type: this.props.navigation.state.params.type,
       description: this.props.navigation.state.params.description,
@@ -64,10 +76,29 @@ export default class FormUpdateExpense extends Component {
       })
     }
     onClickListener = () => {
-        console.log(this.state.date, 'Date')
-        console.log(this.state.price, 'Price')
-        console.log(this.state.type, 'Type')
-        console.log(this.state.description, 'Description')
+  
+        let id = this.props.navigation.state.params._id
+        axios({
+          method : 'PUT',
+          url : `http://10.0.2.2:4000/expense/update/${id}`,
+          data: {
+              date: this.state.date,
+              price: this.state.price,
+              type: this.state.type,
+              description: this.state.description
+          }
+          })
+          .then((result) => {
+
+              this.props.getExpenses()
+              Alert.alert('Edit Succes !')
+
+          })
+          .catch((err) => {
+
+              Alert.alert("Error !")
+
+          });
     }
   
     showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
@@ -75,8 +106,9 @@ export default class FormUpdateExpense extends Component {
     hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
    
     handleDatePicked = (dateEvent) => {
+      let date = new Date(dateEvent)
       this.setState({
-          date: dateEvent.toDateString()
+          date: date.toDateString()
       })
       this.hideDateTimePicker();
     };
@@ -97,7 +129,6 @@ export default class FormUpdateExpense extends Component {
                     />
                 </TouchableOpacity>
             </View>
-          
             <View style={styles.inputContainer}>
                 <Image style={styles.inputIcon} source={this.state.icon.price}/>
                 <TextInput style={styles.inputs}
@@ -142,6 +173,8 @@ export default class FormUpdateExpense extends Component {
       );
     }
   }
+
+export default connect(null, mapDispatchToProps)(FormUpdateExpense)
   
   const styles = StyleSheet.create({
     container: {
