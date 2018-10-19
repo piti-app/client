@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, ScrollView, TouchableHighlight } from 'react-native'
 import Swipeout from 'react-native-swipeout'
 import { Container, Header, Content, Card, CardItem, Text, Body, Icon } from "native-base";
+import { View, StyleSheet, ScrollView } from 'react-native'
 import {getEmail} from '../Authentication'
 import ExpenseCard from '../components/ExpenseCard'
 
