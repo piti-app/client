@@ -40,8 +40,9 @@ class Home extends Component {
         .then(response=>{
           const expenses = [...response.data.user.expense]
           const finalArr = []
+          console.log(expenses)
           expenses.forEach(expense=>{
-            if(expense.type==="Other"){
+            if(expense.type==="Others"){
               let newExpense = {
                 ...expense,
                 imageURL : require('../assets/icons/user.png')
