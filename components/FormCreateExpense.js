@@ -62,25 +62,7 @@ export default class FormCreateExpense extends Component {
     };
 
     onClickListener = () => {
-        console.log(this.state.date, 'Date')
-        console.log(this.state.price, 'Price')
-        console.log(this.state.type, 'Type')
-        console.log(this.state.description, 'Description')
-        // this.textType.clear()
-        // this.textDescription.clear()
-        // this.setState({
-        //     date: 'Date',
-        //     price: '',
-        //     type: 'Type',
-        //     description: ''
-        // })
-        // let data = {
-        //             date: this.state.date,
-        //             price: this.state.price,
-        //             type: this.state.type,
-        //             description: this.state.description
-        // }
-        // Alert.alert(JSON.stringify(data))
+
         getEmail()
         .then((email) => {
             axios({
@@ -94,12 +76,23 @@ export default class FormCreateExpense extends Component {
                 }
             })
             .then((result) => {
-                Alert.alert(JSON.stringify(result))
+
+                Alert.alert("Create Succes !")
+                this.textType.clear()
+                this.textDescription.clear()
+                this.setState({
+                    displayDate: 'Date',
+                    price: '',
+                    type: 'Type',
+                    description: ''
+                })
+
             }).catch((err) => {
-                console.log(err)
+                Alert.alert(err, "Error !")
             });
+
         }).catch((err) => {
-            console.log(err)
+            Alert.alert(err, "Error !")
         });
         
     }
