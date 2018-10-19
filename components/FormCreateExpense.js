@@ -74,27 +74,34 @@ export default class FormCreateExpense extends Component {
         //     type: 'Type',
         //     description: ''
         // })
+        // let data = {
+        //             date: this.state.date,
+        //             price: this.state.price,
+        //             type: this.state.type,
+        //             description: this.state.description
+        // }
+        // Alert.alert(JSON.stringify(data))
         getEmail()
         .then((email) => {
-            console.log(email)
+            axios({
+                method : 'POST',
+                url : `http://10.0.2.2:4000/expense/create/${email}`,
+                data: {
+                    date: this.state.date,
+                    price: this.state.price,
+                    type: this.state.type,
+                    description: this.state.description
+                }
+            })
+            .then((result) => {
+                Alert.alert(JSON.stringify(result))
+            }).catch((err) => {
+                console.log(err)
+            });
         }).catch((err) => {
             console.log(err)
         });
-        // axios({
-        //     method : 'POST',
-        //     url : `http://10.0.2.2:4000/expense/create/${email}`,
-        //     data: {
-        //         date: this.state.date,
-        //         price: this.state.price,
-        //         type: this.state.type,
-        //         description: this.state.description
-        //     }
-        // })
-        // .then((result) => {
-        //     console.log(result)
-        // }).catch((err) => {
-        //     console.log(err)
-        // });
+        
     }
 
     showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
