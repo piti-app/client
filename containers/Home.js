@@ -1,74 +1,10 @@
 import React, { Component, Fragment } from 'react';
-import { View, StyleSheet, ScrollView, TouchableHighlight } from 'react-native'
+import { View, StyleSheet, ScrollView, TouchableHighlight, AsyncStorage } from 'react-native'
 import Swipeout from 'react-native-swipeout'
 import { Container, Header, Content, Card, CardItem, Text, Body, Icon } from "native-base";
 import {getEmail} from '../Authentication'
 import ExpenseCard from '../components/ExpenseCard'
 import Axios from 'axios';
-
-// [{
-//   description : 'Nasi Goreng',
-//   date : new Date(),
-//   price : 10000,
-//   type : 'food and drink',
-//   url : require('../assets/icons/fried-egg.png')
-// },
-// {
-//   description : 'Lamborghini',
-//   date : new Date(),
-//   price : 10000,
-//   type : 'transport',
-//   url: require('../assets/icons/car.png')
-// },
-// {
-//   description : 'Make Up',
-//   date : new Date(),
-//   price : 10000,
-//   type : 'personal',
-//   url : require('../assets/icons/piggy-bank.png')
-// },
-// {
-//   description : 'Bose QC35',
-//   date : new Date(),
-//   price : 10000,
-//   type : 'electronic',
-//   url : require('../assets/icons/headphones.png')
-// },
-// {
-//   description : 'test',
-//   date : new Date(),
-//   price : 10000,
-//   type : 'clothes',
-//   url : require('../assets/icons/basketball-jersey.png')
-// },
-// {
-//   description : 'FIFA 19',
-//   date : new Date(),
-//   price : 10000,
-//   type : 'entertainment',
-//   url : require('../assets/icons/monitor.png')
-// },
-// {
-//   description : 'Marathon',
-//   date : new Date(),
-//   price : 10000,
-//   type : 'other',
-//   url : require('../assets/icons/user.png')
-// },
-// {
-//   description : 'Marathon',
-//   date : new Date(),
-//   price : 10000,
-//   type : 'other',
-//   url : require('../assets/icons/user.png')
-// },
-// {
-//   description : 'Roko',
-//   date : new Date(),
-//   price : 10000,
-//   type : 'other',
-//   url : require('../assets/icons/user.png')
-// }]
 
 class Home extends Component {
   static navigationOptions = {
@@ -155,7 +91,6 @@ class Home extends Component {
               finalArr.push(newExpense)
             }
           })
-          console.log(finalArr)
           this.setState({
             data : finalArr,
             isLoaded : true
