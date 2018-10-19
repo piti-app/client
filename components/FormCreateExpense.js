@@ -11,11 +11,14 @@ import {
   } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import RNPickerSelect from 'react-native-picker-select';
+import {getEmail} from '../Authentication'
+import axios from 'axios'
 
 export default class FormCreateExpense extends Component {
 
     state = {
       date: 'Date',
+      displayDate: 'Date',
       price: '',
       type: 'Type',
       description: '',
@@ -63,14 +66,35 @@ export default class FormCreateExpense extends Component {
         console.log(this.state.price, 'Price')
         console.log(this.state.type, 'Type')
         console.log(this.state.description, 'Description')
-        this.textType.clear()
-        this.textDescription.clear()
-        this.setState({
-            date: 'Date',
-            price: '',
-            type: 'Type',
-            description: ''
-        })
+        // this.textType.clear()
+        // this.textDescription.clear()
+        // this.setState({
+        //     date: 'Date',
+        //     price: '',
+        //     type: 'Type',
+        //     description: ''
+        // })
+        getEmail()
+        .then((email) => {
+            console.log(email)
+        }).catch((err) => {
+            console.log(err)
+        });
+        // axios({
+        //     method : 'POST',
+        //     url : `http://10.0.2.2:4000/expense/create/${email}`,
+        //     data: {
+        //         date: this.state.date,
+        //         price: this.state.price,
+        //         type: this.state.type,
+        //         description: this.state.description
+        //     }
+        // })
+        // .then((result) => {
+        //     console.log(result)
+        // }).catch((err) => {
+        //     console.log(err)
+        // });
     }
 
     showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
@@ -79,7 +103,9 @@ export default class FormCreateExpense extends Component {
 
     handleDatePicked = (dateEvent) => {
       this.setState({
-          date: dateEvent.toDateString()
+          date: dateEvent,
+          displayDate: dateEvent.toDateString()
+
       })
       this.hideDateTimePicker();
     };
@@ -91,7 +117,7 @@ export default class FormCreateExpense extends Component {
                 <TouchableOpacity onPress={this.showDateTimePicker}>
                     <View style={styles.inputContainer}>
                         <Image style={styles.inputIcon} source={this.state.icon.date}/>
-                        <Text style={styles.dateText}>{this.state.date}</Text>
+                        <Text style={styles.dateText}>{this.state.displayDate}</Text>
                     </View>
                     <DateTimePicker
                         isVisible={this.state.isDateTimePickerVisible}
