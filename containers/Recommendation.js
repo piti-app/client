@@ -5,6 +5,7 @@ import { createStackNavigator } from 'react-navigation'
 import axios from 'axios'
 import { AsyncStorage } from "react-native";
 import {getEmail} from '../Authentication'
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import RecommendationCard from '../components/RecommendationCard'
 import RecommendationDetail from './RecommendationDetail'
@@ -86,7 +87,11 @@ class RecommendationContainer extends Component {
           />
           </View>
           :
-          <Text>Loading</Text>
+          <Spinner
+          visible={true}
+          textContent={'Loading...'}
+          textStyle={styles.spinnerTextStyle}
+        />
         }
       </Fragment>
 
