@@ -91,12 +91,12 @@ class FormUpdateExpense extends Component {
           .then((result) => {
 
               this.props.getExpenses()
-              Alert.alert('Edit Succes !')
+              Alert.alert('Edit Expense Succes !')
 
           })
           .catch((err) => {
 
-              Alert.alert("Error !")
+              Alert.alert("Edit Expense Error !")
 
           });
     }
