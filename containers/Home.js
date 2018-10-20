@@ -84,10 +84,7 @@ class Home extends Component {
     const series = [123, 321, 123, 789, 537]
     const sliceColor = ['#4073F4','#FF8454','#FFBF30', '#02F6C9', '#5133DF']
 
-    return (
-      <GestureRecognizer                
-        onSwipeRight={() => Alert.alert('ke kiri')}             
-        >
+    return (      
        <View style ={{ backgroundColor : '#FFF', height:'100%' }}>
           {
             this.props.isLoaded
@@ -130,9 +127,7 @@ class Home extends Component {
             textStyle={{ fontFamily : 'avenir_medium'}}
           />
           }
-        </View>
-      </GestureRecognizer>
-
+        </View>      
     );
   }
 }

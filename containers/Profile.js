@@ -9,6 +9,7 @@ import _ from "../assets/style";
 import { TouchableHighlight,AsyncStorage,Alert,StyleSheet,Image } from "react-native";
 import axios from "axios";
 import GestureRecognizer, { swipeDirections } from "react-native-swipe-gestures";
+import getData from '../store/actions/getData'
 
 class Profile extends Component {
   componentDidMount = async () => {
@@ -162,8 +163,21 @@ class Profile extends Component {
     );
   }
 }
-
-export default Profile;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    user : state.getExpense.user,
+    isLoaded : state.getExpense.isLoaded,
+    totalExpense : state.getExpense.totalExpense
+  }
+}
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    getExpenses: () => {
+      dispatch(getData())
+    }
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Profile)
 
 const styles = StyleSheet.create({
   buttonContainer: {
