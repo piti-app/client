@@ -18,6 +18,39 @@ class RecommendationContainer extends Component {
     latitude : 0,
     longitude : 0
   }
+
+  regionContainingPoints(points) {
+    var minX, maxX, minY, maxY;
+
+    // init first point
+    ((point) => {
+      minX = point.latitude;
+      maxX = point.latitude;
+      minY = point.longitude;
+      maxY = point.longitude;
+    })(points[0]);
+
+    // calculate rect
+    points.map((point) => {
+      minX = Math.min(minX, point.latitude);
+      maxX = Math.max(maxX, point.latitude);
+      minY = Math.min(minY, point.longitude);
+      maxY = Math.max(maxY, point.longitude);
+    });
+
+    var midX = (minX + maxX) / 2;
+    var midY = (minY + maxY) / 2;
+    var midPoint = [midX, midY];
+
+    var deltaX = (maxX - minX);
+    var deltaY = (maxY - minY);
+
+    return {
+      latitude: midX, longitude: midY,
+      latitudeDelta: deltaX, longitudeDelta: deltaY,
+    };
+  }
+
   componentDidMount = () => {
     console.log('component did mount')
     let self = this
@@ -90,8 +123,10 @@ class RecommendationContainer extends Component {
               <MapView
                 style={mapStyles.map}
                 region={{
-                  latitude: this.state.latitude,
-                  longitude: this.state.longitude
+                  latitude: -6.2607134,
+                  longitude: 106.7794222,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
                 }}
               >
               </MapView>
