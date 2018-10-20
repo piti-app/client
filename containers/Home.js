@@ -90,7 +90,7 @@ class Home extends Component {
             this.props.isLoaded
             ?
             <ScrollView style={{ marginBottom : 10, backgroundColor : '#FFF' }}>
-            <View style={{ alignItems : 'center', marginTop : 20, marginBottom : 20, justifyContent : 'center',flexDirection : 'row' }}>
+            <View style={{ alignItems : 'center', marginTop : 30, marginBottom : 30, justifyContent : 'center',flexDirection : 'row' }}>
             <PieChart
               chart_wh={chart_wh}
               series={this.props.totalExpense}
