@@ -14,6 +14,7 @@ import {
 import { connect } from 'react-redux'
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import RNPickerSelect from 'react-native-picker-select';
+import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
 import axios from 'axios'
 import getData from '../store/actions/getData'
 
@@ -77,7 +78,9 @@ class FormUpdateExpense extends Component {
         price: require('../assets/icons/money.png'),
         type: require('../assets/icons/checked.png'),
         description: require('../assets/icons/target.png'),
-      }
+      },
+      show: false,
+      error: false
     };
 
     handleOnChangePrice = (event) => {
@@ -92,6 +95,14 @@ class FormUpdateExpense extends Component {
         description: newDescription
       })
     }
+
+    handleClose = () => {
+      this.setState({ show: false })
+    }
+    handleCloseError = () => {
+      this.setState({ error: false })
+    }
+
     onClickListener = () => {
 
         let id = this.props.navigation.state.params._id
@@ -107,8 +118,8 @@ class FormUpdateExpense extends Component {
           })
           .then((result) => {
 
+              this.setState({ show: true })
               this.props.getExpenses()
-              Alert.alert('Edit Expense Succes !')
 
           })
           .catch((err) => {
@@ -183,9 +194,33 @@ class FormUpdateExpense extends Component {
             </View>
 
             <TouchableHighlight style={[styles.buttonContainer, styles.createButton]} onPress={() => this.onClickListener()}>
-                 <Text style={styles.createText}>Edit Expense</Text>
+                 <Text style={styles.createText}>Save</Text>
             </TouchableHighlight>
 
+            <SCLAlert
+              show={this.state.show}
+              onRequestClose={this.handleClose}
+              theme="info"
+              title="Edit Success !"
+              headerIconComponent={  <Image
+                style={{width: 40, height: 40}}
+                source={{uri: 'https://png.icons8.com/ios-glyphs/50/ffffff/multi-edit.png'}}
+              />}
+            >
+            </SCLAlert>
+
+            <SCLAlert
+              show={this.state.error}
+              onRequestClose={this.handleCloseError}
+              theme="danger"
+              title="Edit Error !"
+              headerIconComponent={  <Image
+                style={{width: 40, height: 40}}
+                source={{uri: 'https://png.icons8.com/material/50/ffffff/box-important.png'}}
+              />}
+            >
+            </SCLAlert>
+            
         </View>
       );
     }
@@ -249,7 +284,7 @@ export default connect(null, mapDispatchToProps)(FormUpdateExpense)
       borderRadius:30,
     },
     createButton: {
-      backgroundColor: "#00b5ec",
+      backgroundColor: "#0D7EF7",
     },
     createText: {
       color: 'white',
@@ -262,97 +297,3 @@ export default connect(null, mapDispatchToProps)(FormUpdateExpense)
     paddingBottom: 20,
   }
   });
-
-// import React from 'react';
-// import {
-//   StyleSheet,
-//   View,
-//   TextInput,
-//   AppRegistry,
-// } from 'react-native';
-
-// class App extends React.Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.focusNextField = this.focusNextField.bind(this);
-//     this.inputs = {};
-//   }
-
-//   focusNextField(id) {
-//     this.inputs[id].focus();
-//   }
-
-//   render() {
-//     return (
-//       <View style={styles.outerContainer}>
-//         <TextInput
-//           placeholder="one"
-//           blurOnSubmit={ false }
-//           onSubmitEditing={() => {
-//             this.focusNextField('two');
-//           }}
-//           returnKeyType={ "next" }
-//           style={styles.textInput}
-//           ref={ input => {
-//             this.inputs['one'] = input;
-//           }}
-//         />
-//         <TextInput
-//           placeholder="two"
-//           blurOnSubmit={ false }
-//           onSubmitEditing={() => {
-//             this.focusNextField('three');
-//           }}
-//           returnKeyType={ "next" }
-//           style={styles.textInput}
-//           ref={ input => {
-//             this.inputs['two'] = input;
-//           }}
-//         />
-//         <TextInput
-//           placeholder="three"
-//           blurOnSubmit={ false }
-//           onSubmitEditing={() => {
-//             this.focusNextField('four');
-//           }}
-//           returnKeyType={ "next" }
-//           style={styles.textInput}
-//           ref={ input => {
-//             this.inputs['three'] = input;
-//           }}
-//         />
-//         <TextInput
-//           placeholder="four"
-//           blurOnSubmit={ true }
-//           returnKeyType={ "done" }
-//           style={styles.textInput}
-//           ref={ input => {
-//             this.inputs['four'] = input;
-//           }}
-//         />
-//       </View>
-//     );
-//   };
-// }
-
-// const styles = StyleSheet.create({
-//   outerContainer: {
-//     flex: 1,
-//     paddingTop: 60,
-//     alignItems: 'center',
-//     flexDirection: 'column',
-//   },
-//   textInput: {
-//     alignSelf: 'stretch',
-//     borderRadius: 5,
-//     borderWidth: 1,
-//     height: 44,
-//     paddingHorizontal: 10,
-//     marginHorizontal: 20,
-//     marginBottom: 20,
-//   },
-// });
-
-// export default App;
-
