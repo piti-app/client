@@ -9,6 +9,7 @@ import { connect }from 'react-redux'
 import getData from '../store/actions/getData'
 import Spinner from 'react-native-loading-spinner-overlay';
 import PieChart from 'react-native-pie-chart';
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -44,7 +45,7 @@ class Home extends Component {
   state = {
     email : null
    }
-
+ 
    componentDidMount(){
       this.props.getExpenses()
       setTimeout(() => {
@@ -85,7 +86,11 @@ class Home extends Component {
     const sliceColor = ['#4073F4','#FF8454','#FFBF30', '#02F6C9', '#5133DF']
 
     return (
-        <View style ={{ backgroundColor : '#FFF', height:'100%' }}>
+      <GestureRecognizer        
+        onSwipeLeft={() => this.props.navigation.navigate('Recommendation')}
+        onSwipeRight={() => Alert.alert('ke kiri')}             
+        >
+       <View style ={{ backgroundColor : '#FFF', height:'100%' }}>
           {
             this.props.isLoaded
             ?
@@ -118,6 +123,8 @@ class Home extends Component {
           />
           }
         </View>
+      </GestureRecognizer>
+        
     );
   }
 }

@@ -7,11 +7,12 @@ import {
     TouchableHighlight,
     TouchableOpacity,
     Image,
-    Alert
+    Alert,
+    AsyncStorage
   } from 'react-native';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import RNPickerSelect from 'react-native-picker-select';
-import {getEmail} from '../Authentication'
+import {getEmail,fcm} from '../Authentication'
 import axios from 'axios'
 import { connect } from 'react-redux'
 import getData from '../store/actions/getData'
@@ -67,38 +68,44 @@ class FormCreateExpense extends Component {
       }
     };
 
-    onClickListener = () => {
-
-        getEmail()
-        .then((email) => {
-            axios({
-                method : 'POST',
-                url : `http://10.0.2.2:4000/expense/create/${email}`,
-                data: {
-                    date: this.state.date,
-                    price: this.state.price,
-                    type: this.state.type,
-                    description: this.state.description
-                }
-            })
-            .then((result) => {
-                this.props.getExpenses()
-                Alert.alert("Save Expense Succes !")
-                this.textType.clear()
-                this.textDescription.clear()
-                this.setState({
-                    displayDate: 'Date',
-                    price: '',
-                    type: 'Type',
-                    description: ''
+     onClickListener = async () => {
+        fcm()
+        .then((fcmToken) => {
+            getEmail()
+            .then((email) => {
+                axios({
+                    method : 'POST',
+                    url : `http://10.0.2.2:4000/expense/create/${email}`,
+                    data: {
+                        date: this.state.date,
+                        price: this.state.price,
+                        type: this.state.type,
+                        description: this.state.description,
+                        fcmToken
+                    }
                 })
+                .then((result) => {
+                    this.props.getExpenses()
+                    Alert.alert("Save Expense Succes !")
+                    this.textType.clear()
+                    this.textDescription.clear()
+                    this.setState({
+                        displayDate: 'Date',
+                        price: '',
+                        type: 'Type',
+                        description: ''
+                    })
+                }).catch((err) => {
+                    Alert.alert("Save Expense Error !")
+                });
+    
             }).catch((err) => {
                 Alert.alert("Save Expense Error !")
-            });
-
+            }); 
+            
         }).catch((err) => {
-            Alert.alert("Save Expense Error !")
-        });
+            
+        });        
 
     }
 

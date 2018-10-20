@@ -7,6 +7,7 @@ import {
 import _ from '../assets/style'
 import { TouchableHighlight,AsyncStorage,Alert } from 'react-native'
 import axios from 'axios'
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
 class Profile extends Component {
   componentDidMount = async() =>{
