@@ -53,7 +53,6 @@ class RecommendationContainer extends Component {
 
   componentDidMount = () => {
     console.log('component did mount')
-    let self = this
     getEmail()
       .then((email) => {
         axios({
@@ -129,6 +128,18 @@ class RecommendationContainer extends Component {
                   longitudeDelta: 0.0421,
                 }}
               >
+              {
+                this.state.recommendations.map(recommendation=>
+                  <MapView.Marker
+                    coordinate={{
+                      latitude : recommendation.latitude,
+                      longitude : recommendation.longitude
+                    }}
+                    title={recommendation.name}
+                    description={recommendation.address}
+                  />
+                )
+              }
               </MapView>
             </View>
             <View>
@@ -193,7 +204,7 @@ const styles = StyleSheet.create({
 
 const mapStyles = StyleSheet.create({
   container: {
-    height: 400,
+    height: 600,
     width: 400,
     justifyContent: 'flex-end',
     alignItems: 'center',
