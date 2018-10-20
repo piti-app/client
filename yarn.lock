@@ -4730,6 +4730,12 @@ react-native-safe-area-view@0.11.0:
   dependencies:
     hoist-non-react-statics "^2.3.1"
 
+react-native-scl-alert@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-scl-alert/-/react-native-scl-alert-1.2.1.tgz#564a93c1b1119ac43842ada2fb2ccfce7c2a1384"
+  dependencies:
+    prop-types "^15.6.1"
+
 react-native-screens@^1.0.0-alpha.11:
   version "1.0.0-alpha.15"
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-1.0.0-alpha.15.tgz#5b5a0041310b46f12048fda1908d52e7290ec18f"
@@ -4737,6 +4743,10 @@ react-native-screens@^1.0.0-alpha.11:
 react-native-splash-screen@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/react-native-splash-screen/-/react-native-splash-screen-3.1.1.tgz#1a4e46c9fdce53ff52af2a2cb4181788c4e30b30"
+
+react-native-swipe-gestures@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-swipe-gestures/-/react-native-swipe-gestures-1.0.2.tgz#914e1a72a94bc55b322b4622a01103ab879296dd"
 
 react-native-swipeout@^2.3.6:
   version "2.3.6"
@@ -4855,6 +4865,10 @@ react-navigation-tabs@0.8.4:
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
     react-native-tab-view "^1.0.0"
+
+react-navigation-transitions@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-navigation-transitions/-/react-navigation-transitions-1.0.5.tgz#993cb39991927b0e4140e15824358f2ea6832a8a"
 
 react-navigation@^2.18.0:
   version "2.18.0"
