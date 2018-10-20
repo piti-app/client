@@ -80,7 +80,7 @@ class Home extends Component {
     }
 
   render() {
-    const chart_wh = 150
+    const chart_wh = 170
     const series = [123, 321, 123, 789, 537]
     const sliceColor = ['#4073F4','#FF8454','#FFBF30', '#02F6C9', '#5133DF']
 
@@ -96,7 +96,7 @@ class Home extends Component {
               series={this.props.totalExpense}
               sliceColor={sliceColor}
             />
-            <Image source={require('../assets/icons/pie_chart_definition.png')} style={{width : 130, height : 130, resizeMode: 'contain', marginLeft :'20'}}/>
+            <Image source={require('../assets/icons/pie_chart_definition.png')} style={{width : 130, height : 130, resizeMode: 'contain', marginLeft : 30 }}/>
             </View>
             {
               this.props.user.expense.map((datum,index)=>
