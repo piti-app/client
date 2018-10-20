@@ -10,6 +10,7 @@ import {
   Alert,
   Icon
 } from 'react-native';
+import axios from 'axios'
 
 class EditProfile extends Component {
   static navigationOptions = {
@@ -67,8 +68,31 @@ class EditProfile extends Component {
     })
   }
 
+  onClickListener = () => {
+    let newData = {
+      name: this.state.name,
+      email: this.state.email,  
+      avatar: this.state.avatar,
+      main_balance: this.state.main_balance,
+      budget: this.state.budget
+    }
+    let email = this.props.navigation.state.params.email
+    // console.log(data, '----')
+        axios({
+            method : 'PUT',
+            url : `http://10.0.2.2:4000/user/profile/${email}`,
+            data: newData
+        })
+        .then((result) => {
+            console.log(result)
+
+        }).catch((err) => {
+            this.setState({ error: true })
+        });
+
+  }
+
   render() {
-    console.log(this.props.navigation.state.params)
     return (
       <View style={styles.container}>
 
