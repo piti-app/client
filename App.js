@@ -25,6 +25,7 @@ import Recommendation from './containers/Recommendation'
 import Profile from './containers/Profile'
 import { isSignedIn,setFcm } from "./Authentication";
 import SignedOut from './containers/Router'
+import EditProfile from './components/EditProfile'
 
 
 const StackHome = createStackNavigator({
@@ -39,10 +40,25 @@ const StackHome = createStackNavigator({
     }), transitionConfig: () => fromTop(1000)
 })
 
+const StackProfile = createStackNavigator({
+    Profile,
+    EditProfile
+},{
+    navigationOptions : ({ navigation }) => ({
+        navigationOptions : {
+            title: 'Profile',
+            tabBarLabel: 'Profile',
+            tabBarVisible:true,
+            tabBarIcon: <Icon name='person' />,
+        },
+    })
+})
+
+
 const SignedIn = createBottomTabNavigator({
     Home : StackHome,
     Recommendation,
-    Profile
+    Profile: StackProfile
 },{
     navigationOptions : {
         title: 'Home',

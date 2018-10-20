@@ -71,6 +71,14 @@ class FormCreateExpense extends Component {
       error: false
     };
 
+    handleClose = () => {
+        this.setState({ show: false })
+      }
+
+    handleCloseError = () => {
+        this.setState({ error: false })
+      }
+
      onClickListener = async () => {
         fcm()
         .then((fcmToken) => {

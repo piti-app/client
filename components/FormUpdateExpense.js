@@ -194,7 +194,7 @@ class FormUpdateExpense extends Component {
             </View>
 
             <TouchableHighlight style={[styles.buttonContainer, styles.createButton]} onPress={() => this.onClickListener()}>
-                 <Text style={styles.createText}>Edit</Text>
+                 <Text style={styles.createText}>Save</Text>
             </TouchableHighlight>
 
             <SCLAlert

@@ -5,7 +5,7 @@ import {
   Container, Header, Left, Body, Right, Content,
   Button, Title, Card, CardItem, Text, Icon, H1, H2, Thumbnail } from "native-base";
 import _ from '../assets/style'
-import { TouchableHighlight,AsyncStorage,Alert } from 'react-native'
+import { TouchableHighlight,AsyncStorage,Alert, StyleSheet } from 'react-native'
 import axios from 'axios'
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 
@@ -80,7 +80,7 @@ class Profile extends Component {
             <Card>
               <CardItem>
                 <Left>
-                  <Thumbnail source={{uri: 'https://avatars2.githubusercontent.com/u/15111402?s=460&v=4'}} />
+                  <Thumbnail source={{uri: this.state.userData.avatar}} />
                   <Body>
                     <H2>{this.state.userData.name}</H2>
                     <Text note>{this.state.userData.email}</Text>
@@ -112,6 +112,9 @@ class Profile extends Component {
                 </Content>
               </CardItem>
             </Card>
+          <TouchableHighlight style={[styles.buttonContainer, styles.createButton]} onPress={() => this.props.navigation.navigate('EditProfile', this.state.userData)}>
+                 <Text style={styles.createText}>Edit</Text>
+          </TouchableHighlight>
           </Content>
         </Container>
 
@@ -120,3 +123,21 @@ class Profile extends Component {
 }
 
 export default Profile;
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    height:45,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom:20,
+    width:250,
+    borderRadius:30,
+  },
+  createButton: {
+    backgroundColor: "#0D7EF7",
+  },
+  createText: {
+    color: 'white',
+  },
+});
