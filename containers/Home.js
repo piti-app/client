@@ -45,7 +45,7 @@ class Home extends Component {
   state = {
     email : null
    }
- 
+
    componentDidMount(){
       this.props.getExpenses()
       setTimeout(() => {
@@ -85,35 +85,45 @@ class Home extends Component {
     const sliceColor = ['#4073F4','#FF8454','#FFBF30', '#02F6C9', '#5133DF']
 
     return (
-      <GestureRecognizer        
+      <GestureRecognizer
         onSwipeLeft={() => this.props.navigation.navigate('Recommendation')}
-        onSwipeRight={() => Alert.alert('ke kiri')}             
+        onSwipeRight={() => Alert.alert('ke kiri')}
         >
        <View style ={{ backgroundColor : '#FFF', height:'100%' }}>
           {
             this.props.isLoaded
             ?
-            <ScrollView style={{ marginBottom : 10, backgroundColor : '#FFF' }}>
-            <View style={{ alignItems : 'center', marginTop : 30, marginBottom : 30, justifyContent : 'center',flexDirection : 'row' }}>
-            <PieChart
-              chart_wh={chart_wh}
-              series={this.props.totalExpense}
-              sliceColor={sliceColor}
-            />
-            <Image source={require('../assets/icons/pie_chart_definition.png')} style={{width : 130, height : 130, resizeMode: 'contain', marginLeft : 30 }}/>
-            </View>
+            <Fragment>
             {
-              this.props.user.expense.map((datum,index)=>
-              <Swipeout right={[{ text: 'Detele', color : '#FFF', backgroundColor : 'red', onPress: () => this.onClickListener(datum._id) }]} style={{backgroundColor:'#FFF'}}>
-                  <View>
-                <TouchableHighlight onPress={() => this.props.navigation.navigate('Update', datum)}>
-                  <ExpenseCard navigation={ this.props.navigation } data={datum} key={index} />
-                </TouchableHighlight>
+              this.props.user.expense.length!==0
+              ?
+              <ScrollView style={{ marginBottom : 10, backgroundColor : '#FFF' }}>
+                <View style={{ alignItems : 'center', marginTop : 30, marginBottom : 30, justifyContent : 'center',flexDirection : 'row' }}>
+                <PieChart
+                  chart_wh={chart_wh}
+                  series={this.props.totalExpense}
+                  sliceColor={sliceColor}
+                />
+                <Image source={require('../assets/icons/pie_chart_definition.png')} style={{width : 130, height : 130, resizeMode: 'contain', marginLeft : 30 }}/>
+                </View>
+                {
+                  this.props.user.expense.map((datum,index)=>
+                  <Swipeout right={[{ text: 'Detele', color : '#FFF', backgroundColor : 'red', onPress: () => this.onClickListener(datum._id) }]} style={{backgroundColor:'#FFF'}}>
+                      <View>
+                    <TouchableHighlight onPress={() => this.props.navigation.navigate('Update', datum)}>
+                      <ExpenseCard navigation={ this.props.navigation } data={datum} key={index} />
+                    </TouchableHighlight>
+                  </View>
+                    </Swipeout>
+                  )
+                }
+              </ScrollView>
+              :
+              <View style={{justifyContent : 'center', alignItems : 'center', height : '100%'}}>
+                <Text style={{ textAlign: 'center', fontFamily: 'avenir_book' }}>You Have No Expense This Month</Text>
               </View>
-                </Swipeout>
-              )
             }
-          </ScrollView>
+            </Fragment>
           :
           <Spinner
             visible={!this.props.isLoaded}
@@ -123,7 +133,7 @@ class Home extends Component {
           }
         </View>
       </GestureRecognizer>
-        
+
     );
   }
 }
