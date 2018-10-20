@@ -8,9 +8,12 @@ import {
   TouchableOpacity,
   Image,
   Alert,
-  Icon
+  Icon,
+  PixelRatio
 } from 'react-native';
 import axios from 'axios'
+import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
+import ImagePicker from 'react-native-image-picker';
 
 class EditProfile extends Component {
   static navigationOptions = {
@@ -36,6 +39,56 @@ class EditProfile extends Component {
     show: false,
     error: false
   };
+
+  selectPhotoTapped() {
+    const options = {
+      quality: 1.0,
+      maxWidth: 500,
+      maxHeight: 500,
+      storageOptions: {
+        skipBackup: true
+      }
+    };
+
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled photo picker');
+      }
+      else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      }
+      else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      }
+      else {
+        const formData = new FormData
+        formData.append('image', {
+          uri : response.uri,
+          name: response.fileName,
+          type: response.type
+         })
+        axios.post('https://mtbcorner.wahyudisetiaji.xyz/articles/upload', formData,
+          {headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'multipart/form-data',
+          }}
+        )
+        .then((result) => {
+          this.setState({
+            avatar: result.data.link
+          })
+        }).catch((err) => {
+           console.log('Error Upload', err)
+        });
+      }
+    });
+  }
+
+  handleClose = () => {
+    this.setState({ show: false })
+  }
 
   handleOnChangeName = (event) => {
     let newName =  event
@@ -77,13 +130,13 @@ class EditProfile extends Component {
       budget: this.state.budget
     }
     let email = this.props.navigation.state.params.email
-    // console.log(data, '----')
         axios({
             method : 'PUT',
             url : `http://10.0.2.2:4000/user/profile/${email}`,
             data: newData
         })
         .then((result) => {
+            this.setState({ show: true })
             console.log(result)
 
         }).catch((err) => {
@@ -96,9 +149,13 @@ class EditProfile extends Component {
     return (
       <View style={styles.container}>
 
-            <View style={styles.imageProfile}>
-                <Image style={styles.inputIcon} source={{uri:this.state.avatar}}/>
-            </View>
+            <TouchableOpacity onPress={this.selectPhotoTapped.bind(this)}>
+              <View style={[styles.avatar, styles.avatarContainer, {marginBottom: 20}]}>
+              { this.state.avatar === null ? <Text>Select a Photo</Text> :
+                <Image style={styles.avatar} source={{uri: this.state.avatar}} />
+              }
+              </View>
+            </TouchableOpacity>
 
             <View style={styles.inputContainer}>
                 {/* <Image style={styles.inputIcon} source={this.state.icon.price}/> */}
@@ -144,6 +201,18 @@ class EditProfile extends Component {
                  <Text style={styles.createText}>Save</Text>
             </TouchableHighlight>
 
+             <SCLAlert
+              show={this.state.show}
+              onRequestClose={this.handleClose}
+              theme="info"
+              title="Edit Success !"
+              headerIconComponent={  <Image
+                style={{width: 40, height: 40}}
+                source={{uri: 'https://png.icons8.com/ios-glyphs/50/ffffff/multi-edit.png'}}
+              />}
+            >
+            </SCLAlert>
+
         </View>
     )
   }
@@ -158,6 +227,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#FFF',
+  },
+  avatarContainer: {
+    borderColor: '#9B9B9B',
+    borderWidth: 1 / PixelRatio.get(),
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  avatar: {
+    borderRadius: 75,
+    width: 150,
+    height: 150
   },
   inputContainer: {
       borderBottomColor: '#F5FCFF',
