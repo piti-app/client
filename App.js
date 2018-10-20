@@ -14,6 +14,8 @@ import type { Notification, NotificationOpen } from 'react-native-firebase';
 import { createBottomTabNavigator, createStackNavigator,SwitchNavigator } from 'react-navigation'
 import { Icon } from 'native-base'
 import SplashScreen from 'react-native-splash-screen';
+import { fromLeft,zoomIn,flipY,fromTop } from 'react-navigation-transitions';
+
 import InitBudget from './containers/InitBudget'
 
 import Home from './containers/Home'
@@ -24,15 +26,17 @@ import Profile from './containers/Profile'
 import { isSignedIn,setFcm } from "./Authentication";
 import SignedOut from './containers/Router'
 
+
 const StackHome = createStackNavigator({
     Home,
     Add,
     Update
-},{
+},
+{
     navigationOptions : ({ navigation }) => ({
         headerStyle: { backgroundColor: '#fff', elevation:0 },
         headerRight : (navigation.state.routeName==='Home') ? <Icon name="bookmarks" style={{ paddingRight : 30, paddingTop : 5 }} onPress={() => navigation.navigate('Add')} /> : <View></View>,
-    })
+    }), transitionConfig: () => fromTop(1000)
 })
 
 const SignedIn = createBottomTabNavigator({

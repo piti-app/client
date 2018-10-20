@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Container, Header, Content, Card, CardItem, Text, Body, Icon } from "native-base";
-import { StyleSheet, View, ScrollView, FlatList } from 'react-native'
+import { StyleSheet, View, ScrollView, FlatList,Alert } from 'react-native'
 import { createStackNavigator } from 'react-navigation'
 import axios from 'axios'
 import { AsyncStorage } from "react-native";
@@ -8,6 +8,7 @@ import {getEmail} from '../Authentication'
 import Spinner from 'react-native-loading-spinner-overlay';
 import MapView from 'react-native-maps';
 
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import RecommendationCard from '../components/RecommendationCard'
 import RecommendationDetail from './RecommendationDetail'
 
@@ -111,7 +112,11 @@ class RecommendationContainer extends Component {
   }
   render() {
     return (
-      <Fragment>
+      <GestureRecognizer        
+        onSwipeLeft={() => this.props.navigation.navigate('Home')}
+        onSwipeRight={() => this.props.navigation.navigate('Profile')}             
+        >
+           <Fragment>
         {
           this.state.isLoaded
           ?
@@ -160,6 +165,8 @@ class RecommendationContainer extends Component {
           />
         }
       </Fragment>
+        </GestureRecognizer>
+     
 
     );
   }
