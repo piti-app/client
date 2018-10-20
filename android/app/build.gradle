@@ -137,17 +137,20 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-maps')
     compile project(':react-native-splash-screen')
     compile project(':react-native-vector-icons')
     compile project(':react-native-firebase')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules
-    implementation "com.google.android.gms:play-services-base:15.0.1"
     implementation "com.google.firebase:firebase-core:16.0.3"
     implementation "com.google.firebase:firebase-auth:16.0.3"
     implementation "com.google.firebase:firebase-messaging:17.3.2"
-    implementation 'me.leolin:ShortcutBadger:1.1.21@aar' 
+    implementation 'me.leolin:ShortcutBadger:1.1.21@aar'
+    compile "com.google.android.gms:play-services-base:+"
+    compile "com.google.android.gms:play-services-maps:+"
+    implementation project(':react-native-maps')
 }
 
 // Run this once to be able to run the application with BUCK
@@ -157,3 +160,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
     into 'libs'
 }
 apply plugin: 'com.google.gms.google-services'
+com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true
