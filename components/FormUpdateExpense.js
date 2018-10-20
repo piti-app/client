@@ -47,13 +47,30 @@ class FormUpdateExpense extends Component {
       description: this.props.navigation.state.params.description,
       isDateTimePickerVisible: false,
       items: [
-          { label: 'Food & Drink', value: 'Food & Drink'},
-          { label: 'Transport', value: 'Transport' },
-          { label: 'Personal', value: 'Personal' },
-          { label: 'Electronic', value: 'Electronic' },
-          { label: 'Clothes', value: 'Clothes' },
-          { label: 'Entertainment', value: 'Entertainment' },
-          { label: 'Others', value: 'Others' }
+          {
+            label: ' ',
+            value: ' ',
+        },
+        {
+            label: 'Food & Drink',
+            value: 'Food & Drink',
+        },
+        {
+            label: 'Transport',
+            value: 'Transport',
+        },
+        {
+          label: 'Electronic',
+          value: 'Electronic',
+        },
+        {
+          label: 'Clothes',
+          value: 'Clothes',
+        },
+        {
+          label: 'Entertainment',
+          value: 'Entertainment',
+        }
       ],
       icon: {
         date : require('../assets/icons/calendar.png'),
@@ -76,7 +93,7 @@ class FormUpdateExpense extends Component {
       })
     }
     onClickListener = () => {
-  
+
         let id = this.props.navigation.state.params._id
         axios({
           method : 'PUT',
@@ -100,11 +117,11 @@ class FormUpdateExpense extends Component {
 
           });
     }
-  
+
     showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
-   
+
     hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
-   
+
     handleDatePicked = (dateEvent) => {
       let date = new Date(dateEvent)
       this.setState({
@@ -112,7 +129,7 @@ class FormUpdateExpense extends Component {
       })
       this.hideDateTimePicker();
     };
-  
+
     render() {
       return (
         <View style={styles.container}>
@@ -168,14 +185,14 @@ class FormUpdateExpense extends Component {
             <TouchableHighlight style={[styles.buttonContainer, styles.createButton]} onPress={() => this.onClickListener()}>
                  <Text style={styles.createText}>Edit Expense</Text>
             </TouchableHighlight>
-  
+
         </View>
       );
     }
   }
 
 export default connect(null, mapDispatchToProps)(FormUpdateExpense)
-  
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -208,7 +225,7 @@ export default connect(null, mapDispatchToProps)(FormUpdateExpense)
       alignItems: 'center',
       color: '#a8a8a8',
       width: 200
-    },  
+    },
     inputs:{
         height:45,
         marginLeft:16,

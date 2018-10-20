@@ -34,6 +34,10 @@ class FormCreateExpense extends Component {
       description: '',
       isDateTimePickerVisible: false,
       items: [
+            {
+                label: ' ',
+                value: ' ',
+            },
           {
               label: 'Food & Drink',
               value: 'Food & Drink',
@@ -41,10 +45,6 @@ class FormCreateExpense extends Component {
           {
               label: 'Transport',
               value: 'Transport',
-          },
-          {
-              label: 'Personal',
-              value: 'Personal',
           },
           {
             label: 'Electronic',
@@ -57,10 +57,6 @@ class FormCreateExpense extends Component {
           {
             label: 'Entertainment',
             value: 'Entertainment',
-          },
-          {
-            label: 'Others',
-            value: 'Others',
           }
       ],
       icon: {

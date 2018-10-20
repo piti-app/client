@@ -1,6 +1,7 @@
 const initialState = {
   user : {},
-  isLoaded : false
+  isLoaded : false,
+  totalExpense : []
 }
 
 export default function(state = initialState, action){
@@ -15,7 +16,8 @@ export default function(state = initialState, action){
       return {
           ...state,
           isLoaded : true,
-          user : action.payload
+          user : action.payload.user,
+          totalExpense : action.payload.totalExpense
       }
       case 'GET_DATA_ERROR':
           return {
