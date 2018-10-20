@@ -206,7 +206,7 @@ class FormCreateExpense extends Component {
               show={this.state.error}
               onRequestClose={this.handleCloseError}
               theme="danger"
-              title="Save Error !"
+              title="Your Expense Over !"
               headerIconComponent={  <Image
                 style={{width: 40, height: 40}}
                 source={{uri: 'https://png.icons8.com/material/50/ffffff/box-important.png'}}
