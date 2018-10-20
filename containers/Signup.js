@@ -8,14 +8,6 @@ import {onSignIn,auth} from '../Authentication'
 export default class Signin extends Component {
     static navigationOptions = {
         headerLeft:<View></View>,
-        headerTitle: <Text style={{
-          fontSize: 32,
-          fontFamily : 'bebaskai',
-          textAlign : 'center',
-          paddingTop: 28,
-          paddingBottom: 20,
-          paddingLeft : 135
-        }}>PITI</Text>,
         tabBarLabel: 'Home',
         tabBarVisible:true,
         tabBarIcon: <Icon name='home' />
@@ -62,7 +54,7 @@ export default class Signin extends Component {
     render() {
         return (
             <View style={{justifyContent:'center',alignItems:'center',height:'100%',backgroundColor:'#fff'}}>
-                <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{justifyContent:'center',alignItems:'center',marginTop:55}}>
+                <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{justifyContent:'center',alignItems:'center',marginTop:35}}>
                     <View style={{justifyContent:'center',alignItems:'center',padding:30,backgroundColor:'#FFF' ,borderRadius:10}}>
                     <Image source={require('../assets/icon.png')}
                     style={{width: 150, height: 150,marginBottom:20, resizeMode:'contain'}} />

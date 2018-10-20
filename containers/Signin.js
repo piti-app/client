@@ -8,15 +8,6 @@ import {isAuthenticated} from '../store/actions/isLogin'
 
 class Signin extends Component {
     static navigationOptions = {
-        headerTitle: <Text style={{
-          fontSize: 32,
-          fontFamily : 'bebaskai',
-          textAlign : 'center',
-          color : '#FFF',
-          paddingTop: 28,
-          paddingBottom: 20,
-          paddingLeft : 190
-        }}>PITI</Text>,
         tabBarLabel: 'Home',
         tabBarVisible:true,
         tabBarIcon: <Icon name='home' />
