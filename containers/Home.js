@@ -13,7 +13,8 @@ import PieChart from 'react-native-pie-chart';
 const mapStateToProps = (state, ownProps) => {
   return {
     user : state.getExpense.user,
-    isLoaded : state.getExpense.isLoaded
+    isLoaded : state.getExpense.isLoaded,
+    totalExpense : state.getExpense.totalExpense
   }
 }
 
@@ -92,7 +93,7 @@ class Home extends Component {
             <View style={{ alignItems : 'center', marginTop : 20, marginBottom : 20 }}>
             <PieChart
               chart_wh={chart_wh}
-              series={series}
+              series={this.props.totalExpense}
               sliceColor={sliceColor}
             />
             </View>
