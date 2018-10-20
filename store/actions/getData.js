@@ -17,7 +17,6 @@ export default function(){
             console.log(data,'ini data')
             const expenses = [...data.user.expense]
             const finalArr = []
-            console.log(expenses)
             expenses.forEach(expense=>{
               if(expense.type==="Others"){
                 let newExpense = {

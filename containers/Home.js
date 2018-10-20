@@ -8,6 +8,7 @@ import axios from 'axios';
 import { connect }from 'react-redux'
 import getData from '../store/actions/getData'
 import Spinner from 'react-native-loading-spinner-overlay';
+import PieChart from 'react-native-pie-chart';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -78,13 +79,23 @@ class Home extends Component {
     }
 
   render() {
+    const chart_wh = 250
+    const series = [123, 321, 123, 789, 537]
+    const sliceColor = ['#4073F4','#FF8454','#FFBF30', '#02F6C9', '#5133DF']
+
     return (
         <View style ={{ backgroundColor : '#FFF', height:'100%' }}>
-          <Text>{JSON.stringify(this.props.user.email)}</Text>
           {
             this.props.isLoaded
             ?
             <ScrollView style={{ marginBottom : 10, backgroundColor : '#FFF' }}>
+            <View style={{ alignItems : 'center', marginTop : 20, marginBottom : 20 }}>
+            <PieChart
+              chart_wh={chart_wh}
+              series={series}
+              sliceColor={sliceColor}
+            />
+            </View>
             {
               this.props.user.expense.map((datum,index)=>
               <Swipeout right={[{ text: 'Detele', color : '#FFF', backgroundColor : 'red', onPress: () => this.onClickListener(datum._id) }]} style={{backgroundColor:'#FFF'}}>
@@ -99,9 +110,9 @@ class Home extends Component {
           </ScrollView>
           :
           <Spinner
-            visible={true}
+            visible={!this.props.isLoaded}
             textContent={'Loading...'}
-            textStyle={styles.spinnerTextStyle}
+            textStyle={{ fontFamily : 'avenir_medium'}}
           />
           }
         </View>

@@ -35,13 +35,13 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    fontFamily : 'geomanist_regular',
+    fontFamily : 'avenir_medium',
     color : 'black',
     textAlign : 'right'
   },
   textSmall: {
     fontSize: 12,
-    fontFamily : 'gilroy_light',
+    fontFamily : 'avenir_book',
     color : 'black',
     textAlign : 'right'
   },
