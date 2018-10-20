@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { View, StyleSheet, ScrollView, TouchableHighlight, AsyncStorage, Alert } from 'react-native'
+import { View, StyleSheet, ScrollView, TouchableHighlight, AsyncStorage, Alert, Image } from 'react-native'
 import Swipeout from 'react-native-swipeout'
 import { Container, Header, Content, Card, CardItem, Text, Body, Icon } from "native-base";
 import {getEmail} from '../Authentication'
@@ -80,7 +80,7 @@ class Home extends Component {
     }
 
   render() {
-    const chart_wh = 250
+    const chart_wh = 150
     const series = [123, 321, 123, 789, 537]
     const sliceColor = ['#4073F4','#FF8454','#FFBF30', '#02F6C9', '#5133DF']
 
@@ -90,12 +90,13 @@ class Home extends Component {
             this.props.isLoaded
             ?
             <ScrollView style={{ marginBottom : 10, backgroundColor : '#FFF' }}>
-            <View style={{ alignItems : 'center', marginTop : 20, marginBottom : 20 }}>
+            <View style={{ alignItems : 'center', marginTop : 20, marginBottom : 20, justifyContent : 'center',flexDirection : 'row' }}>
             <PieChart
               chart_wh={chart_wh}
               series={this.props.totalExpense}
               sliceColor={sliceColor}
             />
+            <Image source={require('../assets/icons/pie_chart_definition.png')} style={{width : 130, height : 130, resizeMode: 'contain', marginLeft :'20'}}/>
             </View>
             {
               this.props.user.expense.map((datum,index)=>
