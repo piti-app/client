@@ -1,58 +1,86 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { onSignOut } from "../Authentication";
-import ExpenseCard from '../components/ExpenseCard'
-import {
-  Container, Header, Left, Body, Right, Content,
-  Button, Title, Card, CardItem, Text, Icon, H1, H2, Thumbnail } from "native-base";
-import _ from '../assets/style'
-import { TouchableHighlight,AsyncStorage,Alert, StyleSheet } from 'react-native'
-import axios from 'axios'
+import List from '../components/List'
 import { connect }from 'react-redux'
-import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import ExpenseCard from "../components/ExpenseCard";
+import { Col, Row, Grid } from "react-native-easy-grid";
+import {Container,Body,Content,Card,CardItem,Text,Icon,View,Tab,Tabs,TabHeading } from "native-base";
+import _ from "../assets/style";
+import { TouchableHighlight,AsyncStorage,Alert,StyleSheet,Image } from "react-native";
+import axios from "axios";
+import GestureRecognizer, { swipeDirections } from "react-native-swipe-gestures";
+import getData from '../store/actions/getData'
 
 class Profile extends Component {
-  componentDidMount = async() =>{
-    let self = this
-    AsyncStorage.getItem('user')
-      .then(email=>{
+  componentDidMount = async () => {
+    let self = this;
+    AsyncStorage.getItem("user")
+      .then(email => {
         axios({
-          method : 'GET',
-          url : `http://10.0.2.2:4000/user/${email}`
+          method: "GET",
+          url: `http://10.0.2.2:4000/user/${email}`
         })
           .then(({ data }) => {
-            console.log(data.user)
-            let expenses = 0
-            data.user.expense.forEach( expense =>{
-              console.log(expense.price)
-              expenses+= expense.price
-            })
+            console.log(data.user);
+            let expenses = 0;
+            data.user.expense.forEach(expense => {
+              console.log(expense.price);
+              expenses += expense.price;
+            });
 
             self.setState({
-              userData : data.user,
-              totalExpense : expenses
-            })
-          }).catch((err) => {
-            Alert.alert(error)
+              userData: data.user,
+              totalExpense: expenses
+            });
+          })
+          .catch(err => {
+            Alert.alert(error);
           });
       })
-      .catch(err=>{
-        Alert.alert(error)
-      })
-  }
+      .catch(err => {
+        Alert.alert(error);
+      });
+  };
 
-  static navigationOptions = {
-    title: 'Profile',
-    tabBarLabel: 'Profile',
-    tabBarVisible:true,
-    tabBarIcon: <Icon name='person' />
-  }
+  static navigationOptions = ({ navigation }) => ({
+    headerTitle: (
+      <Text
+        style={{
+          fontSize: 32,
+          fontFamily: "bebaskai",
+          textAlign: "center",
+          paddingTop: 28,
+          paddingBottom: 20,
+          paddingLeft: 133,
+          marginLeft: 25
+        }}
+      >
+        PROFILE
+      </Text>
+    ),
+    headerStyle: { backgroundColor: "#fff", elevation: 0 },
+    headerRight: (
+      <TouchableHighlight
+        style={{ marginRight: 25 }}
+        onPress={() => {
+          onSignOut()
+            .then(result => {
+              navigation.navigate("SignedOut");
+            })
+            .catch(err => {});
+        }}
+      >
+        <Icon type="FontAwesome" name="sign-out" />
+      </TouchableHighlight>
+    )
+  });
   constructor(props) {
     super(props);
     this.state = {
       chosenDate: new Date(),
       selected: undefined,
-      userData : {},
-      totalExpense : 0
+      userData: {},
+      totalExpense: 0
     };
     this.setDate = this.setDate.bind(this);
   }
@@ -66,79 +94,104 @@ class Profile extends Component {
   }
   render() {
     return (
-        <Container>
-          <Header noLeft style={{backgroundColor : '#FFF'}}>
-            <Body>
-              <Title style={_.title}>Profile</Title>
-            </Body>
-            <Right>
-              <TouchableHighlight onPress={() => {onSignOut().then(() => this.props.navigation.navigate("SignedOut"))}}>
-                <Icon type="FontAwesome" name="sign-out" />
-              </TouchableHighlight>
-            </Right>
-          </Header>
-          <Content style={_.content}>
-            <Card>
-              <CardItem>
-                <Left>
-                  <Thumbnail source={{uri: this.state.userData.avatar}} />
-                  <Body>
-                    <H2>{this.state.userData.name}</H2>
-                    <Text note>{this.state.userData.email}</Text>
-                  </Body>
-                </Left>
-              </CardItem>
-            </Card>
-            <Card>
-              <CardItem>
-                <Content>
-                  <H1>Your Main Balance</H1>
-                  <Text>Rp.{ this.state.userData.main_balance }</Text>
-                </Content>
-              </CardItem>
-            </Card>
-            <Card>
-              <CardItem>
-                <Content>
-                  <H1>Your Expenses</H1>
-                  <Text>Rp.{ this.state.totalExpense }</Text>
-                </Content>
-              </CardItem>
-            </Card>
-            <Card>
-              <CardItem>
-                <Content>
-                  <H1>Your Saving Goal</H1>
-                  <Text>Rp.{ this.state.userData.budget }</Text>
-                </Content>
-              </CardItem>
-            </Card>
-          <TouchableHighlight style={[styles.buttonContainer, styles.createButton]} onPress={() => this.props.navigation.navigate('EditProfile', this.state.userData)}>
-                 <Text style={styles.createText}>Edit</Text>
-          </TouchableHighlight>
-          </Content>
-        </Container>
+      <Container>
+        <Content style={_.content}>
+          <Grid>
+            <Col
+              style={{
+                backgroundColor: "#FFF",                
+                justifyContent: "center",
+                alignItems: "center"
+              }}>
+               <Grid>
+                <Col style={{ backgroundColor: '#FFF', justifyContent:'center',alignItems:'center' }}>
+                <Image source={{uri: 'https://via.placeholder.com/350x150'}}
+                      style={{width: 115, height: 115,borderRadius:60,marginTop:10,marginBottom:10}} />
+                </Col>
+                <Col style={{ backgroundColor: '#FFF',  justifyContent:'center'}}>
+                
+                      <Text style={{fontSize:16,fontFamily : 'avenir_medium',textAlign:'center'}}>{this.state.userData.name}</Text>                    
+                      <Text style={{fontSize:16,fontFamily : 'avenir_medium',marginBottom:10,textAlign:'center'}}>{this.state.userData.email}</Text>                    
+                
+                        <TouchableHighlight style={[styles.buttonContainer, styles.createButton]} onPress={() => this.props.navigation.navigate('EditProfile', this.state.userData)}>
+                              <Text style={styles.createText}>Edit</Text>
+                        </TouchableHighlight>     
+                </Col>
+              </Grid>
+              <Grid>
+                {/* ====== TABS ===== */}
+                <Tabs tabBarUnderlineStyle={{borderBottomWidth:2,backgroundColor:'#FFF'}}>
 
+                {/* ====== BASIC INFO ====== */}
+                  <Tab heading="Basic Info" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>                  
+                  <Card>
+                    <CardItem header bordered>
+                      <Text>NativeBase</Text>
+                    </CardItem>
+                    <CardItem bordered>
+                      <Body>
+                        <List type='Main Balance' content='50000'/>
+                        <List type='Total Spent' content='60000'/>
+                        <List type='Total Expense' content='40000'/>
+                        <List type='Today Activity' content='60000'/>
+                        <List type='Last Activity' content='20000'/>
+                        <List type='Target Saving' content='30000'/>
+                        <List type='Maximum' content='40000'/>                                             
+                      </Body>
+                    </CardItem>
+                    <CardItem footer bordered>
+                      <Text>GeekyAnts</Text>
+                    </CardItem>
+                  </Card>                 
+                  </Tab>
+                  <Tab heading="History" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>
+                      <View style={{ backgroundColor: "yellow" }}>
+                          <Text>aw</Text>
+                        </View>
+                        <View />
+                  </Tab>
+                      <Tab heading={<TabHeading style={{backgroundColor: '#FFF'}}>
+                      <Icon name="apps" style={{color: 'blue'}} />                 
+                      </TabHeading>}>       
+                  </Tab>
+                </Tabs>
+              </Grid>             
+            </Col>
+          </Grid>          
+        </Content>
+      </Container>
     );
   }
 }
-
-export default Profile;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    user : state.getExpense.user,
+    isLoaded : state.getExpense.isLoaded,
+    totalExpense : state.getExpense.totalExpense
+  }
+}
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    getExpenses: () => {
+      dispatch(getData())
+    }
+  }
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Profile)
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    height:45,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom:20,
-    width:250,
-    borderRadius:30,
+    height: 30,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 200,
+    borderRadius: 30
   },
   createButton: {
-    backgroundColor: "#0D7EF7",
+    backgroundColor: "#0D7EF7"
   },
   createText: {
-    color: 'white',
-  },
+    color: "white"
+  }
 });
