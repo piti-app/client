@@ -97,25 +97,25 @@ class FormCreateExpense extends Component {
                 })
                 .then((result) => {
                     this.props.getExpenses()
-                    Alert.alert("Save Expense Succes !")
                     this.textType.clear()
                     this.textDescription.clear()
                     this.setState({
                         displayDate: 'Date',
                         price: '',
                         type: 'Type',
-                        description: ''
+                        description: '',
+                        show: true
                     })
                 }).catch((err) => {
-                    Alert.alert("Save Expense Error !")
+                    Alert.alert("Save Expense Error bebe!")
                 });
     
             }).catch((err) => {
-                Alert.alert("Save Expense Error !")
+                Alert.alert("Save Expense Error  ahaha!")
             }); 
             
         }).catch((err) => {
-            
+            Alert.alert("Save Expense Error  ahahsdasdsa!")
         });        
 
     }
