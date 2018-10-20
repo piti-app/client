@@ -62,10 +62,10 @@ export default class Signin extends Component {
     render() {
         return (
             <View style={{justifyContent:'center',alignItems:'center',height:'100%',backgroundColor:'#fff'}}>
-                <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{justifyContent:'center',alignItems:'center',marginTop:75}}>
+                <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{justifyContent:'center',alignItems:'center',marginTop:55}}>
                     <View style={{justifyContent:'center',alignItems:'center',padding:30,backgroundColor:'#FFF' ,borderRadius:10}}>
-                    <Image source={{uri: 'https://via.placeholder.com/350x150'}}
-                    style={{width: 100, height: 100,borderRadius:50,marginBottom:20}} />
+                    <Image source={require('../assets/icon.png')}
+                    style={{width: 150, height: 150,marginBottom:20, resizeMode:'contain'}} />
 
                         <View style={{flexDirection:'row'}}>
                             <Image source={require('../assets/icons/username.png')}
