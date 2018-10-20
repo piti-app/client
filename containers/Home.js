@@ -85,9 +85,8 @@ class Home extends Component {
     const sliceColor = ['#4073F4','#FF8454','#FFBF30', '#02F6C9', '#5133DF']
 
     return (
-      <GestureRecognizer
-        onSwipeLeft={() => this.props.navigation.navigate('Recommendation')}
-        onSwipeRight={() => Alert.alert('ke kiri')}
+      <GestureRecognizer                
+        onSwipeRight={() => Alert.alert('ke kiri')}             
         >
        <View style ={{ backgroundColor : '#FFF', height:'100%' }}>
           {
