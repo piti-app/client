@@ -36,6 +36,37 @@ class EditProfile extends Component {
     error: false
   };
 
+  handleOnChangeName = (event) => {
+    let newName =  event
+    this.setState({
+      name: newName
+    })
+  }
+  handleOnChangeEmail = (event) => {
+    let newEmail =  event
+    this.setState({
+      email: newEmail
+    })
+  }
+  handleOnChangeAvatar = (event) => {
+    let newAvatar =  event
+    this.setState({
+      avatar: newAvatar
+    })
+  }
+  handleOnChangeMain = (event) => {
+    let newMain =  event
+    this.setState({
+      main_balance: newMain
+    })
+  }
+  handleOnChangeBudget = (event) => {
+    let newBudget =  event
+    this.setState({
+      budget: newBudget
+    })
+  }
+
   render() {
     console.log(this.props.navigation.state.params)
     return (
@@ -70,9 +101,9 @@ class EditProfile extends Component {
                 <TextInput style={styles.inputs}
                     ref={input => { this.textMain = input }}
                     value={this.state.main_balance.toString()}
-                    keyboardType="default"
+                    keyboardType="numeric"
                     underlineColorAndroid='transparent'
-                    onChangeText={this.handleOnChangeEmail}/>
+                    onChangeText={this.handleOnChangeMain}/>
             </View>
 
             <View style={styles.inputContainer}>
@@ -80,9 +111,9 @@ class EditProfile extends Component {
                 <TextInput style={styles.inputs}
                     ref={input => { this.textBudget = input }}
                     value={this.state.budget.toString()}
-                    keyboardType="default"
+                    keyboardType="numeric"
                     underlineColorAndroid='transparent'
-                    onChangeText={this.handleOnChangeEmail}/>
+                    onChangeText={this.handleOnChangeBudget}/>
             </View>
 
             <TouchableHighlight style={[styles.buttonContainer, styles.createButton]} onPress={() => this.onClickListener()}>
