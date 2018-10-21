@@ -9,7 +9,7 @@ import { TouchableHighlight,AsyncStorage,Alert,StyleSheet,Image,ProgressBarAndro
 import axios from "axios";
 import GestureRecognizer, { swipeDirections } from "react-native-swipe-gestures";
 import getData from '../store/actions/getData'
-import { BarChart, Grid } from 'react-native-svg-charts'
+import { BarChart, YAxis,XAxis,StackedBarChart } from 'react-native-svg-charts'
 
 class Profile extends Component {
 
@@ -61,8 +61,53 @@ class Profile extends Component {
     });
   }
   render() {
-    const fill = 'rgb(134, 65, 244)'
-    const data   = [ 50, 10, 40, 95, -4, -24, null, 85, undefined, 0, 35, 53, -53, 24, 50, -20, -80 ]
+    const data = [
+      {          
+          apples: 10,
+          bananas: 20,
+          cherries: 30,
+          dates: 20,
+          oranges: 20,
+      },
+      {          
+          apples: 10,
+          bananas: 20,
+          cherries: 30,
+          dates: 20,
+          oranges: 20,
+      },
+      {          
+          apples: 10,
+          bananas: 20,
+          cherries: 30,
+          dates: 20,
+          oranges: 20,
+      },
+      {
+          apples: 10,
+          bananas: 20,
+          cherries: 30,
+          dates: 20,
+          oranges: 20,
+      },
+      {        
+        apples: 10,
+          bananas: 20,
+          cherries: 30,
+          dates: 20,
+          oranges: 20,
+    },
+    {      
+      apples: 10,
+          bananas: 20,
+          cherries: 30,
+          dates: 20,
+          oranges: 20,
+  },
+  ]
+  const month = ['Jan','Feb','March','Aprl','Mei','June','July','Aug','Sept','Oct','Nov','Dec']
+  const colors = [ '#4073F4','#FF8454','#FFBF30', '#02F6C9']
+  const keys   = [ 'apples', 'bananas', 'cherries', 'dates' ]
     return (
       <Container>
         <Content style={_.content}>
@@ -73,10 +118,12 @@ class Profile extends Component {
               <Text style={{fontSize:26,marginBottom:5,fontWeight:'bold'}}>
                   Rp.2500000
               </Text>  
-              <View style={{backgroundColor:'#FF8454',opacity:0.3,padding:10,borderRadius:10}}>
-                <Text style={{color:'red',fontSize:12}}>
-                - Rp.2500000
-                </Text>
+              <View style={{flexDirection:'row'}}>
+                  <View style={{backgroundColor:'#FF8454',opacity:0.3,padding:10,borderRadius:10}}>
+                    <Text style={{color:'red',fontSize:12}}>
+                    - Rp.2500000
+                    </Text>
+                  </View>                  
               </View>
             </View>        
             <ScrollView  horizontal={true} showsHorizontalScrollIndicator={false}>             
@@ -134,7 +181,7 @@ class Profile extends Component {
                 </CardItem>           
               </Card>              
             </ScrollView>
-            <Tabs style={{borderBottomWidth:0,marginTop:10}}>
+            <Tabs style={{marginTop:10}}>
             {/* ====== BASIC INFO ====== */}
               <Tab heading="Basic Info" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>                               
                   <List type='Maximum' value='40000' color='#4073F4'/>   
@@ -145,15 +192,22 @@ class Profile extends Component {
               </Tab>
 
               <Tab heading="History" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>
-                  <View style={{ backgroundColor: "yellow" }}>
-                  <BarChart
-                      style={{ height: 200 }}
+                  <View style={{ backgroundColor: "#FFF",marginRight:15,marginLeft:15 }}>                                  
+                  <StackedBarChart
+                      style={ { height: 200 } }
+                      keys={ keys }
+                      colors={ colors }
                       data={ data }
-                      svg={{ fill }}
-                      contentInset={{ top: 30, bottom: 30 }}
-                  >
-                      <Grid/>
-                  </BarChart>
+                      showGrid={ false }
+                      contentInset={ { top: 30, bottom: 10 } }
+                  />
+                   <XAxis
+                    style={{ marginLeft: 0,marginRight:10}}
+                    data={ data }
+                    formatLabel={ (value, index) => month[index] }  
+                    contentInset={ { left: 10, bottom: 10 } }                  
+                    svg={{ fontSize: 13, fill: 'black' }}
+                />
                     </View>                   
               </Tab>             
             </Tabs>     
