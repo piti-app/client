@@ -4,34 +4,28 @@ import List from '../components/List'
 import { connect }from 'react-redux'
 import ExpenseCard from "../components/ExpenseCard";
 import { Col, Row, Grid } from "react-native-easy-grid";
-import {Container,Body,Content,Card,CardItem,Text,Icon,View,Tab,Tabs,TabHeading } from "native-base";
+import {Container,Body,Content,Card,CardItem,Text,Icon,View,Tab,Tabs,Badge,ListItem,Left,Right,Button} from "native-base";
 import _ from "../assets/style";
-import { TouchableHighlight,AsyncStorage,Alert,StyleSheet,Image } from "react-native";
+import { TouchableHighlight,AsyncStorage,Alert,StyleSheet,Image,ProgressBarAndroid,ScrollView } from "react-native";
 import axios from "axios";
 import GestureRecognizer, { swipeDirections } from "react-native-swipe-gestures";
 import getData from '../store/actions/getData'
 
 class Profile extends Component {
+
   componentDidMount = () => {
     this.props.getUserData()
   };
 
-  static navigationOptions = ({ navigation }) => ({
-    headerTitle: (
-      <Text
-        style={{
-          fontSize: 32,
-          fontFamily: "bebaskai",
-          textAlign: "center",
-          paddingTop: 28,
-          paddingBottom: 20,
-          paddingLeft: 145,
-          marginLeft: 25
-        }}
-      >
-        PROFILE
-      </Text>
-    ),
+  static navigationOptions = ({ navigation }) => ({    
+    headerTitle: <Text style={{
+      fontSize: 32,
+      fontFamily : 'bebaskai',
+      textAlign : 'center',
+      paddingTop: 28,
+      paddingBottom: 20,
+      paddingLeft : 150
+    }}></Text>,    
     headerStyle: { backgroundColor: "#fff", elevation: 0 },
     headerRight: (
       <TouchableHighlight
@@ -70,68 +64,91 @@ class Profile extends Component {
     return (
       <Container>
         <Content style={_.content}>
-          <Grid>
-            <Col
-              style={{
-                backgroundColor: "#FFF",                
-                justifyContent: "center",
-                alignItems: "center"
-              }}>
-               <Grid>
-                <Col style={{ backgroundColor: '#FFF', justifyContent:'center',alignItems:'center' }}>
-                <Image source={{uri: this.props.user.avatar}}
-                      style={{width: 115, height: 115,borderRadius:60,marginTop:10,marginBottom:10}} />
-                </Col>
-                <Col style={{ backgroundColor: '#FFF',  justifyContent:'center'}}>
-                
-                      <Text style={{fontSize:16,fontFamily : 'avenir_medium',textAlign:'center'}}>{this.props.user.name}</Text>                    
-                      <Text style={{fontSize:16,fontFamily : 'avenir_medium',marginBottom:10,textAlign:'center'}}>{this.props.user.email}</Text>                    
-                
-                        <TouchableHighlight style={[styles.buttonContainer, styles.createButton]} onPress={() => this.props.navigation.navigate('EditProfile', this.props.user)}>
-                              <Text style={styles.createText}>Edit</Text>
-                        </TouchableHighlight>     
-                </Col>
-              </Grid>
-              <Grid>
-                {/* ====== TABS ===== */}
-                <Tabs tabBarUnderlineStyle={{borderBottomWidth:2,backgroundColor:'#FFF'}}>
+            <View style={{justifyContent:'center',alignItems:'center',marginBottom:20}}>
+              <Text note style={{marginBottom:5}}>
+                  TOTAL BALANCE
+              </Text>  
+              <Text style={{fontSize:26,marginBottom:5,fontWeight:'bold'}}>
+                  Rp.2500000
+              </Text>  
+              <View style={{backgroundColor:'#FF8454',opacity:0.3,padding:10,borderRadius:10}}>
+                <Text style={{color:'red',fontSize:12}}>
+                - Rp.2500000
+                </Text>
+              </View>
+            </View>        
+            <ScrollView  horizontal={true} showsHorizontalScrollIndicator={false}>             
+              <Card style={{marginRight:15,width:180,marginLeft:15}}>        
+                <CardItem style={{ backgroundColor: '#4073F4' }}>
+                  <Body>
+                    <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
+                      REVENUE
+                    </Text>
+                    <Text style={{marginBottom:20,fontSize:20,color:'#FFF',fontWeight:'bold'}}>
+                      Rp.25000
+                    </Text>
+                    <View>
+                      <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
+                        Click 
+                      </Text>
+                    </View>
+                  </Body>
+                </CardItem>           
+              </Card>
 
-                {/* ====== BASIC INFO ====== */}
-                  <Tab heading="Basic Info" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>                  
-                  <Card>
-                    <CardItem header bordered>
-                      <Text>NativeBase</Text>
-                    </CardItem>
-                    <CardItem bordered>
-                      <Body>
-                        <List type='Main Balance' content={JSON.stringify(this.props.user.main_balance)}/>
-                        <List type='Total Spent' content='60000'/>
-                        <List type='Total Expense' content='40000'/>
-                        <List type='Today Activity' content='60000'/>
-                        <List type='Last Activity' content='20000'/>
-                        <List type='Target Saving' content='30000'/>
-                        <List type='Maximum' content='40000'/>                                             
-                      </Body>
-                    </CardItem>
-                    <CardItem footer bordered>
-                      <Text>GeekyAnts</Text>
-                    </CardItem>
-                  </Card>                 
-                  </Tab>
-                  <Tab heading="History" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>
-                      <View style={{ backgroundColor: "yellow" }}>
-                          <Text>aw</Text>
-                        </View>
-                        <View />
-                  </Tab>
-                      <Tab heading={<TabHeading style={{backgroundColor: '#FFF'}}>
-                      <Icon name="apps" style={{color: 'blue'}} />                 
-                      </TabHeading>}>       
-                  </Tab>
-                </Tabs>
-              </Grid>             
-            </Col>
-          </Grid>          
+              <Card style={{backgroundColor:'blue',marginRight:15,width:180}}>        
+                <CardItem style={{ backgroundColor:'#08ddb3' }}>
+                  <Body>
+                    <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
+                      REVENUE
+                    </Text>
+                    <Text style={{marginBottom:20,fontSize:20,color:'#FFF',fontWeight:'bold'}}>
+                      Rp.25000
+                    </Text>
+                    <View>
+                      <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
+                        Click 
+                      </Text>
+                    </View>
+                  </Body>
+                </CardItem>           
+              </Card>
+
+              <Card style={{backgroundColor:'blue',marginRight:15,width:180}}>        
+                <CardItem style={{ backgroundColor: '#c4c4c4' }}>
+                  <Body>
+                    <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
+                      REVENUE
+                    </Text>
+                    <Text style={{marginBottom:20,fontSize:20,color:'#FFF',fontWeight:'bold'}}>
+                      Rp.25000
+                    </Text>
+                    <View>
+                      <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
+                        Click 
+                      </Text>
+                    </View>
+                  </Body>
+                </CardItem>           
+              </Card>              
+            </ScrollView>
+            <Tabs style={{borderBottomWidth:0,marginTop:20}}>
+            {/* ====== BASIC INFO ====== */}
+              <Tab heading="Basic Info" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>                               
+                  <List type='Maximum' value='40000' color='#4073F4'/>   
+                  <List type='Maximum' value='40000' color='#FF8454'/>   
+                  <List type='Maximum' value='40000' color='#FFBF30'/>   
+                  <List type='Maximum' value='40000' color='#02F6C9'/>   
+                  <List type='Maximum' value='40000' color='#5133DF'/>                     
+              </Tab>
+
+              <Tab heading="History" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>
+                  <View style={{ backgroundColor: "yellow" }}>
+                      <Text>aw</Text>
+                    </View>
+                    <View />
+              </Tab>             
+            </Tabs>     
         </Content>
       </Container>
     );
@@ -163,7 +180,7 @@ const styles = StyleSheet.create({
     borderRadius: 30
   },
   createButton: {
-    backgroundColor: "#0D7EF7"
+    backgroundColor: "#4073F4"
   },
   createText: {
     color: "white"

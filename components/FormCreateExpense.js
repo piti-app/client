@@ -107,7 +107,7 @@ class FormCreateExpense extends Component {
                         show: true
                     })
                 }).catch((err) => {
-                    Alert.alert("Save Expense Error bebe!")
+                    Alert.alert(JSON.stringify(err))
                 });
     
             }).catch((err) => {
