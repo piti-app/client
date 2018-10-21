@@ -51,7 +51,7 @@ class Profile extends Component {
           textAlign: "center",
           paddingTop: 28,
           paddingBottom: 20,
-          paddingLeft: 133,
+          paddingLeft: 145,
           marginLeft: 25
         }}
       >
