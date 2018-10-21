@@ -3,13 +3,13 @@ import { onSignOut } from "../Authentication";
 import List from '../components/List'
 import { connect }from 'react-redux'
 import ExpenseCard from "../components/ExpenseCard";
-import { Col, Row, Grid } from "react-native-easy-grid";
 import {Container,Body,Content,Card,CardItem,Text,Icon,View,Tab,Tabs,Badge,ListItem,Left,Right,Button} from "native-base";
 import _ from "../assets/style";
 import { TouchableHighlight,AsyncStorage,Alert,StyleSheet,Image,ProgressBarAndroid,ScrollView } from "react-native";
 import axios from "axios";
 import GestureRecognizer, { swipeDirections } from "react-native-swipe-gestures";
 import getData from '../store/actions/getData'
+import { BarChart, Grid } from 'react-native-svg-charts'
 
 class Profile extends Component {
 
@@ -61,6 +61,8 @@ class Profile extends Component {
     });
   }
   render() {
+    const fill = 'rgb(134, 65, 244)'
+    const data   = [ 50, 10, 40, 95, -4, -24, null, 85, undefined, 0, 35, 53, -53, 24, 50, -20, -80 ]
     return (
       <Container>
         <Content style={_.content}>
@@ -132,7 +134,7 @@ class Profile extends Component {
                 </CardItem>           
               </Card>              
             </ScrollView>
-            <Tabs style={{borderBottomWidth:0,marginTop:20}}>
+            <Tabs style={{borderBottomWidth:0,marginTop:10}}>
             {/* ====== BASIC INFO ====== */}
               <Tab heading="Basic Info" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>                               
                   <List type='Maximum' value='40000' color='#4073F4'/>   
@@ -144,9 +146,15 @@ class Profile extends Component {
 
               <Tab heading="History" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>
                   <View style={{ backgroundColor: "yellow" }}>
-                      <Text>aw</Text>
-                    </View>
-                    <View />
+                  <BarChart
+                      style={{ height: 200 }}
+                      data={ data }
+                      svg={{ fill }}
+                      contentInset={{ top: 30, bottom: 30 }}
+                  >
+                      <Grid/>
+                  </BarChart>
+                    </View>                   
               </Tab>             
             </Tabs>     
         </Content>
