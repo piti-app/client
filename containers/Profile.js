@@ -12,34 +12,8 @@ import GestureRecognizer, { swipeDirections } from "react-native-swipe-gestures"
 import getData from '../store/actions/getData'
 
 class Profile extends Component {
-  componentDidMount = async () => {
-    let self = this;
-    AsyncStorage.getItem("user")
-      .then(email => {
-        axios({
-          method: "GET",
-          url: `http://10.0.2.2:4000/user/${email}`
-        })
-          .then(({ data }) => {
-            console.log(data.user);
-            let expenses = 0;
-            data.user.expense.forEach(expense => {
-              console.log(expense.price);
-              expenses += expense.price;
-            });
-
-            self.setState({
-              userData: data.user,
-              totalExpense: expenses
-            });
-          })
-          .catch(err => {
-            Alert.alert(error);
-          });
-      })
-      .catch(err => {
-        Alert.alert(error);
-      });
+  componentDidMount = () => {
+    this.props.getUserData()
   };
 
   static navigationOptions = ({ navigation }) => ({
@@ -105,15 +79,15 @@ class Profile extends Component {
               }}>
                <Grid>
                 <Col style={{ backgroundColor: '#FFF', justifyContent:'center',alignItems:'center' }}>
-                <Image source={{uri: 'https://via.placeholder.com/350x150'}}
+                <Image source={{uri: this.props.user.avatar}}
                       style={{width: 115, height: 115,borderRadius:60,marginTop:10,marginBottom:10}} />
                 </Col>
                 <Col style={{ backgroundColor: '#FFF',  justifyContent:'center'}}>
                 
-                      <Text style={{fontSize:16,fontFamily : 'avenir_medium',textAlign:'center'}}>{this.state.userData.name}</Text>                    
-                      <Text style={{fontSize:16,fontFamily : 'avenir_medium',marginBottom:10,textAlign:'center'}}>{this.state.userData.email}</Text>                    
+                      <Text style={{fontSize:16,fontFamily : 'avenir_medium',textAlign:'center'}}>{this.props.user.name}</Text>                    
+                      <Text style={{fontSize:16,fontFamily : 'avenir_medium',marginBottom:10,textAlign:'center'}}>{this.props.user.email}</Text>                    
                 
-                        <TouchableHighlight style={[styles.buttonContainer, styles.createButton]} onPress={() => this.props.navigation.navigate('EditProfile', this.state.userData)}>
+                        <TouchableHighlight style={[styles.buttonContainer, styles.createButton]} onPress={() => this.props.navigation.navigate('EditProfile', this.props.user)}>
                               <Text style={styles.createText}>Edit</Text>
                         </TouchableHighlight>     
                 </Col>
@@ -130,7 +104,7 @@ class Profile extends Component {
                     </CardItem>
                     <CardItem bordered>
                       <Body>
-                        <List type='Main Balance' content='50000'/>
+                        <List type='Main Balance' content={JSON.stringify(this.props.user.main_balance)}/>
                         <List type='Total Spent' content='60000'/>
                         <List type='Total Expense' content='40000'/>
                         <List type='Today Activity' content='60000'/>
@@ -172,7 +146,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getExpenses: () => {
+    getUserData: () => {
       dispatch(getData())
     }
   }
