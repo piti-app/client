@@ -125,6 +125,9 @@ class Profile extends Component {
                     </Text>
                   </View>                  
               </View>
+               <TouchableHighlight style={[styles.buttonContainer, styles.createButton]} onPress={() => this.props.navigation.navigate('EditProfile', this.props.user)}>
+                              <Text style={styles.createText}>Edit</Text>
+                </TouchableHighlight>   
             </View>        
             <ScrollView  horizontal={true} showsHorizontalScrollIndicator={false}>             
               <Card style={{marginRight:15,width:180,marginLeft:15}}>        
