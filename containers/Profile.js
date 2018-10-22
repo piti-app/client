@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { onSignOut } from "../Authentication";
 import List from '../components/List'
 import { connect }from 'react-redux'
+import setDate from '../helper/date'
 import ExpenseCard from "../components/ExpenseCard";
 import {Container,Body,Content,Card,CardItem,Text,Icon,View,Tab,Tabs,Badge,ListItem,Left,Right,Button} from "native-base";
 import _ from "../assets/style";
@@ -10,6 +11,7 @@ import axios from "axios";
 import GestureRecognizer, { swipeDirections } from "react-native-swipe-gestures";
 import getData from '../store/actions/getData'
 import { BarChart, YAxis,XAxis,StackedBarChart } from 'react-native-svg-charts'
+import { forEach } from "async";
 
 class Profile extends Component {
 
@@ -109,6 +111,19 @@ class Profile extends Component {
   const colors = [ '#4073F4','#FF8454','#FFBF30', '#02F6C9']
   const keys   = [ 'apples', 'bananas', 'cherries', 'dates' ]
   let totalBalance = this.props.user.main_balance - this.props.user.money_spent
+  let date = new Date()
+  let dd = date.getDate()
+  let MaximumSpentPerDay = Math.round((totalBalance-this.props.user.budget)/(30-dd))
+  
+  let expensesToday = []
+  this.props.user.expense.forEach(item =>{
+    if(setDate(item.date)== setDate()){      
+      expensesToday.push(item.price)
+    }
+  }) 
+  
+const reducer = (accumulator, currentValue) => accumulator + currentValue;
+  
     return (
       <Container>
         <Content style={_.content}>
@@ -123,17 +138,23 @@ class Profile extends Component {
                       TOTAL BALANCE
                   </Text>  
                   <Text style={{fontSize:26,marginBottom:5,fontWeight:'bold'}}>
-                      Rp.{totalBalance}
+                      Rp.{totalBalance},00
                   </Text>                
                   <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                       <View style={{backgroundColor:'#FF8454',opacity:0.3,padding:10,borderRadius:10}}>
-                        <Text style={{color:'red',fontSize:12,fontWeight:'bold'}}>
-                        - Rp.{this.props.user.money_spent}
-                        </Text>         
+                        {this.props.user.money_spent===0?
+                          <Text style={{color:'red',fontSize:12,fontWeight:'bold'}}>
+                          Rp. 0,00
+                          </Text>:
+                          <Text style={{color:'red',fontSize:12,fontWeight:'bold'}}>
+                          - Rp.{this.props.user.money_spent},00
+                          </Text>           
+                      }                        
                       </View>                  
-                        <TouchableHighlight onPress={() => this.props.navigation.navigate('EditProfile', this.props.user)} style={{marginTop:5}}>
-                          <Icon type="FontAwesome" name="edit" style={{ color: "#4073F4",marginLeft:10 }} />
-                        </TouchableHighlight>               
+                        
+                        <Button small onPress={() => this.props.navigation.navigate('EditProfile', this.props.user)} style={{marginTop:5,borderRadius:100,marginLeft:10,backgroundColor:'#4073F4' }}>            
+                          <Icon small type="FontAwesome" name="edit" style={{ color: "#FFF"}} />
+                        </Button>              
                   </View>
                 
                </View>    
@@ -147,7 +168,7 @@ class Profile extends Component {
                       INCOME
                     </Text>
                     <Text style={{marginBottom:20,fontSize:20,color:'#FFF',fontWeight:'bold'}}>
-                      Rp.{this.props.user.main_balance}
+                      Rp.{this.props.user.main_balance},00
                     </Text>
                     <View>
                       <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
@@ -158,14 +179,14 @@ class Profile extends Component {
                 </CardItem>           
               </Card>
 
-              <Card style={{backgroundColor:'blue',marginRight:15,width:180}}>        
+              <Card style={{marginRight:15,width:180}}>        
                 <CardItem style={{ backgroundColor:'#08ddb3' }}>
                   <Body>
                     <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
                       EXPENSE
                     </Text>
                     <Text style={{marginBottom:20,fontSize:20,color:'#FFF',fontWeight:'bold'}}>
-                      Rp.{this.props.user.money_spent}
+                      Rp.{this.props.user.money_spent},00
                     </Text>
                     <View>
                       <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
@@ -176,19 +197,19 @@ class Profile extends Component {
                 </CardItem>           
               </Card>
 
-              <Card style={{backgroundColor:'blue',marginRight:15,width:180}}>        
+              <Card style={{marginRight:15,width:180}}>        
                 <CardItem style={{ backgroundColor: '#c4c4c4' }}>
                   <Body>
                     <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
                       GOAL SAVING
                     </Text>
                     <Text style={{marginBottom:20,fontSize:20,color:'#FFF',fontWeight:'bold'}}>
-                      Rp.{this.props.user.budget}
+                      Rp.{this.props.user.budget},00
                     </Text>
-                    <View>
+                    <View>    
                       <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
-                        Click 
-                      </Text>
+                            click                                                                                       
+                      </Text>                  
                     </View>
                   </Body>
                 </CardItem>           
@@ -197,11 +218,9 @@ class Profile extends Component {
             <Tabs style={{marginTop:10}}>
             {/* ====== BASIC INFO ====== */}
               <Tab heading="Basic Info" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>                               
-                  <List type='Maximum' value='40000' color='#4073F4'/>   
-                  <List type='Maximum' value='40000' color='#FF8454'/>   
-                  <List type='Maximum' value='40000' color='#FFBF30'/>   
-                  <List type='Maximum' value='40000' color='#02F6C9'/>   
-                  <List type='Maximum' value='40000' color='#5133DF'/>                     
+                  <List type='Maximum' value={MaximumSpentPerDay} color='#4073F4'/>                     
+                  <List type='expense today' value={expensesToday.reduce(reducer)}color='#FFBF30'/>   
+                  <List type='saving today' value={MaximumSpentPerDay-expensesToday.reduce(reducer)} color='#02F6C9'/>                                       
               </Tab>
 
               <Tab heading="History" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>
