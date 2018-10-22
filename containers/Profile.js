@@ -14,9 +14,106 @@ import { BarChart, YAxis,XAxis,StackedBarChart } from 'react-native-svg-charts'
 import { forEach } from "async";
 
 class Profile extends Component {
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      chosenDate: new Date(),
+      selected: undefined,
+      expenses: [],    
+      totalExpense: 0
+    };
+    this.setDate = this.setDate.bind(this);
+  }
   componentDidMount = () => {
+    let initData = {
+      foods:0,
+      transport:0,
+      electronic:0,
+      entertainment:0,
+      clothes:0
+
+    }
+    let foodCounterPrice = 0
+    let electronicCounterPrice = 0
+    let transportCounterPrice = 0
+    let clothesCounterPrice = 0
+    let entertainmentCounterPrice = 0    
+    let data= []
+    let jan =[]
+    let feb =[]
+    let mar =[]
+    let apr =[]
+    let mei =[]
+    let jun =[]
+    let jul =[]
+    let aug =[]
+    let sep =[]
+    let oct =[]
+    let nov =[]
+    let dec =[]
+    let month = [jan,feb,mar,apr,mei,jun,jul,aug,sep,oct,nov,dec]
     this.props.getUserData()
+    this.props.user.expense.forEach(item => {
+      let date = new Date(item.date)
+      if(item.type == 'Food & Drink'&& date.getMonth() ==0){
+        foodCounterPrice += item.price
+        initData = {
+          ...initData,
+          foods : foodCounterPrice
+        }
+        data = month[0].concat({
+          ...initData,
+          foods: foodCounterPrice         
+        })       
+      }
+      else if(item.type == 'Entertainment'&& date.getMonth() ==0){
+        entertainmentCounterPrice += item.price
+        initData = {
+          ...initData,
+          entertainment : entertainmentCounterPrice
+        }
+        data = month[0].concat({
+          ...initData,
+          entertainment: entertainmentCounterPrice         
+        })       
+      }
+      else if(item.type == 'Clothes'&& date.getMonth() ==0){
+        clothesCounterPrice += item.price
+        initData = {
+          ...initData,
+          clothes : clothesCounterPrice
+        }
+        data = month[0].concat({
+          ...initData,
+          clothes: clothesCounterPrice         
+        })       
+      }
+      else if(item.type == 'Transport'&& date.getMonth() ==0){
+        transportCounterPrice += item.price
+        initData = {
+          ...initData,
+          transport : transportCounterPrice
+        }
+        data = month[0].concat({
+          ...initData,
+          transport: transportCounterPrice         
+        })       
+      }
+      else if(item.type == 'Electronic'&& date.getMonth() ==0){
+        electronicCounterPrice += item.price
+        initData = {
+          ...initData,
+          electronic : electronicCounterPrice
+        }
+        data = month[0].concat({
+          ...initData,
+          electronic: electronicCounterPrice         
+        })       
+      }
+    })    
+    this.setState({
+      expenses:data
+    })
   };
 
   static navigationOptions = ({ navigation }) => ({    
@@ -44,16 +141,6 @@ class Profile extends Component {
       </TouchableHighlight>
     )
   });
-  constructor(props) {
-    super(props);
-    this.state = {
-      chosenDate: new Date(),
-      selected: undefined,
-      userData: {},
-      totalExpense: 0
-    };
-    this.setDate = this.setDate.bind(this);
-  }
   setDate(newDate) {
     this.setState({ chosenDate: newDate });
   }
@@ -62,54 +149,10 @@ class Profile extends Component {
       selected: value
     });
   }
-  render() {
-    const data = [
-      {          
-          apples: 10,
-          bananas: 20,
-          cherries: 30,
-          dates: 20,
-          oranges: 20,
-      },
-      {          
-          apples: 10,
-          bananas: 20,
-          cherries: 30,
-          dates: 20,
-          oranges: 20,
-      },
-      {          
-          apples: 10,
-          bananas: 20,
-          cherries: 30,
-          dates: 20,
-          oranges: 20,
-      },
-      {
-          apples: 10,
-          bananas: 20,
-          cherries: 30,
-          dates: 20,
-          oranges: 20,
-      },
-      {        
-        apples: 10,
-          bananas: 20,
-          cherries: 30,
-          dates: 20,
-          oranges: 20,
-    },
-    {      
-      apples: 10,
-          bananas: 20,
-          cherries: 30,
-          dates: 20,
-          oranges: 20,
-  },
-  ]
+  render() {    
   const month = ['Jan','Feb','March','Aprl','Mei','June','July','Aug','Sept','Oct','Nov','Dec']
-  const colors = [ '#4073F4','#FF8454','#FFBF30', '#02F6C9']
-  const keys   = [ 'apples', 'bananas', 'cherries', 'dates' ]
+  const colors = [ '#4073F4','#FF8454','#FFBF30', '#02F6C9', '#5133DF']
+  const keys   = [ 'foods', 'transport', 'electronic', 'clothes','entertainment' ]
   let totalBalance = this.props.user.main_balance - this.props.user.money_spent
   let date = new Date()
   let dd = date.getDate()
@@ -148,8 +191,9 @@ const reducer = (accumulator, currentValue) => accumulator + currentValue;
                           </Text>:
                           <Text style={{color:'red',fontSize:12,fontWeight:'bold'}}>
                           - Rp.{this.props.user.money_spent},00
-                          </Text>           
-                      }                        
+                          </Text>                                    
+                      }       
+                                        
                       </View>                  
                         
                         <Button small onPress={() => this.props.navigation.navigate('EditProfile', this.props.user)} style={{marginTop:5,borderRadius:100,marginLeft:10,backgroundColor:'#4073F4' }}>            
@@ -173,7 +217,7 @@ const reducer = (accumulator, currentValue) => accumulator + currentValue;
                     <View>
                       <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
                         Click 
-                      </Text>
+                      </Text>                                                 
                     </View>
                   </Body>
                 </CardItem>           
@@ -229,13 +273,13 @@ const reducer = (accumulator, currentValue) => accumulator + currentValue;
                       style={ { height: 200 } }
                       keys={ keys }
                       colors={ colors }
-                      data={ data }
+                      data={ this.state.expenses }
                       showGrid={ false }
                       contentInset={ { top: 30, bottom: 10 } }
                   />
                    <XAxis
                     style={{ marginLeft: 0,marginRight:10}}
-                    data={ data }
+                    data={ this.state.expenses }
                     formatLabel={ (value, index) => month[index] }  
                     contentInset={ { left: 10, bottom: 10 } }                  
                     svg={{ fontSize: 13, fill: 'black' }}
