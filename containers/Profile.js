@@ -108,6 +108,7 @@ class Profile extends Component {
   const month = ['Jan','Feb','March','Aprl','Mei','June','July','Aug','Sept','Oct','Nov','Dec']
   const colors = [ '#4073F4','#FF8454','#FFBF30', '#02F6C9']
   const keys   = [ 'apples', 'bananas', 'cherries', 'dates' ]
+  let totalBalance = this.props.user.main_balance - this.props.user.money_spent
     return (
       <Container>
         <Content style={_.content}>
@@ -122,12 +123,12 @@ class Profile extends Component {
                       TOTAL BALANCE
                   </Text>  
                   <Text style={{fontSize:26,marginBottom:5,fontWeight:'bold'}}>
-                      Rp.2500000
+                      Rp.{totalBalance}
                   </Text>                
                   <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                       <View style={{backgroundColor:'#FF8454',opacity:0.3,padding:10,borderRadius:10}}>
-                        <Text style={{color:'red',fontSize:12}}>
-                        - Rp.2500000
+                        <Text style={{color:'red',fontSize:12,fontWeight:'bold'}}>
+                        - Rp.{this.props.user.money_spent}
                         </Text>         
                       </View>                  
                         <TouchableHighlight onPress={() => this.props.navigation.navigate('EditProfile', this.props.user)} style={{marginTop:5}}>
@@ -143,10 +144,10 @@ class Profile extends Component {
                 <CardItem style={{ backgroundColor: '#4073F4' }}>
                   <Body>
                     <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
-                      REVENUE
+                      INCOME
                     </Text>
                     <Text style={{marginBottom:20,fontSize:20,color:'#FFF',fontWeight:'bold'}}>
-                      Rp.25000
+                      Rp.{this.props.user.main_balance}
                     </Text>
                     <View>
                       <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
@@ -161,10 +162,10 @@ class Profile extends Component {
                 <CardItem style={{ backgroundColor:'#08ddb3' }}>
                   <Body>
                     <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
-                      REVENUE
+                      EXPENSE
                     </Text>
                     <Text style={{marginBottom:20,fontSize:20,color:'#FFF',fontWeight:'bold'}}>
-                      Rp.25000
+                      Rp.{this.props.user.money_spent}
                     </Text>
                     <View>
                       <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
@@ -179,10 +180,10 @@ class Profile extends Component {
                 <CardItem style={{ backgroundColor: '#c4c4c4' }}>
                   <Body>
                     <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
-                      REVENUE
+                      GOAL SAVING
                     </Text>
                     <Text style={{marginBottom:20,fontSize:20,color:'#FFF',fontWeight:'bold'}}>
-                      Rp.25000
+                      Rp.{this.props.user.budget}
                     </Text>
                     <View>
                       <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
