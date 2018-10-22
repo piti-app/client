@@ -26,7 +26,7 @@ class Profile extends Component {
       paddingBottom: 20,
       paddingLeft : 150
     }}></Text>,    
-    headerStyle: { backgroundColor: "#fff", elevation: 0 },
+    headerStyle: { backgroundColor: "#fff", elevation: 0 },  
     headerRight: (
       <TouchableHighlight
         style={{ marginRight: 25 }}
@@ -111,24 +111,33 @@ class Profile extends Component {
     return (
       <Container>
         <Content style={_.content}>
-            <View style={{justifyContent:'center',alignItems:'center',marginBottom:20}}>
-              <Text note style={{marginBottom:5}}>
-                  TOTAL BALANCE
-              </Text>  
-              <Text style={{fontSize:26,marginBottom:5,fontWeight:'bold'}}>
-                  Rp.2500000
-              </Text>  
-              <View style={{flexDirection:'row'}}>
-                  <View style={{backgroundColor:'#FF8454',opacity:0.3,padding:10,borderRadius:10}}>
-                    <Text style={{color:'red',fontSize:12}}>
-                    - Rp.2500000
-                    </Text>
-                  </View>                  
+
+            <View style={{  flex: 1,flexDirection: 'row',justifyContent: 'space-around',marginBottom:20}}>
+              <View style={{justifyContent:'center',alignItems:'center'}}>                    
+                    <Image style={styles.avatar} source={{uri: this.props.user.avatar}} />
               </View>
-               <TouchableHighlight style={[styles.buttonContainer, styles.createButton]} onPress={() => this.props.navigation.navigate('EditProfile', this.props.user)}>
-                              <Text style={styles.createText}>Edit</Text>
-                </TouchableHighlight>   
-            </View>        
+                
+              <View style={{justifyContent:'center',alignItems:'center'}}>
+                  <Text note style={{marginBottom:5}}>
+                      TOTAL BALANCE
+                  </Text>  
+                  <Text style={{fontSize:26,marginBottom:5,fontWeight:'bold'}}>
+                      Rp.2500000
+                  </Text>                
+                  <View style={{flexDirection:'row',justifyContent:'space-between'}}>
+                      <View style={{backgroundColor:'#FF8454',opacity:0.3,padding:10,borderRadius:10}}>
+                        <Text style={{color:'red',fontSize:12}}>
+                        - Rp.2500000
+                        </Text>         
+                      </View>                  
+                        <TouchableHighlight onPress={() => this.props.navigation.navigate('EditProfile', this.props.user)} style={{marginTop:5}}>
+                          <Icon type="FontAwesome" name="edit" style={{ color: "#4073F4",marginLeft:10 }} />
+                        </TouchableHighlight>               
+                  </View>
+                
+               </View>    
+            </View>
+              
             <ScrollView  horizontal={true} showsHorizontalScrollIndicator={false}>             
               <Card style={{marginRight:15,width:180,marginLeft:15}}>        
                 <CardItem style={{ backgroundColor: '#4073F4' }}>
@@ -241,13 +250,18 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    width: 200,
-    borderRadius: 30
+    width: 100,
+    borderRadius: 10
   },
   createButton: {
     backgroundColor: "#4073F4"
   },
   createText: {
-    color: "white"
+    color: "red"
+  },
+  avatar:{
+    width:110,
+    height:110,
+    borderRadius:70
   }
 });
