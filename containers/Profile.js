@@ -115,7 +115,7 @@ class Profile extends Component {
   let dd = date.getDate()
   let MaximumSpentPerDay = Math.round((totalBalance-this.props.user.budget)/(30-dd))
   
-  let expensesToday = []
+  let expensesToday = [0]  
   this.props.user.expense.forEach(item =>{
     if(setDate(item.date)== setDate()){      
       expensesToday.push(item.price)
@@ -218,7 +218,7 @@ const reducer = (accumulator, currentValue) => accumulator + currentValue;
             <Tabs style={{marginTop:10}}>
             {/* ====== BASIC INFO ====== */}
               <Tab heading="Basic Info" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>                               
-                  <List type='Maximum' value={MaximumSpentPerDay} color='#4073F4'/>                     
+                  <List type='Maximum' value={MaximumSpentPerDay} color='#4073F4'/>                              
                   <List type='expense today' value={expensesToday.reduce(reducer)}color='#FFBF30'/>   
                   <List type='saving today' value={MaximumSpentPerDay-expensesToday.reduce(reducer)} color='#02F6C9'/>                                       
               </Tab>
