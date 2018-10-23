@@ -200,9 +200,9 @@ class Profile extends Component {
   })
 
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
-const data = [ 50, 10, 40, 95, 4, 24, 85, 91 ]
+const data = [ 50, 40 ]
 const axesSvg = { fontSize: 10, fill: 'grey' };
-const verticalContentInset = { top: 10, bottom: 10 }
+const verticalContentInset = { top: 5 }
 const xAxisHeight = 30
     return (
       <Container>
@@ -305,21 +305,23 @@ const xAxisHeight = 30
               </Tab>
 
               <Tab heading="History" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>                 
-                    <View style={{ height: 200, padding: 20, flexDirection: 'row' }}>
+                    <View style={{ height: 380, padding: 30, flexDirection: 'row' }}>
                         <YAxis
                             data={data}
                             style={{ marginBottom: xAxisHeight }}
                             contentInset={verticalContentInset}
                             svg={axesSvg}
+                            numberOfTicks={ 5 }
                         />                   
                         <View style={{ flex: 1, marginLeft: 10 }}>
                         <StackedBarChart
-                          style={ { flex:1,height: 200 } }
+                          style={ { flex:1 } }
                           keys={ keys }
                           colors={ colors }
+                          spacingInner={0.1}
                           data={ this.state.expenses }
                           showGrid={ false }
-                          contentInset={ { top: 30, bottom: 10 } }
+                          contentInset={ { top: 30, bottom: 5 } }
                       >
                       <Grid/>
                       </StackedBarChart>
