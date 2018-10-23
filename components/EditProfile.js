@@ -14,6 +14,16 @@ import {
 import axios from 'axios'
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
 import ImagePicker from 'react-native-image-picker';
+import { connect } from 'react-redux'
+import getData from '../store/actions/getData'
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    getExpenses: () => {
+      dispatch(getData())
+    }
+  }
+}
 
 class EditProfile extends Component {
   static navigationOptions = {
@@ -37,7 +47,12 @@ class EditProfile extends Component {
     main_balance: this.props.navigation.state.params.main_balance,
     budget: this.props.navigation.state.params.budget,
     show: false,
-    error: false
+    error: false,
+    icon: {
+      user : require('../assets/icons/user.png'),
+      money: require('../assets/icons/money.png'),
+      target: require('../assets/icons/target.png'),
+    },
   };
 
   selectPhotoTapped() {
@@ -136,7 +151,10 @@ class EditProfile extends Component {
             data: newData
         })
         .then((result) => {
+          
+            this.props.getExpenses()
             this.setState({ show: true })
+            console.log(this.state.show)
             console.log(result)
 
         }).catch((err) => {
@@ -158,7 +176,7 @@ class EditProfile extends Component {
             </TouchableOpacity>
 
             <View style={styles.inputContainer}>
-                {/* <Image style={styles.inputIcon} source={this.state.icon.price}/> */}
+                <Image style={styles.inputIcon} source={this.state.icon.user}/>
                 <TextInput style={styles.inputs}
                     ref={input => { this.textName = input }}
                     value={this.state.name}
@@ -168,17 +186,7 @@ class EditProfile extends Component {
             </View>
 
             <View style={styles.inputContainer}>
-                {/* <Image style={styles.inputIcon} source={this.state.icon.description}/> */}
-                <TextInput style={styles.inputs}
-                    ref={input => { this.textEmail = input }}
-                    value={this.state.email}
-                    keyboardType="default"
-                    underlineColorAndroid='transparent'
-                    onChangeText={this.handleOnChangeEmail}/>
-            </View>
-
-            <View style={styles.inputContainer}>
-                {/* <Image style={styles.inputIcon} source={this.state.icon.description}/> */}
+                <Image style={styles.inputIcon} source={this.state.icon.money}/>
                 <TextInput style={styles.inputs}
                     ref={input => { this.textMain = input }}
                     value={this.state.main_balance.toString()}
@@ -188,7 +196,7 @@ class EditProfile extends Component {
             </View>
 
             <View style={styles.inputContainer}>
-                {/* <Image style={styles.inputIcon} source={this.state.icon.description}/> */}
+                <Image style={styles.inputIcon} source={this.state.icon.target}/>
                 <TextInput style={styles.inputs}
                     ref={input => { this.textBudget = input }}
                     value={this.state.budget.toString()}
@@ -218,7 +226,7 @@ class EditProfile extends Component {
   }
 }
 
-export default EditProfile
+export default connect(null, mapDispatchToProps)(EditProfile)
 
 
 const styles = StyleSheet.create({
@@ -273,9 +281,9 @@ const styles = StyleSheet.create({
       color: '#a8a8a8'
   },
   inputIcon:{
-    width:150,
-    height:150,
-    borderRadius:50,
+    width:27,
+    height:27,
+    marginLeft:20,
     justifyContent: 'center'
   },
   imageProfile: {
