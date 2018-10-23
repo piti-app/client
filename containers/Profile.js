@@ -27,28 +27,20 @@ class Profile extends Component {
   }
   componentDidMount = () => {
     this.props.getUserData()
-    let obj = {}
-    for(let i = 0 ;i<12;i++){
-      obj[i] = this.reportExpenses(this.props.user.expense,i)
-    }
-    let finalArr = []
-    console.log(obj)
-    for(let data in obj){
-      if(obj[data].length!==0){
-        finalArr.push(obj[data][0])
-      }
-    }
-    // // finalArr.push(jan[0],feb[0])
+    let stackBarData = this.fetchExpenses()
     this.setState({
-      expenses : finalArr
+      expenses : stackBarData
     })
 
   };
   componentDidUpdate(prevProps){
-    // if(this.props.user.expense !==prevProps.user.expense){
-    //   this.reportExpenses(this.props.user.expense,0)
-
-    // }
+    if(this.props.user.expense !==prevProps.user.expense){
+      this.props.getUserData()
+      let stackBarData = this.fetchExpenses()
+      this.setState({
+        expenses : stackBarData
+      })
+    }
   }
 
   static navigationOptions = ({ navigation }) => ({
@@ -76,14 +68,28 @@ class Profile extends Component {
       </TouchableHighlight>
     )
   });
+  fetchExpenses = () => {
+    let obj = {}
+    for(let i = 0 ;i<12;i++){
+      obj[i] = this.reportExpenses(this.props.user.expense,i)
+    }
+    let finalArr = []
+    console.log(obj)
+    for(let data in obj){
+      if(obj[data].length!==0){
+        finalArr.push(obj[data][0])
+      }
+    }
+    return finalArr
+  }
   reportExpenses = (expenses,mm) =>{
+    let nameMonth = ["jan","feb","mar","apr","mei","jun","jul","aug","sep","oct","nov","dec"]
     let initData = {
       foods:0,
       transport:0,
       electronic:0,
       entertainment:0,
-      clothes:0
-
+      clothes:0      
     }
     let foodCounterPrice = 0
     let electronicCounterPrice = 0
@@ -105,9 +111,9 @@ class Profile extends Component {
     let dec =[]
     let month = [jan,feb,mar,apr,mei,jun,jul,aug,sep,oct,nov,dec]
     expenses.forEach(item => {
-        let date = new Date(item.date)
-        if(item.type == 'Food & Drink'&& date.getMonth() ==mm){
-            foodCounterPrice += item.price
+      let date = new Date(item.date)
+      if(item.type == 'Food & Drink'&& date.getMonth() ==mm){
+        foodCounterPrice += item.price
             initData = {
             ...initData,
             foods : foodCounterPrice
@@ -162,12 +168,11 @@ class Profile extends Component {
             })
         }
     })
-    return data
-    // console.log(data,'data')
-    // console.log(this.state.expenses,'expenses')
-    // this.setState({
-    //   expenses: this.state.expenses.concat(data)
-    // })
+    data = month[mm].concat({
+      ...initData,
+      month : nameMonth[mm]
+      })
+    return data    
 }
 
   setDate(newDate) {
@@ -309,7 +314,7 @@ const reducer = (accumulator, currentValue) => accumulator + currentValue;
                    <XAxis
                     style={{ marginLeft: 0,marginRight:10}}
                     data={ this.state.expenses }
-                    formatLabel={ (value, index) => month[index] }
+                    formatLabel={ (value, index) => this.state.expenses[index].month }
                     contentInset={ { left: 10, bottom: 10 } }
                     svg={{ fontSize: 13, fill: 'black' }}
                 />
