@@ -158,7 +158,7 @@ class EditProfile extends Component {
         .then((result) => {
 
             this.props.getExpenses()
-            this.props.getRecommendation('asc')
+            this.props.getRecom('asc')
             this.setState({ show: true })
             console.log(this.state.show)
             console.log(result)
