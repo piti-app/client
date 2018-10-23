@@ -16,11 +16,16 @@ import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
 import ImagePicker from 'react-native-image-picker';
 import { connect } from 'react-redux'
 import getData from '../store/actions/getData'
+import getRecommendation from '../store/actions/getRecommendations'
+
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getExpenses: (params) => {
-      dispatch(getData(params))
+    getExpenses: () => {
+      dispatch(getData())
+    },
+    getRecom : () =>{
+      dispatch(getRecommendation())
     }
   }
 }
@@ -139,7 +144,7 @@ class EditProfile extends Component {
   onClickListener = () => {
     let newData = {
       name: this.state.name,
-      email: this.state.email,  
+      email: this.state.email,
       avatar: this.state.avatar,
       main_balance: this.state.main_balance,
       budget: this.state.budget
@@ -151,8 +156,9 @@ class EditProfile extends Component {
             data: newData
         })
         .then((result) => {
-          
-            this.props.getExpenses('asc')
+
+            this.props.getExpenses()
+            this.props.getRecommendation('asc')
             this.setState({ show: true })
             console.log(this.state.show)
             console.log(result)
