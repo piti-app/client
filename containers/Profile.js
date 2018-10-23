@@ -21,24 +21,51 @@ class Profile extends Component {
       chosenDate: new Date(),
       selected: undefined,
       expenses: [],
-      totalExpense: 0
+      totalExpense: 0,
+      dataExpense : [0,0,0,0,0,0,0,0,0,0]
     };
     this.setDate = this.setDate.bind(this);
   }
   componentDidMount = () => {
     this.props.getUserData()
-    let stackBarData = this.fetchExpenses()
+    let stackBarData =  this.fetchExpenses()
+    console.log(stackBarData,'stackbarData')
     this.setState({
-      expenses : stackBarData
+      expenses : stackBarData.finalArray,
+      dataExpense : stackBarData.totalExpense
     })
 
+    setTimeout(() => {
+      console.log(this.state,'ini state')
+    }, 5000);
+
   };
+
+  totalPerMonth = (arr) =>{
+    const arrTotalExpense = []
+    console.log(arr,'expenses state')
+    arr.forEach((expense)=>{
+      console.log(expense,'expense')
+      let total = 0
+      for(let i in expense){
+        if(typeof expense[i] !== "string"){
+          total += expense[i]
+        }
+      }
+      arrTotalExpense.push(total)
+    })
+    console.log(arrTotalExpense)
+    return arrTotalExpense
+  }
+
   componentDidUpdate(prevProps){
+    console.log("componentDidUpdate", this.state)
     if(this.props.user.expense !==prevProps.user.expense){
-      this.props.getUserData()
       let stackBarData = this.fetchExpenses()
+      console.log(stackBarData,'ini stack bar data from did update')
       this.setState({
-        expenses : stackBarData
+        expenses : stackBarData.finalArray,
+        dataExpense : stackBarData.totalExpense
       })
     }
   }
@@ -68,19 +95,23 @@ class Profile extends Component {
       </TouchableHighlight>
     )
   });
+
   fetchExpenses = () => {
     let obj = {}
     for(let i = 0 ;i<12;i++){
       obj[i] = this.reportExpenses(this.props.user.expense,i)
     }
     let finalArr = []
-    console.log(obj)
     for(let data in obj){
       if(obj[data].length!==0){
         finalArr.push(obj[data][0])
       }
     }
-    return finalArr
+    let totalExpense =  this.totalPerMonth(finalArr)
+    return {
+      finalArray : finalArr,
+      totalExpense : totalExpense
+    }
   }
   reportExpenses = (expenses,mm) =>{
     let nameMonth = ["jan","feb","mar","apr","mei","jun","jul","aug","sep","oct","nov","dec"]
@@ -89,7 +120,7 @@ class Profile extends Component {
       transport:0,
       electronic:0,
       entertainment:0,
-      clothes:0      
+      clothes:0
     }
     let foodCounterPrice = 0
     let electronicCounterPrice = 0
@@ -172,7 +203,7 @@ class Profile extends Component {
       ...initData,
       month : nameMonth[mm]
       })
-    return data    
+    return data
 }
 
   setDate(newDate) {
@@ -186,7 +217,7 @@ class Profile extends Component {
   render() {
   const month = ['Jan','Feb','March','Aprl','Mei','June','July','Aug','Sept','Oct','Nov','Dec']
   const colors = [ '#4073F4','#FF8454','#FFBF30', '#02F6C9', '#5133DF']
-  const keys   = [ 'foods', 'transport', 'electronic', 'clothes','entertainment' ]
+  const keys   = [ 'clothes', 'transport', 'electronic', 'entertainment' ,'foods' ]
   let totalBalance = this.props.user.main_balance - this.props.user.money_spent
   let date = new Date()
   let dd = date.getDate()
@@ -200,7 +231,7 @@ class Profile extends Component {
   })
 
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
-const data = [ 50, 40 ]
+const data = this.state.dataExpense
 const axesSvg = { fontSize: 10, fill: 'grey' };
 const verticalContentInset = { top: 5 }
 const xAxisHeight = 30
@@ -304,7 +335,13 @@ const xAxisHeight = 30
                   <List type='saving today' value={MaximumSpentPerDay-expensesToday.reduce(reducer)} color='#02F6C9'/>
               </Tab>
 
-              <Tab heading="History" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>                 
+              <Tab heading="History" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>
+                      <View style ={{alignItems : 'center', marginTop : 20}}>
+                        <Image source={require('../assets/forprofile.png')}
+                        style = {{height : 40, width : 300, resizeMode : 'contain'}}
+                        />
+                      </View>
+
                     <View style={{ height: 380, padding: 30, flexDirection: 'row' }}>
                         <YAxis
                             data={data}
@@ -312,7 +349,7 @@ const xAxisHeight = 30
                             contentInset={verticalContentInset}
                             svg={axesSvg}
                             numberOfTicks={ 5 }
-                        />                   
+                        />
                         <View style={{ flex: 1, marginLeft: 10 }}>
                         <StackedBarChart
                           style={ { flex:1 } }
@@ -332,7 +369,7 @@ const xAxisHeight = 30
                         contentInset={{ left: 10, right: 10 }}
                         svg={axesSvg}
                     />
-                            
+
                         </View>
                   </View>
               </Tab>
