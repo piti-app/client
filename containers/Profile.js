@@ -29,7 +29,7 @@ class Profile extends Component {
     this.props.getUserData()
     
     this.reportExpenses(this.props.user.expense,0) 
-      this.reportExpenses(this.props.user.expense,1) 
+    this.reportExpenses(this.props.user.expense,1) 
     
   };
   componentDidUpdate(prevProps){
