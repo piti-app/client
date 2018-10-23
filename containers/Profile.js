@@ -20,26 +20,38 @@ class Profile extends Component {
     this.state = {
       chosenDate: new Date(),
       selected: undefined,
-      expenses: [],    
+      expenses: [],
       totalExpense: 0
     };
     this.setDate = this.setDate.bind(this);
   }
   componentDidMount = () => {
     this.props.getUserData()
-    
-    this.reportExpenses(this.props.user.expense,0) 
-    this.reportExpenses(this.props.user.expense,1) 
-    
+    let obj = {}
+    for(let i = 0 ;i<12;i++){
+      obj[i] = this.reportExpenses(this.props.user.expense,i)
+    }
+    let finalArr = []
+    console.log(obj)
+    for(let data in obj){
+      if(obj[data].length!==0){
+        finalArr.push(obj[data][0])
+      }
+    }
+    // // finalArr.push(jan[0],feb[0])
+    this.setState({
+      expenses : finalArr
+    })
+
   };
   componentDidUpdate(prevProps){
     // if(this.props.user.expense !==prevProps.user.expense){
-    //   this.reportExpenses(this.props.user.expense,0)         
+    //   this.reportExpenses(this.props.user.expense,0)
 
     // }
   }
 
-  static navigationOptions = ({ navigation }) => ({    
+  static navigationOptions = ({ navigation }) => ({
     headerTitle: <Text style={{
       fontSize: 32,
       fontFamily : 'bebaskai',
@@ -47,8 +59,8 @@ class Profile extends Component {
       paddingTop: 28,
       paddingBottom: 20,
       paddingLeft : 150
-    }}></Text>,    
-    headerStyle: { backgroundColor: "#fff", elevation: 0 },  
+    }}></Text>,
+    headerStyle: { backgroundColor: "#fff", elevation: 0 },
     headerRight: (
       <TouchableHighlight
         style={{ marginRight: 25 }}
@@ -77,7 +89,7 @@ class Profile extends Component {
     let electronicCounterPrice = 0
     let transportCounterPrice = 0
     let clothesCounterPrice = 0
-    let entertainmentCounterPrice = 0    
+    let entertainmentCounterPrice = 0
     let data= []
     let jan =[]
     let feb =[]
@@ -91,7 +103,7 @@ class Profile extends Component {
     let oct =[]
     let nov =[]
     let dec =[]
-    let month = [jan,feb,mar,apr,mei,jun,jul,aug,sep,oct,nov,dec]    
+    let month = [jan,feb,mar,apr,mei,jun,jul,aug,sep,oct,nov,dec]
     expenses.forEach(item => {
         let date = new Date(item.date)
         if(item.type == 'Food & Drink'&& date.getMonth() ==mm){
@@ -102,8 +114,8 @@ class Profile extends Component {
             }
             data = month[mm].concat({
             ...initData,
-            foods: foodCounterPrice         
-            })       
+            foods: foodCounterPrice
+            })
         }
         else if(item.type == 'Entertainment'&& date.getMonth() ==mm){
             entertainmentCounterPrice += item.price
@@ -113,8 +125,8 @@ class Profile extends Component {
             }
             data = month[mm].concat({
             ...initData,
-            entertainment: entertainmentCounterPrice         
-            })       
+            entertainment: entertainmentCounterPrice
+            })
         }
         else if(item.type == 'Clothes'&& date.getMonth() ==mm){
             clothesCounterPrice += item.price
@@ -124,8 +136,8 @@ class Profile extends Component {
             }
             data = month[mm].concat({
             ...initData,
-            clothes: clothesCounterPrice         
-            })       
+            clothes: clothesCounterPrice
+            })
         }
         else if(item.type == 'Transport'&& date.getMonth() ==mm){
             transportCounterPrice += item.price
@@ -135,8 +147,8 @@ class Profile extends Component {
             }
             data = month[mm].concat({
             ...initData,
-            transport: transportCounterPrice         
-            })       
+            transport: transportCounterPrice
+            })
         }
         else if(item.type == 'Electronic'&& date.getMonth() ==mm){
             electronicCounterPrice += item.price
@@ -146,14 +158,16 @@ class Profile extends Component {
             }
             data = month[mm].concat({
             ...initData,
-            electronic: electronicCounterPrice         
-            })       
+            electronic: electronicCounterPrice
+            })
         }
     })
-    
-    this.setState({
-      expenses: this.state.expenses.concat(data)
-    })
+    return data
+    // console.log(data,'data')
+    // console.log(this.state.expenses,'expenses')
+    // this.setState({
+    //   expenses: this.state.expenses.concat(data)
+    // })
 }
 
   setDate(newDate) {
@@ -164,7 +178,7 @@ class Profile extends Component {
       selected: value
     });
   }
-  render() {    
+  render() {
   const month = ['Jan','Feb','March','Aprl','Mei','June','July','Aug','Sept','Oct','Nov','Dec']
   const colors = [ '#4073F4','#FF8454','#FFBF30', '#02F6C9', '#5133DF']
   const keys   = [ 'foods', 'transport', 'electronic', 'clothes','entertainment' ]
@@ -172,32 +186,32 @@ class Profile extends Component {
   let date = new Date()
   let dd = date.getDate()
   let MaximumSpentPerDay = Math.round((totalBalance-this.props.user.budget)/(30-dd))
-  
-  let expensesToday = [0]  
+
+  let expensesToday = [0]
   this.props.user.expense.forEach(item =>{
-    if(setDate(item.date)== setDate()){      
+    if(setDate(item.date)== setDate()){
       expensesToday.push(item.price)
     }
-  }) 
-  
+  })
+
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
-  
+
     return (
       <Container>
         <Content style={_.content}>
 
             <View style={{  flex: 1,flexDirection: 'row',justifyContent: 'space-around',marginBottom:20}}>
-              <View style={{justifyContent:'center',alignItems:'center'}}>                    
+              <View style={{justifyContent:'center',alignItems:'center'}}>
                     <Image style={styles.avatar} source={{uri: this.props.user.avatar}} />
               </View>
-                
+
               <View style={{justifyContent:'center',alignItems:'center'}}>
                   <Text note style={{marginBottom:5}}>
                       TOTAL BALANCE
-                  </Text>  
+                  </Text>
                   <Text style={{fontSize:26,marginBottom:5,fontWeight:'bold'}}>
                       Rp.{totalBalance},00
-                  </Text>                
+                  </Text>
                   <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                       <View style={{backgroundColor:'#FF8454',opacity:0.3,padding:10,borderRadius:10}}>
                         {this.props.user.money_spent===0?
@@ -206,21 +220,21 @@ const reducer = (accumulator, currentValue) => accumulator + currentValue;
                           </Text>:
                           <Text style={{color:'red',fontSize:12,fontWeight:'bold'}}>
                           - Rp.{this.props.user.money_spent},00
-                          </Text>                                    
-                      }       
-                                        
-                      </View>                  
-                        
-                        <Button small onPress={() => this.props.navigation.navigate('EditProfile', this.props.user)} style={{marginTop:5,borderRadius:100,marginLeft:10,backgroundColor:'#4073F4' }}>            
+                          </Text>
+                      }
+
+                      </View>
+
+                        <Button small onPress={() => this.props.navigation.navigate('EditProfile', this.props.user)} style={{marginTop:5,borderRadius:100,marginLeft:10,backgroundColor:'#4073F4' }}>
                           <Icon small type="FontAwesome" name="edit" style={{ color: "#FFF"}} />
-                        </Button>              
+                        </Button>
                   </View>
-                
-               </View>    
+
+               </View>
             </View>
-              
-            <ScrollView  horizontal={true} showsHorizontalScrollIndicator={false}>             
-              <Card style={{marginRight:15,width:180,marginLeft:15}}>        
+
+            <ScrollView  horizontal={true} showsHorizontalScrollIndicator={false}>
+              <Card style={{marginRight:15,width:180,marginLeft:15}}>
                 <CardItem style={{ backgroundColor: '#4073F4' }}>
                   <Body>
                     <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
@@ -231,14 +245,14 @@ const reducer = (accumulator, currentValue) => accumulator + currentValue;
                     </Text>
                     <View>
                       <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
-                        Click 
-                      </Text>                                                 
+                        Click
+                      </Text>
                     </View>
                   </Body>
-                </CardItem>           
+                </CardItem>
               </Card>
 
-              <Card style={{marginRight:15,width:180}}>        
+              <Card style={{marginRight:15,width:180}}>
                 <CardItem style={{ backgroundColor:'#08ddb3' }}>
                   <Body>
                     <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
@@ -249,14 +263,14 @@ const reducer = (accumulator, currentValue) => accumulator + currentValue;
                     </Text>
                     <View>
                       <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
-                        Click 
+                        Click
                       </Text>
                     </View>
                   </Body>
-                </CardItem>           
+                </CardItem>
               </Card>
 
-              <Card style={{marginRight:15,width:180}}>        
+              <Card style={{marginRight:15,width:180}}>
                 <CardItem style={{ backgroundColor: '#c4c4c4' }}>
                   <Body>
                     <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
@@ -265,25 +279,25 @@ const reducer = (accumulator, currentValue) => accumulator + currentValue;
                     <Text style={{marginBottom:20,fontSize:20,color:'#FFF',fontWeight:'bold'}}>
                       Rp.{this.props.user.budget},00
                     </Text>
-                    <View>    
+                    <View>
                       <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
-                            click                                                                                       
-                      </Text>                  
+                            click
+                      </Text>
                     </View>
                   </Body>
-                </CardItem>           
-              </Card>              
+                </CardItem>
+              </Card>
             </ScrollView>
             <Tabs style={{marginTop:10}}>
             {/* ====== BASIC INFO ====== */}
-              <Tab heading="Basic Info" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>                               
-                  <List type='Maximum' value={MaximumSpentPerDay} color='#4073F4'/>                              
-                  <List type='expense today' value={expensesToday.reduce(reducer)}color='#FFBF30'/>   
-                  <List type='saving today' value={MaximumSpentPerDay-expensesToday.reduce(reducer)} color='#02F6C9'/>                                       
+              <Tab heading="Basic Info" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>
+                  <List type='Maximum' value={MaximumSpentPerDay} color='#4073F4'/>
+                  <List type='expense today' value={expensesToday.reduce(reducer)}color='#FFBF30'/>
+                  <List type='saving today' value={MaximumSpentPerDay-expensesToday.reduce(reducer)} color='#02F6C9'/>
               </Tab>
 
               <Tab heading="History" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>
-                  <View style={{ backgroundColor: "#FFF",marginRight:15,marginLeft:15 }}>                                  
+                  <View style={{ backgroundColor: "#FFF",marginRight:15,marginLeft:15 }}>
                   <StackedBarChart
                       style={ { height: 200 } }
                       keys={ keys }
@@ -295,13 +309,13 @@ const reducer = (accumulator, currentValue) => accumulator + currentValue;
                    <XAxis
                     style={{ marginLeft: 0,marginRight:10}}
                     data={ this.state.expenses }
-                    formatLabel={ (value, index) => month[index] }  
-                    contentInset={ { left: 10, bottom: 10 } }                  
+                    formatLabel={ (value, index) => month[index] }
+                    contentInset={ { left: 10, bottom: 10 } }
                     svg={{ fontSize: 13, fill: 'black' }}
                 />
-                    </View>                   
-              </Tab>             
-            </Tabs>     
+                    </View>
+              </Tab>
+            </Tabs>
         </Content>
       </Container>
     );
