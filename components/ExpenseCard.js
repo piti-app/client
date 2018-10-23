@@ -9,7 +9,7 @@ export default class ExpenseCard extends Component {
 
       <View style={styles.container}>
           <View style={{ justifyContent :'center', alignItems :'center' }}>
-            <Image source={this.props.data.imageURL} style={{ width :32, height:32, marginLeft : 50 }} />
+            <Image source={this.props.data.imageURL} style={{ width :35, height:35, marginLeft : 50 }} />
           </View>
           <View style={{ justifyContent :'center', alignItems :'flex-end', width : 180, marginLeft : 100 }}>
             <Text style={styles.text}>{this.props.data.description}</Text>
