@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { onSignOut } from "../Authentication";
 import List from '../components/List'
+import Report from '../helper/report'
 import { connect }from 'react-redux'
 import setDate from '../helper/date'
 import ExpenseCard from "../components/ExpenseCard";
@@ -25,6 +26,7 @@ class Profile extends Component {
     this.setDate = this.setDate.bind(this);
   }
   componentDidMount = () => {
+    this.props.getUserData()
     let initData = {
       foods:0,
       transport:0,
@@ -52,7 +54,7 @@ class Profile extends Component {
     let nov =[]
     let dec =[]
     let month = [jan,feb,mar,apr,mei,jun,jul,aug,sep,oct,nov,dec]
-    this.props.getUserData()
+    // Report(this.props.user.expense,0)
     this.props.user.expense.forEach(item => {
       let date = new Date(item.date)
       if(item.type == 'Food & Drink'&& date.getMonth() ==0){
