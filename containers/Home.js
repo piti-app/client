@@ -10,6 +10,9 @@ import getData from '../store/actions/getData'
 import Spinner from 'react-native-loading-spinner-overlay';
 import PieChart from 'react-native-pie-chart';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import firebase from 'react-native-firebase';
+import { setFcm } from "../Authentication";
+
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -46,8 +49,11 @@ class Home extends Component {
     email : null
    }
 
-   componentDidMount(){
+   async componentDidMount(){
       this.props.getExpenses()
+      let fcmToken = await firebase.messaging().getToken();
+            setFcm(fcmToken).then(result => {})
+      console.log(fcmToken,'token')
       setTimeout(() => {
         console.log(this.props)
       }, 10000);
@@ -84,7 +90,7 @@ class Home extends Component {
     const series = [123, 321, 123, 789, 537]
     const sliceColor = ['#4073F4','#FF8454','#FFBF30', '#02F6C9', '#5133DF']
 
-    return (      
+    return (
        <View style ={{ backgroundColor : '#FFF', height:'100%' }}>
           {
             this.props.isLoaded
@@ -127,7 +133,7 @@ class Home extends Component {
             textStyle={{ fontFamily : 'avenir_medium'}}
           />
           }
-        </View>      
+        </View>
     );
   }
 }
