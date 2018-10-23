@@ -11,7 +11,7 @@ import { TouchableHighlight,AsyncStorage,Alert,StyleSheet,Image,ProgressBarAndro
 import axios from "axios";
 import GestureRecognizer, { swipeDirections } from "react-native-swipe-gestures";
 import getData from '../store/actions/getData'
-import { BarChart, YAxis,XAxis,StackedBarChart } from 'react-native-svg-charts'
+import { BarChart, YAxis,XAxis,StackedBarChart,LineChart,Grid } from 'react-native-svg-charts'
 import { forEach } from "async";
 
 class Profile extends Component {
@@ -200,7 +200,10 @@ class Profile extends Component {
   })
 
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
-
+const data = [ 50, 10, 40, 95, 4, 24, 85, 91 ]
+const axesSvg = { fontSize: 10, fill: 'grey' };
+const verticalContentInset = { top: 10, bottom: 10 }
+const xAxisHeight = 30
     return (
       <Container>
         <Content style={_.content}>
@@ -301,24 +304,35 @@ const reducer = (accumulator, currentValue) => accumulator + currentValue;
                   <List type='saving today' value={MaximumSpentPerDay-expensesToday.reduce(reducer)} color='#02F6C9'/>
               </Tab>
 
-              <Tab heading="History" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>
-                  <View style={{ backgroundColor: "#FFF",marginRight:15,marginLeft:15 }}>
-                  <StackedBarChart
-                      style={ { height: 200 } }
-                      keys={ keys }
-                      colors={ colors }
-                      data={ this.state.expenses }
-                      showGrid={ false }
-                      contentInset={ { top: 30, bottom: 10 } }
-                  />
-                   <XAxis
-                    style={{ marginLeft: 0,marginRight:10}}
-                    data={ this.state.expenses }
-                    formatLabel={ (value, index) => this.state.expenses[index].month }
-                    contentInset={ { left: 10, bottom: 10 } }
-                    svg={{ fontSize: 13, fill: 'black' }}
-                />
-                    </View>
+              <Tab heading="History" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>                 
+                    <View style={{ height: 200, padding: 20, flexDirection: 'row' }}>
+                        <YAxis
+                            data={data}
+                            style={{ marginBottom: xAxisHeight }}
+                            contentInset={verticalContentInset}
+                            svg={axesSvg}
+                        />                   
+                        <View style={{ flex: 1, marginLeft: 10 }}>
+                        <StackedBarChart
+                          style={ { flex:1,height: 200 } }
+                          keys={ keys }
+                          colors={ colors }
+                          data={ this.state.expenses }
+                          showGrid={ false }
+                          contentInset={ { top: 30, bottom: 10 } }
+                      >
+                      <Grid/>
+                      </StackedBarChart>
+                      <XAxis
+                       style={{ marginHorizontal: -10, height: xAxisHeight }}
+                        data={ this.state.expenses }
+                        formatLabel={ (value, index) => this.state.expenses[index].month }
+                        contentInset={{ left: 10, right: 10 }}
+                        svg={axesSvg}
+                    />
+                            
+                        </View>
+                  </View>
               </Tab>
             </Tabs>
         </Content>
