@@ -27,96 +27,17 @@ class Profile extends Component {
   }
   componentDidMount = () => {
     this.props.getUserData()
-    let initData = {
-      foods:0,
-      transport:0,
-      electronic:0,
-      entertainment:0,
-      clothes:0
-
-    }
-    let foodCounterPrice = 0
-    let electronicCounterPrice = 0
-    let transportCounterPrice = 0
-    let clothesCounterPrice = 0
-    let entertainmentCounterPrice = 0    
-    let data= []
-    let jan =[]
-    let feb =[]
-    let mar =[]
-    let apr =[]
-    let mei =[]
-    let jun =[]
-    let jul =[]
-    let aug =[]
-    let sep =[]
-    let oct =[]
-    let nov =[]
-    let dec =[]
-    let month = [jan,feb,mar,apr,mei,jun,jul,aug,sep,oct,nov,dec]
-    // Report(this.props.user.expense,0)
-    this.props.user.expense.forEach(item => {
-      let date = new Date(item.date)
-      if(item.type == 'Food & Drink'&& date.getMonth() ==0){
-        foodCounterPrice += item.price
-        initData = {
-          ...initData,
-          foods : foodCounterPrice
-        }
-        data = month[0].concat({
-          ...initData,
-          foods: foodCounterPrice         
-        })       
-      }
-      else if(item.type == 'Entertainment'&& date.getMonth() ==0){
-        entertainmentCounterPrice += item.price
-        initData = {
-          ...initData,
-          entertainment : entertainmentCounterPrice
-        }
-        data = month[0].concat({
-          ...initData,
-          entertainment: entertainmentCounterPrice         
-        })       
-      }
-      else if(item.type == 'Clothes'&& date.getMonth() ==0){
-        clothesCounterPrice += item.price
-        initData = {
-          ...initData,
-          clothes : clothesCounterPrice
-        }
-        data = month[0].concat({
-          ...initData,
-          clothes: clothesCounterPrice         
-        })       
-      }
-      else if(item.type == 'Transport'&& date.getMonth() ==0){
-        transportCounterPrice += item.price
-        initData = {
-          ...initData,
-          transport : transportCounterPrice
-        }
-        data = month[0].concat({
-          ...initData,
-          transport: transportCounterPrice         
-        })       
-      }
-      else if(item.type == 'Electronic'&& date.getMonth() ==0){
-        electronicCounterPrice += item.price
-        initData = {
-          ...initData,
-          electronic : electronicCounterPrice
-        }
-        data = month[0].concat({
-          ...initData,
-          electronic: electronicCounterPrice         
-        })       
-      }
-    })    
-    this.setState({
-      expenses:data
-    })
+    
+    this.reportExpenses(this.props.user.expense,0) 
+      this.reportExpenses(this.props.user.expense,1) 
+    
   };
+  componentDidUpdate(prevProps){
+    // if(this.props.user.expense !==prevProps.user.expense){
+    //   this.reportExpenses(this.props.user.expense,0)         
+
+    // }
+  }
 
   static navigationOptions = ({ navigation }) => ({    
     headerTitle: <Text style={{
@@ -143,6 +64,98 @@ class Profile extends Component {
       </TouchableHighlight>
     )
   });
+  reportExpenses = (expenses,mm) =>{
+    let initData = {
+      foods:0,
+      transport:0,
+      electronic:0,
+      entertainment:0,
+      clothes:0
+
+    }
+    let foodCounterPrice = 0
+    let electronicCounterPrice = 0
+    let transportCounterPrice = 0
+    let clothesCounterPrice = 0
+    let entertainmentCounterPrice = 0    
+    let data= []
+    let jan =[]
+    let feb =[]
+    let mar =[]
+    let apr =[]
+    let mei =[]
+    let jun =[]
+    let jul =[]
+    let aug =[]
+    let sep =[]
+    let oct =[]
+    let nov =[]
+    let dec =[]
+    let month = [jan,feb,mar,apr,mei,jun,jul,aug,sep,oct,nov,dec]    
+    expenses.forEach(item => {
+        let date = new Date(item.date)
+        if(item.type == 'Food & Drink'&& date.getMonth() ==mm){
+            foodCounterPrice += item.price
+            initData = {
+            ...initData,
+            foods : foodCounterPrice
+            }
+            data = month[mm].concat({
+            ...initData,
+            foods: foodCounterPrice         
+            })       
+        }
+        else if(item.type == 'Entertainment'&& date.getMonth() ==mm){
+            entertainmentCounterPrice += item.price
+            initData = {
+            ...initData,
+            entertainment : entertainmentCounterPrice
+            }
+            data = month[mm].concat({
+            ...initData,
+            entertainment: entertainmentCounterPrice         
+            })       
+        }
+        else if(item.type == 'Clothes'&& date.getMonth() ==mm){
+            clothesCounterPrice += item.price
+            initData = {
+            ...initData,
+            clothes : clothesCounterPrice
+            }
+            data = month[mm].concat({
+            ...initData,
+            clothes: clothesCounterPrice         
+            })       
+        }
+        else if(item.type == 'Transport'&& date.getMonth() ==mm){
+            transportCounterPrice += item.price
+            initData = {
+            ...initData,
+            transport : transportCounterPrice
+            }
+            data = month[mm].concat({
+            ...initData,
+            transport: transportCounterPrice         
+            })       
+        }
+        else if(item.type == 'Electronic'&& date.getMonth() ==mm){
+            electronicCounterPrice += item.price
+            initData = {
+            ...initData,
+            electronic : electronicCounterPrice
+            }
+            data = month[mm].concat({
+            ...initData,
+            electronic: electronicCounterPrice         
+            })       
+        }
+    })
+    
+    this.setState({
+      expenses: this.state.expenses.concat(data)
+    })
+}
+
   setDate(newDate) {
     this.setState({ chosenDate: newDate });
   }
