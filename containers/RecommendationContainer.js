@@ -123,9 +123,20 @@ class RecommendationContainer extends Component {
                     }}
                     title={recommendation.name}
                     description={recommendation.address}
+                    pinColor='tomato'
+                    opacity = {0.7}
                   />
                 )
               }
+                <MapView.Marker
+                    coordinate={{
+                      latitude : -6.2607134,
+                      longitude : 106.7794222
+                    }}
+                    title= 'You Are Here!'
+                    description= 'Your Current Position'
+                    pinColor='blue'
+                  />
               </MapView>
             </View>
             <View>
