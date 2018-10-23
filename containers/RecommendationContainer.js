@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Container, Header, Content, Card, CardItem, Text, Body, Icon } from "native-base";
-import { StyleSheet, View, ScrollView, FlatList,Alert } from 'react-native'
+import { StyleSheet, View, ScrollView, FlatList,Alert,TouchableHighlight } from 'react-native'
 import Spinner from 'react-native-loading-spinner-overlay';
 import MapView from 'react-native-maps';
 import { connect } from 'react-redux'
@@ -20,8 +20,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getRecom: () => {
-      dispatch(getRecommendations())
+    getRecom: (params) => {
+      dispatch(getRecommendations(params))
     }
   }
 }
@@ -67,9 +67,16 @@ class RecommendationContainer extends Component {
   }
 
   componentDidMount = () => {
-    console.log('component did mount')
-    this.props.getRecom()
+    this.props.getRecom('asc')
   };
+
+  sortAscending = () =>{
+    this.props.getRecom('asc')
+  }
+
+  sortDescending = () =>{
+    this.props.getRecom('desc')
+  }
 
   static navigationOptions = {
     headerTitle: <Text style={{
@@ -122,12 +129,23 @@ class RecommendationContainer extends Component {
               </MapView>
             </View>
             <View>
-            <FlatList style={styles.container}
-              data={this.props.recommendations}
-              renderItem={({item}) => <RecommendationCard data={item} />}
-              numColumns={2}
-              showsVerticalScrollIndicator={false}
-            />
+              <View
+              style ={{display : "flex", flexWrap :"wrap", flexDirection : "row",
+              justifyContent:"center",alignItems:"center"}}>
+              <TouchableHighlight onPress={this.sortAscending}>
+                <Text style={styles.button}>Ascending</Text>
+              </TouchableHighlight>
+              <TouchableHighlight onPress={this.sortDescending}>
+                <Text style={styles.button}>Descending</Text>
+              </TouchableHighlight>
+              </View>
+
+              <FlatList style={styles.container}
+                data={this.props.recommendations}
+                renderItem={({item}) => <RecommendationCard data={item} />}
+                numColumns={2}
+                showsVerticalScrollIndicator={false}
+              />
             </View>
 
           </View>
@@ -165,12 +183,24 @@ const styles = StyleSheet.create({
     textAlign : 'center',
     paddingTop: 20,
     paddingBottom: 20,
+  },
+  button : {
+    paddingTop : 3,
+    paddingBottom: 3,
+    backgroundColor : 'black',
+    borderColor : 'black',
+    borderWidth: 1,
+    color : 'white',
+    margin : 20,
+    borderRadius: 5,
+    paddingLeft: 3,
+    paddingRight: 3,
   }
 })
 
 const mapStyles = StyleSheet.create({
   container: {
-    height: 600,
+    height: 450,
     width: 400,
     justifyContent: 'flex-end',
     alignItems: 'center',

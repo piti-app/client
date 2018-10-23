@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { AsyncStorage } from 'react-native'
 
-export default function(){
+export default function(params){
   return (dispatch)=>{
     dispatch({
       type : 'GET_RECOMMENDATIONS_REQUEST'
@@ -29,14 +29,35 @@ export default function(){
               })
                 .then(response=>{
                   console.log(response)
-                  dispatch({
-                    type : 'GET_RECOMMENDATIONS_DONE',
-                    payload : {
-                      recommendations : response.data.data,
-                      latitude : position.coords.latitude,
-                      logitude : position.coords.longitude
-                    }
-                  })
+                  if(params==='asc'){
+                    let finalArr = response.data.data
+                    finalArr.sort((a,b)=>{
+                      return a.average_cost_for_two - b.average_cost_for_two
+                    })
+                    dispatch({
+                      type : 'GET_RECOMMENDATIONS_DONE',
+                      payload : {
+                        recommendations : finalArr,
+                        latitude : position.coords.latitude,
+                        logitude : position.coords.longitude
+                      }
+                    })
+                  }
+                  else {
+                    let finalArr = response.data.data
+                    finalArr.sort((a,b)=>{
+                      return b.average_cost_for_two - a.average_cost_for_two
+                    })
+                    dispatch({
+                      type : 'GET_RECOMMENDATIONS_DONE',
+                      payload : {
+                        recommendations : finalArr,
+                        latitude : position.coords.latitude,
+                        logitude : position.coords.longitude
+                      }
+                    })
+                  }
+
                 })
                 .catch(error =>{
                   console.log(error)
