@@ -34,7 +34,7 @@ export default function(){
               if(expense.type==="Entertainment"){
                 let newExpense = {
                   ...expense,
-                  imageURL : require('../../assets/icons/monitor.png')
+                  imageURL : require('../../assets/icons/headphones.png')
                 }
                 counterEntertainment += expense.price
                 finalArr.push(newExpense)
@@ -75,7 +75,7 @@ export default function(){
               else if(expense.type==="Electronic"){
                 let newExpense = {
                   ...expense,
-                  imageURL : require('../../assets/icons/headphones.png')
+                  imageURL : require('../../assets/icons/monitor.png')
                 }
                 counterElectronic += expense.price
                 finalArr.push(newExpense)
