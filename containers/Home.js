@@ -61,17 +61,16 @@ class Home extends Component {
    }
 
    onClickListener = (id) => {
-    // Alert.alert('Delete Expense Succes !')
+    getEmail()
+    .then((email) => {
+      console.log(email)
       axios({
         method : 'DELETE',
         url : `http://10.0.2.2:4000/expense/${id}`,
         data: {
-            date: this.state.date,
-            price: this.state.price,
-            type: this.state.type,
-            description: this.state.description
+            email: email
         }
-        })
+      })
         .then((result) => {
 
             this.props.getExpenses()
@@ -82,6 +81,12 @@ class Home extends Component {
             Alert.alert("Delete Expense Error !")
 
         });
+
+    })
+    .catch((err) => {
+      
+    });
+      
 
     }
 
