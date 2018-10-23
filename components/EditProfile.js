@@ -19,8 +19,8 @@ import getData from '../store/actions/getData'
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getExpenses: () => {
-      dispatch(getData())
+    getExpenses: (params) => {
+      dispatch(getData(params))
     }
   }
 }
@@ -152,7 +152,7 @@ class EditProfile extends Component {
         })
         .then((result) => {
           
-            this.props.getExpenses()
+            this.props.getExpenses('asc')
             this.setState({ show: true })
             console.log(this.state.show)
             console.log(result)
