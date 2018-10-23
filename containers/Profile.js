@@ -218,7 +218,7 @@ class Profile extends Component {
   const month = ['Jan','Feb','March','Aprl','Mei','June','July','Aug','Sept','Oct','Nov','Dec']
   const colors = [ '#4073F4','#FF8454','#FFBF30', '#02F6C9', '#5133DF']
   const keys   = [ 'clothes', 'transport', 'electronic', 'entertainment' ,'foods' ]
-  let totalBalance = this.props.user.main_balance - this.props.user.money_spent
+  let totalBalance = this.props.user.main_balance
   let date = new Date()
   let dd = date.getDate()
   let MaximumSpentPerDay = Math.round((totalBalance-this.props.user.budget)/(30-dd))
