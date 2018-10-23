@@ -20,8 +20,8 @@ import getData from '../store/actions/getData'
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getExpenses: () => {
-      dispatch(getData())
+    getExpenses: (params) => {
+      dispatch(getData(params))
     }
   }
 }
@@ -119,7 +119,7 @@ class FormUpdateExpense extends Component {
           .then((result) => {
 
               this.setState({ show: true })
-              this.props.getExpenses()
+              this.props.getExpenses('asc')
 
           })
           .catch((err) => {

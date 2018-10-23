@@ -20,8 +20,8 @@ import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getExpenses: () => {
-      dispatch(getData())
+    getExpenses: (params) => {
+      dispatch(getData(params))
     }
   }
 }
@@ -96,7 +96,7 @@ class FormCreateExpense extends Component {
                     }
                 })
                 .then((result) => {
-                    this.props.getExpenses()
+                    this.props.getExpenses('asc')
                     this.textType.clear()
                     this.textDescription.clear()
                     this.setState({

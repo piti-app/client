@@ -24,8 +24,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    getExpenses: () => {
-      dispatch(getData())
+    getExpenses: (params) => {
+      dispatch(getData(params))
     }
   }
 }
@@ -73,7 +73,7 @@ class Home extends Component {
       })
         .then((result) => {
 
-            this.props.getExpenses()
+            this.props.getExpenses('asc')
 
         })
         .catch((err) => {
