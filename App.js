@@ -43,29 +43,31 @@ const StackHome = createStackNavigator({
 const StackProfile = createStackNavigator({
     Profile,
     EditProfile
-},{
-    navigationOptions : ({ navigation }) => ({
+})
+
+
+const SignedIn = createBottomTabNavigator({
+    Home : {
+        screen: StackHome,
+        navigationOptions : {
+            title: 'Home',
+            tabBarLabel: 'Home',
+            tabBarVisible:true,
+            tabBarIcon: <Icon name='home' />,
+        }
+    },
+    Recommendation,
+    Profile: {
+        screen: StackProfile,
         navigationOptions : {
             title: 'Profile',
             tabBarLabel: 'Profile',
             tabBarVisible:true,
             tabBarIcon: <Icon name='person' />,
         },
-    })
-})
-
-
-const SignedIn = createBottomTabNavigator({
-    Home : StackHome,
-    Recommendation,
-    Profile: StackProfile
+    }
 },{
-    navigationOptions : {
-        title: 'Home',
-        tabBarLabel: 'Home',
-        tabBarVisible:true,
-        tabBarIcon: <Icon name='home' />,
-    },
+    
     tabBarOptions : {
         style : { borderTopColor: '#FFF', backgroundColor : '#FFF' }
     }})
