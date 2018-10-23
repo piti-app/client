@@ -11,7 +11,7 @@ import { TouchableHighlight,AsyncStorage,Alert,StyleSheet,Image,ProgressBarAndro
 import axios from "axios";
 import GestureRecognizer, { swipeDirections } from "react-native-swipe-gestures";
 import getData from '../store/actions/getData'
-import { BarChart, YAxis,XAxis,StackedBarChart } from 'react-native-svg-charts'
+import { BarChart, YAxis,XAxis,StackedBarChart,LineChart,Grid } from 'react-native-svg-charts'
 import { forEach } from "async";
 
 class Profile extends Component {
@@ -21,34 +21,53 @@ class Profile extends Component {
       chosenDate: new Date(),
       selected: undefined,
       expenses: [],
-      totalExpense: 0
+      totalExpense: 0,
+      dataExpense : [0,0,0,0,0,0,0,0,0,0]
     };
     this.setDate = this.setDate.bind(this);
   }
   componentDidMount = () => {
     this.props.getUserData()
-    let obj = {}
-    for(let i = 0 ;i<12;i++){
-      obj[i] = this.reportExpenses(this.props.user.expense,i)
-    }
-    let finalArr = []
-    console.log(obj)
-    for(let data in obj){
-      if(obj[data].length!==0){
-        finalArr.push(obj[data][0])
-      }
-    }
-    // // finalArr.push(jan[0],feb[0])
+    let stackBarData =  this.fetchExpenses()
+    console.log(stackBarData,'stackbarData')
     this.setState({
-      expenses : finalArr
+      expenses : stackBarData.finalArray,
+      dataExpense : stackBarData.totalExpense
     })
 
-  };
-  componentDidUpdate(prevProps){
-    // if(this.props.user.expense !==prevProps.user.expense){
-    //   this.reportExpenses(this.props.user.expense,0)
+    setTimeout(() => {
+      console.log(this.state,'ini state')
+    }, 5000);
 
-    // }
+  };
+
+  totalPerMonth = (arr) =>{
+    const arrTotalExpense = []
+    console.log(arr,'expenses state')
+    arr.forEach((expense)=>{
+      console.log(expense,'expense')
+      let total = 0
+      for(let i in expense){
+        if(typeof expense[i] !== "string"){
+          total += expense[i]
+        }
+      }
+      arrTotalExpense.push(total)
+    })
+    console.log(arrTotalExpense)
+    return arrTotalExpense
+  }
+
+  componentDidUpdate(prevProps){
+    console.log("componentDidUpdate", this.state)
+    if(this.props.user.expense !==prevProps.user.expense){
+      let stackBarData = this.fetchExpenses()
+      console.log(stackBarData,'ini stack bar data from did update')
+      this.setState({
+        expenses : stackBarData.finalArray,
+        dataExpense : stackBarData.totalExpense
+      })
+    }
   }
 
   static navigationOptions = ({ navigation }) => ({
@@ -76,14 +95,32 @@ class Profile extends Component {
       </TouchableHighlight>
     )
   });
+
+  fetchExpenses = () => {
+    let obj = {}
+    for(let i = 0 ;i<12;i++){
+      obj[i] = this.reportExpenses(this.props.user.expense,i)
+    }
+    let finalArr = []
+    for(let data in obj){
+      if(obj[data].length!==0){
+        finalArr.push(obj[data][0])
+      }
+    }
+    let totalExpense =  this.totalPerMonth(finalArr)
+    return {
+      finalArray : finalArr,
+      totalExpense : totalExpense
+    }
+  }
   reportExpenses = (expenses,mm) =>{
+    let nameMonth = ["jan","feb","mar","apr","mei","jun","jul","aug","sep","oct","nov","dec"]
     let initData = {
       foods:0,
       transport:0,
       electronic:0,
       entertainment:0,
       clothes:0
-
     }
     let foodCounterPrice = 0
     let electronicCounterPrice = 0
@@ -105,9 +142,9 @@ class Profile extends Component {
     let dec =[]
     let month = [jan,feb,mar,apr,mei,jun,jul,aug,sep,oct,nov,dec]
     expenses.forEach(item => {
-        let date = new Date(item.date)
-        if(item.type == 'Food & Drink'&& date.getMonth() ==mm){
-            foodCounterPrice += item.price
+      let date = new Date(item.date)
+      if(item.type == 'Food & Drink'&& date.getMonth() ==mm){
+        foodCounterPrice += item.price
             initData = {
             ...initData,
             foods : foodCounterPrice
@@ -162,12 +199,11 @@ class Profile extends Component {
             })
         }
     })
+    data = month[mm].concat({
+      ...initData,
+      month : nameMonth[mm]
+      })
     return data
-    // console.log(data,'data')
-    // console.log(this.state.expenses,'expenses')
-    // this.setState({
-    //   expenses: this.state.expenses.concat(data)
-    // })
 }
 
   setDate(newDate) {
@@ -181,7 +217,7 @@ class Profile extends Component {
   render() {
   const month = ['Jan','Feb','March','Aprl','Mei','June','July','Aug','Sept','Oct','Nov','Dec']
   const colors = [ '#4073F4','#FF8454','#FFBF30', '#02F6C9', '#5133DF']
-  const keys   = [ 'foods', 'transport', 'electronic', 'clothes','entertainment' ]
+  const keys   = [ 'clothes', 'transport', 'electronic', 'entertainment' ,'foods' ]
   let totalBalance = this.props.user.main_balance - this.props.user.money_spent
   let date = new Date()
   let dd = date.getDate()
@@ -195,7 +231,10 @@ class Profile extends Component {
   })
 
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
-
+const data = this.state.dataExpense
+const axesSvg = { fontSize: 10, fill: 'grey' };
+const verticalContentInset = { top: 5 }
+const xAxisHeight = 30
     return (
       <Container>
         <Content style={_.content}>
@@ -297,23 +336,42 @@ const reducer = (accumulator, currentValue) => accumulator + currentValue;
               </Tab>
 
               <Tab heading="History" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>
-                  <View style={{ backgroundColor: "#FFF",marginRight:15,marginLeft:15 }}>
-                  <StackedBarChart
-                      style={ { height: 200 } }
-                      keys={ keys }
-                      colors={ colors }
-                      data={ this.state.expenses }
-                      showGrid={ false }
-                      contentInset={ { top: 30, bottom: 10 } }
-                  />
-                   <XAxis
-                    style={{ marginLeft: 0,marginRight:10}}
-                    data={ this.state.expenses }
-                    formatLabel={ (value, index) => month[index] }
-                    contentInset={ { left: 10, bottom: 10 } }
-                    svg={{ fontSize: 13, fill: 'black' }}
-                />
-                    </View>
+                      <View style ={{alignItems : 'center', marginTop : 20}}>
+                        <Image source={require('../assets/forprofile.png')}
+                        style = {{height : 40, width : 300, resizeMode : 'contain'}}
+                        />
+                      </View>
+
+                    <View style={{ height: 380, padding: 30, flexDirection: 'row' }}>
+                        <YAxis
+                            data={data}
+                            style={{ marginBottom: xAxisHeight }}
+                            contentInset={verticalContentInset}
+                            svg={axesSvg}
+                            numberOfTicks={ 5 }
+                        />
+                        <View style={{ flex: 1, marginLeft: 10 }}>
+                        <StackedBarChart
+                          style={ { flex:1 } }
+                          keys={ keys }
+                          colors={ colors }
+                          spacingInner={0.1}
+                          data={ this.state.expenses }
+                          showGrid={ false }
+                          contentInset={ { top: 30, bottom: 5 } }
+                      >
+                      <Grid/>
+                      </StackedBarChart>
+                      <XAxis
+                       style={{ marginHorizontal: -10, height: xAxisHeight }}
+                        data={ this.state.expenses }
+                        formatLabel={ (value, index) => this.state.expenses[index].month }
+                        contentInset={{ left: 10, right: 10 }}
+                        svg={axesSvg}
+                    />
+
+                        </View>
+                  </View>
               </Tab>
             </Tabs>
         </Content>

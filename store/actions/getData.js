@@ -21,9 +21,7 @@ export default function(){
             let counterFood = 0
             let counterTransport = 0
             let counterElectronic = 0
-            console.log(expenses)
             expenses.forEach(expense=>{
-              console.log(expense.type,'ini type')
               // if(expense.type==="Others"){
               //   let newExpense = {
               //     ...expense,
