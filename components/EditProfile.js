@@ -96,6 +96,7 @@ class EditProfile extends Component {
           }}
         )
         .then((result) => {
+          console.log(result.data.link)
           this.setState({
             avatar: result.data.link
           })
@@ -152,7 +153,7 @@ class EditProfile extends Component {
     let email = this.props.navigation.state.params.email
         axios({
             method : 'PUT',
-            url : `http://10.0.2.2:4000/user/profile/${email}`,
+            url : `https://piti.minimalistdeveloper.xyz/user/profile/${email}`,
             data: newData
         })
         .then((result) => {

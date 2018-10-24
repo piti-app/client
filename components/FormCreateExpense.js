@@ -86,7 +86,7 @@ class FormCreateExpense extends Component {
             .then((email) => {
                 axios({
                     method : 'POST',
-                    url : `http://10.0.2.2:4000/expense/create/${email}`,
+                    url : `https://piti.minimalistdeveloper.xyz/expense/create/${email}`,
                     data: {
                         date: this.state.date,
                         price: this.state.price,

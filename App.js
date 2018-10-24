@@ -73,7 +73,7 @@ const uploadReceipt = () =>{
                     console.log(email)
                     axios({
                         method : 'POST',
-                        url : `http://10.0.2.2:4000/expense/create/vision/${email}`,
+                        url : `https://piti.minimalistdeveloper.xyz/expense/create/vision/${email}`,
                         data: {
                             url : result.data.link,
                             fcmToken

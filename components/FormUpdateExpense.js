@@ -108,7 +108,7 @@ class FormUpdateExpense extends Component {
         let id = this.props.navigation.state.params._id
         axios({
           method : 'PUT',
-          url : `http://10.0.2.2:4000/expense/update/${id}`,
+          url : `https://piti.minimalistdeveloper.xyz/expense/update/${id}`,
           data: {
               date: this.state.date,
               price: this.state.price,
