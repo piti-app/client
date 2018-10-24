@@ -13,7 +13,6 @@ import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import firebase from 'react-native-firebase';
 import { setFcm } from "../Authentication";
 
-
 const mapStateToProps = (state, ownProps) => {
   return {
     user : state.getExpense.user,
@@ -38,7 +37,7 @@ class Home extends Component {
       textAlign : 'center',
       paddingTop: 28,
       paddingBottom: 20,
-      paddingLeft : 150
+      paddingLeft : 100
     }}>OVERVIEW</Text>,
     tabBarLabel: 'Home',
     tabBarVisible:true,
@@ -84,9 +83,9 @@ class Home extends Component {
 
     })
     .catch((err) => {
-      
+
     });
-      
+
 
     }
 
