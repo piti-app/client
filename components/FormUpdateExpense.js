@@ -220,7 +220,7 @@ class FormUpdateExpense extends Component {
               />}
             >
             </SCLAlert>
-            
+
         </View>
       );
     }
@@ -233,7 +233,7 @@ export default connect(null, mapDispatchToProps)(FormUpdateExpense)
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#F7F7F7',
+      backgroundColor: '#FFF',
     },
     inputContainer: {
         borderBottomColor: '#F5FCFF',
