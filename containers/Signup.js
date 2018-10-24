@@ -35,7 +35,7 @@ export default class Signin extends Component {
               name,
               avatar : 'https://via.placeholder.com/150x150'
           }
-          axios.post('http://10.0.2.2:4000/user',data)
+          axios.post('https://piti.minimalistdeveloper.xyz/user',data)
             .then(({data}) => {
                 onSignIn()
                 .then((result) => {

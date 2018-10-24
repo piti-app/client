@@ -33,7 +33,7 @@ export default class InitBudget extends Component {
         }
         getEmail()
         .then((email) => {
-            axios.put(`http://10.0.2.2:4000/user/${email}`,data)
+            axios.put(`https://piti.minimalistdeveloper.xyz/user/${email}`,data)
             .then(({data}) => {
                 onSignIn().then(() => this.props.navigation.navigate("SignedIn"))
             }).catch((err) => {

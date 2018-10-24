@@ -65,7 +65,7 @@ class Home extends Component {
       console.log(email)
       axios({
         method : 'DELETE',
-        url : `http://10.0.2.2:4000/expense/${id}`,
+        url : `https://piti.minimalistdeveloper.xyz/expense/${id}`,
         data: {
             email: email
         }
