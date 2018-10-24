@@ -114,7 +114,7 @@ class Home extends Component {
                 </View>
                 {
                   this.props.user.expense.map((datum,index)=>
-                  <Swipeout right={[{ text: 'Detele', color : '#FFF', backgroundColor : 'red', onPress: () => this.onClickListener(datum._id) }]} style={{backgroundColor:'#FFF'}}>
+                  <Swipeout right={[{ text: 'Delete', color : '#FFF', backgroundColor : 'red', onPress: () => this.onClickListener(datum._id) }]} style={{backgroundColor:'#FFF'}}>
                       <View>
                     <TouchableHighlight onPress={() => this.props.navigation.navigate('Update', datum)}>
                       <ExpenseCard navigation={ this.props.navigation } data={datum} key={index} />

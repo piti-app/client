@@ -10,14 +10,14 @@ export default function(params){
       .then((email) => {
         axios({
           method : 'GET',
-          url : `http://10.0.2.2:4000/user/${email}`
+          url : `https://piti.minimalistdeveloper.xyz/user/${email}`
         })
           .then(({ data }) => {
             navigator.geolocation.getCurrentPosition((position)=>{
               console.log(position)
               axios({
                 method : 'POST',
-                url : `http://10.0.2.2:4000/recommendation/newRecommendation`,
+                url : `https://piti.minimalistdeveloper.xyz/recommendation/newRecommendation`,
                 data : {
                   main_balance : data.user.main_balance,
                   money_spent : data.user.money_spent,

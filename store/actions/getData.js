@@ -10,7 +10,7 @@ export default function(){
       .then((email) => {
         axios({
           method : 'GET',
-          url : `http://10.0.2.2:4000/user/${email}`
+          url : `https://piti.minimalistdeveloper.xyz/user/${email}`
         })
           .then(({ data }) => {
             const expenses = [...data.user.expense]

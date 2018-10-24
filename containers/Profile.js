@@ -249,7 +249,7 @@ const xAxisHeight = 30
                       TOTAL BALANCE
                   </Text>
                   <Text style={{fontSize:26,marginBottom:5,fontWeight:'bold'}}>
-                      Rp.{totalBalance},00
+                      Rp.{totalBalance-this.props.user.budget},00
                   </Text>
                   <View style={{flexDirection:'row',justifyContent:'space-between'}}>
                       <View style={{backgroundColor:'#FF8454',opacity:0.3,padding:10,borderRadius:10}}>
@@ -283,9 +283,7 @@ const xAxisHeight = 30
                       Rp.{this.props.user.main_balance},00
                     </Text>
                     <View>
-                      <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
-                        Click
-                      </Text>
+
                     </View>
                   </Body>
                 </CardItem>
@@ -301,9 +299,7 @@ const xAxisHeight = 30
                       Rp.{this.props.user.money_spent},00
                     </Text>
                     <View>
-                      <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
-                        Click
-                      </Text>
+
                     </View>
                   </Body>
                 </CardItem>
@@ -319,9 +315,7 @@ const xAxisHeight = 30
                       Rp.{this.props.user.budget},00
                     </Text>
                     <View>
-                      <Text style={{marginBottom:5,color:'#FFF',fontSize:14}}>
-                            click
-                      </Text>
+
                     </View>
                   </Body>
                 </CardItem>
