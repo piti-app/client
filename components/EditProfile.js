@@ -31,6 +31,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 }
 
 class EditProfile extends Component {
+  componentDidMount() {
+    console.log(this.props)
+  }
+
   static navigationOptions = {
     headerTitle: <Text style={{
       fontSize: 32,
@@ -148,13 +152,14 @@ class EditProfile extends Component {
       email: this.state.email,
       avatar: this.state.avatar,
       main_balance: this.state.main_balance,
-      budget: this.state.budget
+      budget: this.state.budget,
+      spent : this.props.user.money_spent
     }
     let email = this.props.navigation.state.params.email
         axios({
             method : 'PUT',
             url : `https://piti.minimalistdeveloper.xyz/user/profile/${email}`,
-            data: newData
+            data: newData,
         })
         .then((result) => {
 
@@ -233,7 +238,13 @@ class EditProfile extends Component {
   }
 }
 
-export default connect(null, mapDispatchToProps)(EditProfile)
+const mapStateToProps = (state, ownProps) => {
+  return {
+    user: state.getExpense.user
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditProfile)
 
 
 const styles = StyleSheet.create({

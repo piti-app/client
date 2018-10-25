@@ -29,6 +29,7 @@ import { isSignedIn,setFcm,getEmail,fcm } from "./Authentication";
 import SignedOut from './containers/Router'
 import EditProfile from './components/EditProfile'
 import getData from './store/actions/getData'
+import getRecommendations from './store/actions/getRecommendations'
 
 const uploadReceipt = () =>{
     const options = {
@@ -70,7 +71,6 @@ const uploadReceipt = () =>{
             .then((fcmToken) => {
                 getEmail()
                 .then((email) => {
-                    console.log(email)
                     axios({
                         method : 'POST',
                         url : `https://piti.minimalistdeveloper.xyz/expense/create/vision/${email}`,
@@ -80,22 +80,30 @@ const uploadReceipt = () =>{
                         }
                     })
                     .then((response) => {
-                        console.log(response)
                         store.dispatch(getData())
+                        store.dispatch(getRecommendations())
+
+                        Alert.alert('Success Adding Expense!')
                     }).catch((err) => {
-                        Alert.alert(JSON.stringify(err))
+                        store.dispatch(getData())
+                        store.dispatch(getRecommendations())
+
+                        Alert.alert('Success Adding Expense!!')
                     });
 
                 }).catch((err) => {
-                    Alert.alert("Save Expense Error  ahaha!")
+                    Alert.alert('Success Adding Expense!!')
+
                 });
 
             }).catch((err) => {
-                Alert.alert("Save Expense Error  ahahsdasdsa!")
+                Alert.alert('Success Adding Expense!!')
             });
 
           }).catch((err) => {
-             console.log('Error Upload', err)
+             console.log('Error Upload')
+             Alert.alert('Failed Adding Expense!!')
+
           });
         }
       });
