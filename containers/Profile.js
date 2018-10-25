@@ -324,9 +324,9 @@ const xAxisHeight = 30
             <Tabs style={{marginTop:10}}>
             {/* ====== BASIC INFO ====== */}
               <Tab heading="Basic Info" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>
-                  <List type='Maximum' value={MaximumSpentPerDay} color='#4073F4'/>
-                  <List type='expense today' value={expensesToday.reduce(reducer)}color='#FFBF30'/>
-                  <List type='saving today' value={MaximumSpentPerDay-expensesToday.reduce(reducer)} color='#02F6C9'/>
+                  <List type='Maximum' value={MaximumSpentPerDay} color='#4073F4' url={require('../assets/Oval1.png')}/>
+                  <List type='Expenses Today' value={expensesToday.reduce(reducer)}color='#FFBF30' url={require('../assets/Oval2.png')}/>
+                  <List type='Savings Today' value={MaximumSpentPerDay-expensesToday.reduce(reducer)} color='#02F6C9' url={require('../assets/Oval3.png')}/>
               </Tab>
 
               <Tab heading="History" tabStyle={{backgroundColor: '#FFF'}} textStyle={{color: 'black',fontFamily : 'avenir_medium'}} activeTabStyle={{backgroundColor: '#FFF'}} activeTextStyle={{color: 'blue', fontWeight: 'normal'}}>
