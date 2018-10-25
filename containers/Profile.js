@@ -280,7 +280,7 @@ const xAxisHeight = 30
                       INCOME
                     </Text>
                     <Text style={{marginBottom:20,fontSize:20,color:'#FFF',fontWeight:'bold'}}>
-                      Rp.{this.props.user.main_balance},00
+                      Rp.{this.props.user.main_balance+this.props.user.money_spent},00
                     </Text>
                     <View>
 
